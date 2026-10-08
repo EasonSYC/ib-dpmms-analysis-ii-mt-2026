@@ -9,12 +9,12 @@ where \(E \subseteq \RR\), and the question of the \emph{convergence} of the seq
 \subsection{Pointwise Convergence}
 
 \begin{definition}[Pointwise Convergence]
-    Let \(\functiondomain{f_n, f}{E}{\RR}\) for \(n \in \NN\). We say that the sequence \(\pqty{f_n}\) \emph{converges pointwise} to \(f\) on \(E\), if for every \(x \in E\), the sequence \(\pqty{f_n(x)}\) converges to \(f(x)\), i.e.,
+    Let \(\functiondomain{f_n, f}{E}{\RR}\) for \(n \in \NN\). We say that the sequence \(\pqty{f_n}\) \term{converges pointwise} to \(f\) on \(E\), if for every \(x \in E\), the sequence \(\pqty{f_n(x)}\) converges to \(f(x)\), i.e.,
     \[
         f\pqty{x} = \lim_{n \to \infty} f_n\pqty{x}, \quad \forall x \in E.
     \]
     
-    We say \(f\) is the \emph{pointwise limit} of \(\pqty{f_n}\), and denote \(f_n \to f\) pointwise in \(E\).
+    We say \(f\) is the \term{pointwise limit} of \(\pqty{f_n}\), and denote \(f_n \to f\) pointwise in \(E\).
 \end{definition}
 
 We would like to deduce properties such as continuity, differentiability, and integrability for the limit \(f\), from those properties for \(f_n\)s. However, pointwise convergence is \emph{not} strong enough to guarantee such property.
@@ -92,7 +92,7 @@ A natural question that continues from integrability, is that if \(f_n\) is inte
 We now give a stronger notion of convergence which preserves continuity and integrability. But clearly, we do not want too strong a notion of convergence, for example, the trivial one that \(f_n \to f\) means \(f = f_n\) for sufficiently large \(n\).
 
 \begin{definition}[Uniform Convergence]
-    Let \(\functiondomain{f_n, f}{E}{\RR}\) for \(n \in \NN\). We say that the sequence \(\pqty{f_n}\) \emph{converges uniformly} to \(f\) on \(E\), if
+    Let \(\functiondomain{f_n, f}{E}{\RR}\) for \(n \in \NN\). We say that the sequence \(\pqty{f_n}\) \term{converges uniformly} to \(f\) on \(E\), if
     \[
         \forall \epsilon > 0, \exists N = N\pqty{\epsilon} \in \NN, \forall n \geq N, \forall x \in E: \abs{f_n\pqty{x} - f\pqty{x}} < \epsilon.
     \]
@@ -106,11 +106,11 @@ We now give a stronger notion of convergence which preserves continuity and inte
         \lim_{n \to \infty} \sup_{x \in E} \abs{f_n\pqty{x} - f\pqty{x}} = 0.
     \]
 
-    We say \(f\) is the \emph{uniform limit} of \(\pqty{f_n}\), and denote \(f_n \to f\) uniformly in \(E\).
+    We say \(f\) is the \term{uniform limit} of \(\pqty{f_n}\), and denote \(f_n \to f\) uniformly in \(E\).
 \end{definition}
 
 \begin{remark}
-    Compare this with the \emph{pointwise convergence}, which states
+    Compare this with the pointwise convergence, which states
     \[
         \forall x \in E, \forall \epsilon > 0, \exists N = N\pqty{\epsilon, x} \in \NN, \forall n \geq N: \abs{f_n\pqty{x} - f\pqty{x}} < \epsilon.
     \]
