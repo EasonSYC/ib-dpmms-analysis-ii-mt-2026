@@ -1,0 +1,119 @@
+\section{Uniform Convergence}
+
+This section concerns a sequence of \emph{functions}
+\[
+    \functiondomain{f_n}{E}{\RR}, \quad n = 1, 2, 3, \ldots,
+\]
+where \(E \subseteq \RR\), and the question of the \emph{convergence} of the sequence \(\pqty{f_n}\).
+
+\subsection{Pointwise Convergence}
+
+\begin{definition}[Pointwise Convergence]
+    Let \(\functiondomain{f_n, f}{E}{\RR}\) for \(n \in \NN\). We say that the sequence \(\pqty{f_n}\) \emph{converges pointwise} to \(f\) on \(E\), if for every \(x \in E\), the sequence \(\pqty{f_n(x)}\) converges to \(f(x)\), i.e.,
+    \[
+        f\pqty{x} = \lim_{n \to \infty} f_n\pqty{x}, \quad \forall x \in E.
+    \]
+    
+    We say \(f\) is the \emph{pointwise limit} of \(\pqty{f_n}\), and denote \(f_n \to f\) pointwise in \(E\).
+\end{definition}
+
+We would like to deduce properties such as continuity, differentiability, and integrability for the limit \(f\), from those properties for \(f_n\)s. However, pointwise convergence is \emph{not} strong enough to guarantee such property.
+
+\begin{example}[Pointwise Convergence does not Preserve Continuity]
+    Suppose \(\functiondomain{f_n}{\ccintv{-1}{1}}{\RR}\), defined by
+    \[
+        f_n\pqty{x} = x^{\flatfrac{1}{\pqty{2n + 1}}}
+    \]
+    for all \(n \in \NN\). Then \(f_n\) is continuous for all \(n \in \NN\). However, note that
+    \[
+        f_n\pqty{x} \to f\pqty{x} = \begin{cases}
+            1 & \qif 0 < x < 1, \\
+            0 & \qif x = 0, \\
+            -1 & \qif -1 < x < 0, \\
+        \end{cases}
+    \]
+    pointwise on \(\ccintv{-1}{1}\), so the pointwise limit is not continuous. This is illustrated in \autoref{fig:pointwise-limit}.
+\end{example}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/pointwise-limit.png}
+    \caption{Pointwise Limit of the Sequence \(f_n\)}
+    \label{fig:pointwise-limit}%
+\end{figure}
+
+\begin{example}[Pointwise Convergence does not Preserve Integrability]
+    Let \(q_1, q_2, q_3, \ldots\) be an enumeration of \(\QQ \cap \ccintv{0}{1}\). Define \(\functiondomain{f_n}{\ccintv{0}{1}}{\RR}\) by
+    \[
+        f_n\pqty{x} = \begin{cases}
+            1 & \qif x \in \Bqty{q_1, q_2, \ldots, q_n}, \\
+            0 & \qif x \in \ccintv{0}{1} \setminus \Bqty{q_1, q_2, \ldots, q_n}.
+        \end{cases}
+    \]
+
+    Note that \(f_n\) is integrable for all \(n \in \NN\), since it is continuous apart from points in \(\Bqty{q_1, q_2, \ldots. q_n}\).
+    
+    However, the pointwise limit of \(\pqty{f_n}\) is
+    \[
+        f\pqty{x} = \lim_{n \to \infty} f_n\pqty{x} = \indicator_{\QQ} \pqty{x}.
+    \]
+    which is not integrable.
+\end{example}
+
+A natural question that continues from integrability, is that if \(f_n\) is integrable for all \(n \in \NN\), does it follow that their pointwise limit \(f\), given integrable, integrates to the limit of the integrals?
+
+\begin{example}[Pointwise Limit does not Preserve Integral]
+    Consider the functions defined on \(\ccintv{0}{1}\) where
+    \[
+        f_n\pqty{x} = \begin{cases}
+            n^2 x &\qif n \in \ccintv{0}{\flatfrac{1}{n}}, \\
+            n^2 \pqty{\flatfrac{2}{n} - x} &\qif n \in \ccintv{\flatfrac{1}{n}}{\flatfrac{2}{n}}, \\
+            0 &\qif x \in \ccintv{\flatfrac{2}{n}}{1}.
+        \end{cases}
+    \]
+
+    Then clearly its pointwise limit is identically zero, since the triangle eventually moves to the left of any \(x\), however small (apart from \(x = 0\) which is identically zero), and hence
+    \[
+        \int_{0}^{1} f\pqty{x} \dd{x} = 0.
+    \]
+
+    However, notice that
+    \[
+        \int_{0}^{1} f_n\pqty{x} \dd{x} = 1, \quad \forall n \in \NN
+    \]
+    and hence
+    \[
+        \lim_{n \to \infty} \int_{0}^{1} f_n\pqty{x} \dd{x} = 1 \neq 0 = \int_{0}^{1} f\pqty{x} \dd{x} = \int_{0}^{1} \lim_{n \to \infty} f_n \pqty{x} \dd{x}
+    \]
+\end{example}
+
+\subsection{Uniform Convergence}
+
+We now give a stronger notion of convergence which preserves continuity and integrability. But clearly, we do not want too strong a notion of convergence, for example, the trivial one that \(f_n \to f\) means \(f = f_n\) for sufficiently large \(n\).
+
+\begin{definition}[Uniform Convergence]
+    Let \(\functiondomain{f_n, f}{E}{\RR}\) for \(n \in \NN\). We say that the sequence \(\pqty{f_n}\) \emph{converges uniformly} to \(f\) on \(E\), if
+    \[
+        \forall \epsilon > 0, \exists N = N\pqty{\epsilon} \in \NN, \forall n \geq N, \forall x \in E: \abs{f_n\pqty{x} - f\pqty{x}} < \epsilon.
+    \]
+
+    This is equivalent to saying
+    \[
+        \forall \epsilon > 0, \exists N = N\pqty{\epsilon} \in \NN: n \geq N \implies \sup_{x \in E} \abs{f_n\pqty{x} - f\pqty{x}} < \epsilon,
+    \]
+    which in limit notation, reads
+    \[
+        \lim_{n \to \infty} \sup_{x \in E} \abs{f_n\pqty{x} - f\pqty{x}} = 0.
+    \]
+
+    We say \(f\) is the \emph{uniform limit} of \(\pqty{f_n}\), and denote \(f_n \to f\) uniformly in \(E\).
+\end{definition}
+
+\begin{remark}
+    Compare this with the \emph{pointwise convergence}, which states
+    \[
+        \forall x \in E, \forall \epsilon > 0, \exists N = N\pqty{\epsilon, x} \in \NN, \forall n \geq N: \abs{f_n\pqty{x} - f\pqty{x}} < \epsilon.
+    \]
+
+    Note that here, \(N\) may depend on \(x\).
+\end{remark}
