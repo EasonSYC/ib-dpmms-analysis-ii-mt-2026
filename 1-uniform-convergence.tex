@@ -215,6 +215,8 @@ Similarly to Cauchy sequences of real numbers, we can define a notion of Cauchy 
     which shows that \(f_n \to f\) uniformly on \(E\).
 \end{proof}
 
+\subsection{Properties Preserved under Uniform Convergence}
+
 \begin{theorem}[Uniform Convergence preserves Continuity at a Point]
     Let \(\functiondomain{f_n, f}{\ccintv{a}{b}}{\RR}\) and \(f_n \to f\) uniformly. Suppose that, for some \(x_0 \in \ccintv{a}{b}\), \(f_n\) is continuous at \(x_0\) for all \(n\). Then \(f\) is continuous at \(x_0\).
 \end{theorem}
@@ -257,4 +259,157 @@ Recall from \textit{IA Analysis I} that \(\contClass{}\pqty{\ccintv{a}{b}}\) den
 
 \begin{proof}
     By \autoref{thm:cauchy-criterion-uniform-convergence}, there exists a function \(f\) such that \(f_n \to f\) uniformly on \(\ccintv{a}{b}\). By \autoref{cor:uniform-convergence-preserves-continuity}, \(f\) is continuous on \(\ccintv{a}{b}\), so \(f \in \contClass{}\pqty{\ccintv{a}{b}}\).
+\end{proof}
+
+Integrals also behave nicely under uniform convergence.
+
+\begin{theorem}[Convergence of Integrals]
+    Let \(\functiondomain{f_n, f}{\ccintv{a}{b}}{\RR}\) be integrable and \(f_n \to f\) uniformly on \(\ccintv{a}{b}\). Then
+    \[
+        \lim_{n \to \infty} \int_a^b f_n(x) \dd{x} = \int_a^b f(x) \dd{x}.
+    \]
+\end{theorem}
+
+\begin{remark}
+    At the current state, we assumed that \(f\) is integrable. This is, however, redundant, as we will see in the future.
+\end{remark}
+
+\begin{proof}
+    We note
+    \begin{align*}
+        \abs{\int_a^b f_n(x) \dd{x} - \int_a^b f(x) \dd{x}} &= \abs{\int_a^b \pqty{f_n(x) - f(x)} \dd{x}} \\
+        &\leq \int_a^b \abs{f_n(x) - f(x)} \dd{x} \\
+        &\leq \int_a^b \sup_{x \in \ccintv{a}{b}} \abs{f_n(x) - f(x)} \dd{x} \\
+        &= \pqty{b - a} \sup_{x \in \ccintv{a}{b}} \abs{f_n(x) - f(x)},
+    \end{align*}
+    and this tends to zero as \(n \to \infty\) by uniform convergence.
+\end{proof}
+
+Differentiation, however, is a subtle matter, and uniform convergence does not necessarily preserve differentiability. Let \(\functiondomain{f_n, f}{\ccintv{a}{b}}{\RR}\), with \(f_n \to f\) uniformly on \(\ccintv{a}{b}\). Even if \(f_n\) is differentiable for all \(n\), neither of the following need to be true:
+\begin{enumerate}[label=(\roman*)]
+    \item that \(f\) is differentiable, or
+    \item given \(f\) differentiable, that \(f_n' \to f'\), even pointwise.
+\end{enumerate}
+
+\begin{example}[Differentiable Functions with Non-Differentiable Uniform Limit]
+    Consider the functions defined on \(\ccintv{-1}{1}\) where
+    \[
+        \function{f_n}{\ccintv{-1}{1}}{\RR}{x}{\abs{x}^{1 + \flatfrac{1}{n}}.}
+    \]
+
+    Then \(f_n\) is differentiable on \(\ccintv{-1}{1}\). In particular, at \(x = 0\),
+    \[
+        \lim_{h \to 0} \frac{f_n\pqty{h} - f_n\pqty{0}}{h} = \lim_{h \to 0} \sign\pqty{h} \abs{h}^{\frac{1}{n}} \to 0,
+    \]
+    showing \(f'\pqty{0} = 0\).
+
+    Note \(f_n \to f\) uniformly on \(\ccintv{-1}{1}\), where \(f\pqty{x} = \abs{x}\), which is not differentiable at \(x = 0\).
+\end{example}
+
+\begin{example}[Differentiable Functions with Non-Converging Derivative]
+    Consider the functions
+    \[
+        \function{f_n}{\RR}{\RR}{x}{\frac{\sin\pqty{nx}}{\sqrt{n}}.}
+    \]
+
+    Then clearly
+    \[
+        \sup_{x \in \RR} \abs{f_n\pqty{x}} = \frac{1}{\sqrt{n}} \to 0,
+    \]
+    so \(f_n \to f\) uniformly on \(\RR\), where \(f\pqty{x} = 0\). However, note that
+    \[
+        f_n'\pqty{x} = \sqrt{n} \cos\pqty{nx},
+    \]
+    and clearly this does not converge to \(f'\pqty{x} = 0\) at \(x = 0\).
+\end{example}
+
+\begin{theorem}[Uniform Convergence and Differentiability]
+    Let \(\functiondomain{f_n}{\ccintv{a}{b}}{\RR}\) be differentiable on \(\ccintv{a}{b}\), such that:
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\pqty{f_n'}\) converges uniformly to some function \(\functiondomain{g}{\ccintv{a}{b}}{\RR}\), and
+        \item there exists \(c \in \ccintv{a}{b}\) such that \(\pqty{f_n\pqty{c}}\) converges.
+    \end{enumerate}
+
+    Then \(\pqty{f_n}\) converges uniformly to some function \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\), and \(f\) is differentiable on \(\ccintv{a}{b}\) with \(f' = g\), i.e.,
+    \[
+        \pqty{\lim_{n \to \infty} f_n}' = \lim_{n \to \infty} f_n'
+    \]
+    with uniform convergence on \(\ccintv{a}{b}\).
+\end{theorem}
+
+\begin{remarks}
+    \begin{itemize}
+        \item We did not assume \(f_n'\) to be continuous, or even integrable. For example, consider the function
+        \[
+            f\pqty{x} = \begin{cases}
+                x^2 \sin \pqty{\dfrac{1}{x}}, & x \neq 0, \\
+                0, & x = 0.
+            \end{cases}
+        \]
+        with derivative
+        \[
+            f'\pqty{x} = \begin{cases}
+                2x \sin \pqty{\dfrac{1}{x}} - \cos\pqty{\dfrac{1}{x}}, & x \neq 0, \\
+                0, & x = 0.
+            \end{cases}
+        \]
+
+        Note \(f'\) is not continuous at \(x = 0\).
+
+        Aside, there are functions which are differentiable with bounded derivatives everywhere, but not \emph{Riemann} integrable, for example, the Volterra function.
+        \item If we assume further that \(f_n'\) are continuous, then the proof is easier utilising the Fundamental Theorem of Calculus (recall from \textit{IA Analysis I}).
+    \end{itemize}
+\end{remarks}
+
+\begin{proof}
+    To show that \(\pqty{f_n}\) converges uniformly, we first show that \(\pqty{f_n}\) is uniformly Cauchy. For any \(x \in \ccintv{a}{b}\), by the mean value theorem,
+    \[
+        f_n\pqty{x} - f_m\pqty{x} = f_n\pqty{c} - f_m\pqty{c} + \pqty{x - c} \pqty{f_n'\pqty{x_{m, n}} - f_m'\pqty{x_{m, n}}}
+    \]
+    for some \(x_{m, n}\) between \(c\) and \(x\). Then
+    \[
+        \sup_{\ccintv{a}{b}} \abs{f_n - f_m} \leq \abs{f_n\pqty{c} - f_m\pqty{c}} + \pqty{b - a} \sup_{\ccintv{a}{b}} \abs{f_n' - f_m'} \to 0
+    \]
+    so \(f_n\) is uniformly Cauchy, and hence converges uniformly, to some function \(f\), by \autoref{thm:cauchy-criterion-uniform-convergence}.
+
+    To check that \(f\) is differentiable with \(f' = g\) in \(\ccintv{a}{b}\), fix some \(y \in \ccintv{a}{b}\), and define
+    \[
+        h\pqty{x} = \begin{cases}
+            \frac{f\pqty{x} - f\pqty{y}}{x - y}, & x \neq y, \\
+            g\pqty{y}, & x = y.
+        \end{cases}
+    \]
+
+    So \(f'\pqty{y} = g\pqty{y}\), if and only if \(h\) is continuous at \(y\).
+
+    Consider the sequence of functions
+    \[
+        h_n\pqty{x} = \begin{cases}
+            \frac{f_n\pqty{x} - f_n\pqty{y}}{x - y}, & x \neq y, \\
+            f_n'\pqty{y}, & x = y.
+        \end{cases}
+    \]
+
+    \(h_n\) is continuous for all \(n\), since \(f_n\) is differentiable. Furthermore, \(h_n \to h\) pointwise. If we can show \(\pqty{h_n}\) is Cauchy, then this will imply the convergence is uniform, hence finishing the proof.
+
+    We have
+    \begin{align*}
+        h_n\pqty{x} - h_m\pqty{x} &= \begin{cases}
+            \frac{f_n\pqty{x} - f_m\pqty{x}}{x - y} - \frac{f_n\pqty{y} - f_m\pqty{y}}{x - y}, & x \neq y, \\
+            f_n'\pqty{y} - f_m'\pqty{y}, & x = y,
+        \end{cases} \\
+        &= \begin{cases}
+            \frac{f_n\pqty{x} - f_m\pqty{x}}{x - y} - \frac{f_n\pqty{y} - f_m\pqty{y}}{x - y}, & x \neq y, \\
+            f_n'\pqty{y} - f_m'\pqty{y}, & x = y,
+        \end{cases} \\
+        &= \begin{cases}
+            \pqty{f_n - f_m}' \pqty{y_{m, n}}, & x \neq y, \\
+            f_n'\pqty{y} - f_m'\pqty{y}, & x = y,
+        \end{cases}
+    \end{align*}
+    for some \(y_{m, n}\) between \(x\) and \(y\), by the Mean Value Theorem. Hence, we have
+    \[
+        \sup_{\ccintv{a}{b}} \abs{h_n - h_m} \leq \sup_{\ccintv{a}{b}} \abs{f_n' - f_m'} \to 0,
+    \]
+    so \(h_n\) is uniformly Cauchy, and hence converges uniformly to \(h\). By \autoref{cor:uniform-convergence-preserves-continuity} (Uniform Convergence preserves Continuity), \(h\) is continuous at \(y\), and hence \(f'\pqty{y} = g\pqty{y}\), finishing our proof.
 \end{proof}
