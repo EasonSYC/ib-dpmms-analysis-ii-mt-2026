@@ -413,3 +413,148 @@ Differentiation, however, is a subtle matter, and uniform convergence does not n
     \]
     so \(h_n\) is uniformly Cauchy, and hence converges uniformly to \(h\). By \autoref{cor:uniform-convergence-preserves-continuity} (Uniform Convergence preserves Continuity), \(h\) is continuous at \(y\), and hence \(f'\pqty{y} = g\pqty{y}\), finishing our proof.
 \end{proof}
+
+\begin{proof}[\proofname\ if \(f_n'\) are continuous]
+    Under this assumption, we have
+    \[
+        f_n\pqty{x} = f_n\pqty{c} + \int_{c}^{x} f_n'\pqty{t} \dd{t}
+    \]
+    for any \(x \in \ccintv{a}{b}\).
+
+    If we look at the difference between two functions, we have
+    \begin{align*}
+        \abs{f_n\pqty{x} - f_m\pqty{x}} &\leq \abs{f_n\pqty{c} - f_m\pqty{c}} + \abs{\int_{c}^{x} \pqty{f_n' \pqty{t} - f_m'\pqty{t}} \dd{t}} \\
+        &\leq \abs{f_n\pqty{c} - f_m\pqty{c}} + \pqty{b - a} \sup_{t \in \ccintv{a}{b}} \abs{f_n'\pqty{t} - f_m'\pqty{t}}
+    \end{align*}
+    and so the uniform Cauchy property of \(f_n\) follows from the Cauchy property of the real sequence \(\Bqty{f_n\pqty{c}}\), and the uniform Cauchy property of \(\pqty{f_n'}\).
+
+    Let \(f\) be the uniform limit of \(\pqty{f_n}\), and \(g\) be the uniform limit of \(\pqty{f_n'}\), continuous.
+
+    So \(g\) is integrable, and we have
+    \[
+        \int_{c}^{x} f_n'\pqty{t} \dd{t} \to \int_{c}^{x} g\pqty{t} \dd{t}.
+    \]
+
+    Therefore,
+    \[
+        f\pqty{x} = f\pqty{c} + \int_{c}^{x} g\pqty{t} \dd{t},
+    \]
+    and by continuity of \(g\), \(f\) is differentiable with \(f' = g\).
+\end{proof}
+
+The following proposition is very direct consequences from the definition of uniform convergence, and is left as an exercise to the reader.
+
+\begin{proposition}[Algebra of Uniform Convergence]
+    Let \(\functiondomain{f_n, g_n}{E}{\RR}\) for \(n \in \NN\).
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(f_n \to f\), \(g_n \to g\) uniformly on \(E\), then \(f_n + g_n \to f + g\) uniformly on \(E\).
+        \item If \(f_n \to f\) uniformly on \(E\), and \(\functiondomain{h}{E}{\RR}\) is bounded, then \(h f_n \to h f\) uniformly on \(E\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{examples}[Non-Bounded Function Multiplied by Uniformly Convergent Sequence]
+    \begin{itemize}
+        \item Let \(\functiondomain{f_n, h}{\RR}{\RR}\) with \(f_n \pqty{x} = \frac{1}{n}\), so \(f_n \to 0\)uniformly on \(\RR\).
+
+        But if \(h\pqty{x} = x\), then \(\pqty{h f_n} \pqty{x} = \frac{x}{n}\) only converges pointwise to \(0\) on \(\RR\), but not uniformly.
+
+        \item Let \(\functiondomain{f_n}{\oointv{0}{1}}{\RR}\) with \(f_n = \flatfrac{1}{n} \to 0\) uniformly.
+        
+        Take \(h\pqty{x} = \frac{1}{x}\), then \(\pqty{h f_n} \pqty{x} = \frac{1}{nx}\), and \[
+            \sup_{x \in \oointv{0}{1}} \abs{h f_n\pqty{x} - 0} = \sup_{x \in \oointv{0}{1}} \frac{1}{nx} = \infty,
+        \]
+        so \(\pqty{h f_n}\) does not converge uniformly to \(0\) on \(\oointv{0}{1}\).
+    \end{itemize}
+\end{examples}
+
+\subsection{Series of Functions}
+
+\begin{definition}[Partial Sum of a Series of Functions]
+    Let \(\functiondomain{g_n}{E}{\RR}\). Define \(\functiondomain{f_n}{E}{\RR}\) as
+    \[
+        f_n \pqty{x} = \sum_{j = 1}^{n} g_j \pqty{x}
+    \]
+    as the \term{\(n\)th partial sum}.
+\end{definition}
+
+\begin{definition}[Convergence of Series of Functions]
+    We define the following.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item We say that the series of functions \(\sum_{j = 1}^{\infty} g_j\) \term{converges at \(x \in E\)} if the sequence \(\pqty{f_n \pqty{x}}\) converges.
+        \item The series \(\sum_{j = 1}^{\infty} g_j\) \term{converges uniformly} in \(E\) if the partial sum \(\pqty{f_n}\) converges uniformly in \(E\).
+        \item The series \(\sum_{j = 1}^{\infty} g_j\) \term{converges absolutely at \(x \in E\)} if the sequence \(\sum_{j = 1}^{\infty} \abs{g_j \pqty{x}}\) converges.
+        \item The series \(\sum_{j = 1}^{\infty} g_j\) \term{converges absolutely uniformly} in \(E\) if the partial sum \(\sum_{j = 1}^{n} \abs{g_j \pqty{x}}\) converges uniformly in \(E\).
+    \end{enumerate}
+\end{definition}
+
+Recall for real-number series, absolute convergence implies convergence. This extends to series of functions as follows.
+
+\begin{proposition}[Absolute Uniform Convergence implies Uniform Convergence]
+    Let \(\functiondomain{g_n}{E}{\RR}\). If \(\sum_{j = 1}^{\infty} g_j\) converges absolutely uniformly in \(E\), then it converges uniformly in \(E\).
+\end{proposition}
+
+\begin{proof}
+    Let \(f_N \pqty{x} = \sum_{j = 1}^{n} g_i \pqty{x}\). For \(n > m\), we have
+    \[
+        f_n \pqty{x} - f_m \pqty{x} = \sum_{j = m + 1}^{n} g_j \pqty{x},
+    \]
+    and hence
+    \[
+        \abs{f_n \pqty{x} - f_m \pqty{x}} \leq \sum_{j = m + 1}^{n} \abs{g_j \pqty{x}} = \sum_{j = 1}^{n} \abs{g_j \pqty{x}} - \sum_{j = 1}^{m} \abs{g_j \pqty{x}} = h_n \pqty{x} - h_m\pqty{x}
+    \]
+    which is the difference of the corresponding absolute value series
+    \[
+        h_n \pqty{x} = \sum_{j = 1}^{n} \abs{g_j \pqty{x}}.
+    \]
+
+    Therefore,
+    \[
+        \abs{f_n\pqty{x} - f_m\pqty{x}} \leq \abs{h_n\pqty{x} - h_m\pqty{x}}
+    \]
+    and uniform convergence is immediate by \autoref{thm:cauchy-criterion-uniform-convergence} (Cauchy criterion).
+\end{proof}
+
+\begin{remark}
+    It is important to note that \textbf{uniform convergence + absolute convergence at every point does not imply absolute uniform convergence}.
+\end{remark}
+
+\begin{example}[Uniform Convergence and Absolute Convergence Pointwise]
+    The series
+    \[
+        \sum_{j = 1}^{\infty} \frac{\pqty{-1}^j}{j} x^j
+    \]
+    for \(x \in \oointv{0}{1}\) converges absolutely at every \(x \in \oointv{0}{1}\), and converges uniformly on \(\oointv{0}{1}\). However, it does not converge absolutely uniformly on \(\oointv{0}{1}\), as we notice
+    \[
+        \sum_{j = 1}^{n} \abs{\frac{\pqty{-1}^j}{j} x^j} - \sum_{j = 1}^{m} \abs{\frac{\pqty{-1}^j}{j} x^j} = \sum_{j = m + 1}^{n} \frac{1}{j} x^j \geq \sum_{j = m + 1}^{n} \frac{1}{j} x^n.
+    \]
+
+    Taking the supremum over \(\oointv{0}{1}\), this is at least
+    \[
+        \sup_{x \in \oointv{0}{1}} \pqty{\sum_{j = 1}^{n} \abs{\frac{\pqty{-1}^j}{j} x^j} - \sum_{j = 1}^{m} \abs{\frac{\pqty{-1}^j}{j} x^j}} \geq \sum_{j = n + 1}^{m} \frac{1}{j}
+    \]
+    but this goes to infinity as \(n \to \infty\), for any fixed \(m\).
+\end{example}
+
+We have the following simple but very useful criterion for absolute uniform convergence.
+
+\begin{theorem}[Weierstrass M-Test]
+    \label{thm:weierstrass-m-test}%
+    Let \(\functiondomain{g_j}{E}{\RR}\) for \(j \in \NN\). Suppose there exists numbers \(M_j \geq 0\) such that
+    \[
+        \sup_{x \in E} \abs{g_j\pqty{x}} \leq M_j
+    \]
+    and that the series \(\sum_{j = 1}^{\infty} M_j\) converges. Then the series \(\sum_{j = 1}^{\infty} g_j\) converges absolutely uniformly on \(E\).
+\end{theorem}
+
+\begin{proof}
+    Taking the differences of the partial absolute series, we have
+    \[
+        \sum_{j = 1}^{n} \abs{g_j \pqty{x}} - \sum_{j = 1}^{m} \abs{h_j \pqty{x}} = \sum_{j = m + 1}^{n} \abs{g_j \pqty{x}} \leq \sum_{j = m + 1}^{n} M_j = \sum_{j = 1}^{n} M_j - \sum_{j = 1}^{m} M_j,
+    \]
+    and hence the supremum
+    \[
+        \sup_{x \in E} \abs{\sum_{j = 1}^{n} \abs{g_j \pqty{x}} - \sum_{j = 1}^{m} \abs{g_j \pqty{x}}} \leq \sum_{j = 1}^{n} M_j - \sum_{j = 1}^{m} M_j
+    \]
+    for all \(n, m\). Since the \(M_j\) series converges, the partial sums must be Cauchy, and hence the absolute partial sum series are uniformly Cauchy, and hence converge uniformly by \autoref{thm:cauchy-criterion-uniform-convergence} (Cauchy criterion).
+\end{proof}
