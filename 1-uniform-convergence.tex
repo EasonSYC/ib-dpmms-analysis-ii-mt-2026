@@ -558,3 +558,22 @@ We have the following simple but very useful criterion for absolute uniform conv
     \]
     for all \(n, m\). Since the \(M_j\) series converges, the partial sums must be Cauchy, and hence the absolute partial sum series are uniformly Cauchy, and hence converge uniformly by \autoref{thm:cauchy-criterion-uniform-convergence} (Cauchy criterion).
 \end{proof}
+
+\subsection{Power Series}
+
+\begin{theorem}[Radius of Convergence]
+    Let
+    \[
+        \sum_{n = 0}^{\infty} c_n \pqty{x - a}^n
+    \]
+    be a (real) power series. Then there exists a unique number \(R \in \ccintv{0}{\plusinfty}\), known as the \term{radius of convergence} of the power series, such that
+    \begin{enumerate}[label=(\alph*)]
+        \item If \(\abs{x - a} < R\), then the series converges absolutely.
+        \item If \(\abs{x - a} > R\), then the series diverges.
+    \end{enumerate}
+
+    In particular,
+    \[
+        R = \limsup_{n \to \infty} \abs{c_n}^{-\flatfrac{1}{n}}
+    \]
+\end{theorem}
