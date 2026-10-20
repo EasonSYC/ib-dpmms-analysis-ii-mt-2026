@@ -324,6 +324,7 @@ Differentiation, however, is a subtle matter, and uniform convergence does not n
 \end{example}
 
 \begin{theorem}[Uniform Convergence and Differentiability]
+    \label{thm:uniform-convergence-differentiability}%
     Let \(\functiondomain{f_n}{\ccintv{a}{b}}{\RR}\) be differentiable on \(\ccintv{a}{b}\), such that:
     \begin{enumerate}[label=(\roman*)]
         \item \(\pqty{f_n'}\) converges uniformly to some function \(\functiondomain{g}{\ccintv{a}{b}}{\RR}\), and
@@ -562,9 +563,10 @@ We have the following simple but very useful criterion for absolute uniform conv
 \subsection{Power Series}
 
 \begin{theorem}[Radius of Convergence]
+    \label{thm:radius-of-convergence}%
     Let
     \[
-        \sum_{n = 0}^{\infty} c_n \pqty{x - a}^n
+        \sum_{n = 0}^{\infty} c_n \pqty{x - a} ^n
     \]
     be a (real) power series. Then there exists a unique number \(R \in \ccintv{0}{\plusinfty}\), known as the \term{radius of convergence} of the power series, such that
     \begin{enumerate}[label=(\alph*)]
@@ -574,6 +576,98 @@ We have the following simple but very useful criterion for absolute uniform conv
 
     In particular,
     \[
-        R = \limsup_{n \to \infty} \abs{c_n}^{-\flatfrac{1}{n}}
+        R\inverse = \limsup_{n \to \infty} \abs{c_n}^{\flatfrac{1}{n}}
     \]
+
+    Furthermore, if \(R > 0\), and \(0 < r < R\), then the series converges absolutely uniformly on \(\abs{x - a} \leq r\). In particular, the convergence of the series is uniform in \(\abs{x - a} \leq r\) and defines a continuous function defined on \(\abs{x - a} < R\).
 \end{theorem}
+
+\begin{proof}
+    The first part of the theorem is in \textit{IA Analysis I}. For any \(r\) with \(0 < r < R\), by the first part, we know that the series converges absolutely when \(x = a + r\), i.e., the series \(\sum_{n = 0}^{\infty} \abs{c_n} r^n\) converges. It follows that for any \(\abs{x - a} \leq r\), we may bound the terms by
+    \[
+        \abs{c_n \pqty{x - a}^n} \leq \abs{c_n} \abs{x - a}^{n} \leq \abs{c_N} r^n
+    \]
+    so by the \autoref{thm:weierstrass-m-test} (Weierstrass M-test) with \(M_n = \abs{c_n} r^n\), the series converges absolutely uniformly on \(\abs{x - a} \leq r\). The rest of the theorem follows from \autoref{cor:uniform-convergence-preserves-continuity} (Uniform Convergence preserves Continuity).
+\end{proof}
+
+\begin{definition}[Locally Uniform Convergence]
+    Let \(\functiondomain{g_n, g}{I}{\RR}\) where \(I = \oointv{a}{b}\). We say \(g_n \to g\) \term{locally uniform} on \(I\) if for all \(y \in I\), there is some \(r > 0\), such that \(g_n \to g\) uniformly on \(\abs{x - y} \leq r\).
+\end{definition}
+
+In other words, \autoref{thm:radius-of-convergence} (Radius of Convergence) shows that a power series converges \emph{locally} uniformly on its interval of convergence.
+
+\begin{theorem}[Differentiation of Power Series]
+    \label{thm:differentiation-of-power-series}%
+    Let \(\sum_{n = 0}^{\infty} c_n \pqty{x - a}^n\) be a (real) power series with radius of convergence \(R > 0\). Set
+    \[
+        f\pqty{x} = \sum_{n = 0}^{\infty} c_n
+    \]
+    for \(\abs{x - a} < R\). Then we have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item The ``derived power series'' \(\sum_{n = 1}^{\infty} n c_n \pqty{x - a}^{n - 1}\) has the same radius of convergence \(R\).
+        \item \(f\) is differentiable on \(\abs{x - a} < R\), with its derivative given by the term-by-term derived power series
+        \[
+            f'\pqty{x} = \sum_{n = 1}^{\infty} n c_n \pqty{x - a}^{n - 1}.
+        \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    We have
+    \[
+        \limsup_{n \to \infty} \abs{n c_n}^{\flatfrac{1}{n}} = \limsup_{n \to \infty} n^{\flatfrac{1}{n}} \abs{c_n}^{\flatfrac{1}{n}}.
+    \]
+    since recall \(\lim_{n \to \infty} n^{\flatfrac{1}{n}} = 1\). So the radius of convergence of the derived power series is identical to that of the original power series.
+
+    Let the partial sums be
+    \[
+        f_n\pqty{x} = \sum_{j = 0}^{n} c_j \pqty{x - a}^j
+    \]
+    and we know this is differentiable, with
+    \[
+        f_n'\pqty{x} = \sum_{j = 1}^{n} j c_j \pqty{x - a}^{j - 1}.
+    \]
+
+    Then \(f_n'\) converges uniformly to the derived power series on any interval (neighbourhood) \(\abs{x - a} \leq r\) for any \(0 < r < R\), and \(f'_n\pqty{a} = c_1\) converges. Hence, by \autoref{thm:uniform-convergence-differentiability} (Uniform Convergence and Differentiability), we have \(f\) is differentiable with its derivative being the derived power series at any point \(x\):
+    \[
+        f'\pqty{x} = \sum_{n = 1}^{\infty} n c_n \pqty{x - a}^{n - 1}.
+    \]
+    by picking \(r > 0\) such that \(\abs{x - a} \leq r < R\).
+\end{proof}
+
+\begin{remark}
+    By \autoref{thm:differentiation-of-power-series}, if a power series
+    \[
+        \sum_{n = 0}^{\infty} c_n \pqty{x - a}^n
+    \]
+    has radius of convergence \(R > 0\), then the function \(f\) defined by this power series on \(\abs{x - a} < R\) is infinitely differentiable. Moreover,
+    \[
+        f^{\pqty{k}}\pqty{x} = \sum_{n = k}^{\infty} n \pqty{n - 1} \cdots \pqty{n - k + 1} c_n \pqty{x - a}^{n - k}
+    \]
+    gives the \(k\)th derivative of \(f\) at \(x\).
+
+    In other words, take \(x = a\), then the coefficients are given by
+    \[
+        c_k = \frac{f^{\pqty{k}}\pqty{a}}{k!}
+    \]
+    for \(k = 0, 1, \ldots\): if we know the function \(f\) defined by a power series, in an arbitrary small interval (neighbourhood) around \(a\), then it allows us to compute all the derivatives of \(f\) at \(a\), and hence the function in the whole radius of convergence.
+
+    In other words, if we have another power series \(\sum_{k = 0}^{\infty} d_n \pqty{x - a}^n\) is another power series with radius of convergence \(R_1 > 0\), defining the function \(g\), and \(g = f\) in some interval (neighbourhood) around \(a\), then \(R_1 = R\) and \(g = f\) everywhere for \(\abs{x - a} < R\), i.e., \(f\) has the ``unique continuation'' property.
+\end{remark}
+
+\begin{definition}[Analytic Functions]
+    The functions defined by convergent power series (with \(R > 0\)) every point in its domain are called \term{analytic functions}.
+\end{definition}
+
+\begin{remark}
+    It is \emph{not true} that every infinitely differentiable function is analytic. Consider the function
+    \[
+        f\pqty{x} = \begin{cases}
+            e^{-\flatfrac{1}{x^2}}, & x \neq 0, \\
+            0, & x = 0.
+        \end{cases}
+    \]
+
+    Then \(f\) is infinitely differentiable, but \(f^{\pqty{k}}\pqty{0} = 0\) for all \(k\), so \(f\) is not analytic.
+\end{remark}
