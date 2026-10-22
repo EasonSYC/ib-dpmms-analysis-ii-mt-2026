@@ -1,0 +1,118 @@
+\section{Uniform Continuity and Riemann Integration}
+
+Given a function \(\functiondomain{f}{E}{\RR}\) and \(E \subseteq \RR\), and given \(x \in E\), we recall from \textit{IA Analysis I} and say \(f\) is \term{continuous} at \(x\), if for all \(\epsilon > 0\), there is some \(\delta = \delta\pqty{\epsilon, x} > 0\), such that
+\[
+    \abs{y - x} < \delta \implies \abs{f\pqty{y} - f\pqty{x}} < \epsilon
+\]
+
+\subsection{Uniform continuity}
+
+\begin{definition}[Uniform Continuity]
+    A function \(\functiondomain{f}{E}{\RR}\) is said to be \term{uniformly continuous on \(E\)}, if for all \(\epsilon > 0\), there is some \(\delta = \delta \pqty{\epsilon} > 0\), such that for all \(x, y \in E\),
+    \[  
+        \abs{y - x} < \delta \implies \abs{f\pqty{y} - f\pqty{x}} < \epsilon.
+    \]
+\end{definition}
+
+It follows directly from the definition that uniform continuity implies continuity. But continuity at each point does \emph{not} imply uniform continuity.
+
+\begin{example}[Continuity does not imply Uniform Continuity]
+    For the function
+    \[
+        \function{f}{\oointv{0}{1}}{\RR}{x}{\frac{1}{x}},
+    \]
+    clearly \(g\) is continuous at each \(x \in \oointv{0}{1}\). For any choice of \(\delta\), if \(x \in \oointv{0}{\delta}\) and \(y = \flatfrac{x}{2}\), then
+    \[
+        \abs{x - y} = \frac{x}{2} < \delta,
+    \]
+    while
+    \[
+        \abs{g\pqty{x} - g\pqty{y}} = \frac{1}{x} > 1.
+    \]
+
+    So \(f\) is not uniformly continuous.
+\end{example}
+
+\begin{example}[Continuity and Bounded does not imply Uniform Continuity]
+    Consider the function
+    \[
+        \function{g}{\oointv{0}{1}}{\RR}{x}{\sin\pqty{\frac{1}{x}}}
+    \]
+    which is bounded and continuous. Then consider the sequence
+    \[
+        x_n = \frac{1}{2 n \pi}, \qand y_n = \frac{1}{\pqty{2n + \frac{1}{2}} \pi}
+    \]
+    then \(\abs{x_n - y_n} \to 0\), but
+    \[
+        \abs{g\pqty{x_n} - g\pqty{y_n}} = 1
+    \]
+    for all \(n\). So \(g\) is not uniformly continuous on \(\oointv{0}{1}\).
+\end{example}
+
+\begin{theorem}[Continuity on Closed, Bounded Interval implies Uniform Continuity]
+    Let \(a, b \in \RR\) and \(a < b\). If \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is continuous at every point in \(\ccintv{a}{b}\), then \(f\) is uniformly continuous on \(\ccintv{a}{b}\).
+\end{theorem}
+
+\begin{proof}
+    We prove by contradiction. If the claim is false, then there is some \(\epsilon > 0\), such that no \(\delta > 0\) work. Taking \(\delta = \frac{1}{n}\), we can find a pair of points \(x_n, y_n \in \ccintv{a}{b}\) with \(\abs{x_n - y_n} < \flatfrac{1}{n}\), and yet \(\abs{f\pqty{x_n} - f\pqty{y_n}} \geq \epsilon\).
+
+    By the Bolzano--Weierstrass theorem, there is some \(x \in \ccintv{a}{b}\) and a subsequence \(x_{n_k}\), such that \(x_{n_k} \to x\) as \(k \to \infty\). But then
+    \[
+        \abs{y_{n_k} - x} \leq \abs{y_{n_k} - x_{n_k}} + \abs{x_{n_k} - x} \leq \frac{1}{n_k} + \abs{x_{n_k} - x} \to 0
+    \]
+    so we also have \(y_{n_k} \to x\).
+
+    So by sequential continuity, \(f\pqty{x_{n_k}}, f\pqty{y_{n_k}} \to f\pqty{x}\), but this contradicts with \(\abs{f\pqty{x_n}  f\pqty{y_n}} > \epsilon\).
+\end{proof}
+
+\subsection{Riemann Integration}
+
+We review facts from \textit{IA Analysis I}. Let \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) be a bounded function. Say \(f\) is bounded by \(m \leq f\pqty{x} \leq M\). Let a \term{partition} be
+\[
+    \partition = \Bqty{a_0, a_1, a_2, \ldots, a_n}
+\]
+with \(a = a_0 < a_1 < a_2 < \cdots < a_n = b\).
+
+We define the \term{upper and lower Darboux sums} as
+\begin{align*}
+    \upperSum\pqty{\partition, f} &= \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j}\sup_{\ccintv{a_j}{a_{j + 1}}} f, \\
+    \lowerSum\pqty{\partition, f} &= \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j}\inf_{\ccintv{a_j}{a_{j + 1}}} f,
+\end{align*}
+so we then have
+\[
+    m \pqty{b - a} \leq \lowerSum\pqty{\partition, f} \leq \upperSum\pqty{\partition, f} \leq M \pqty{b - a}.
+\]
+
+Also recall that \term{refining} a partition lowers the upper sum and increases the lower sum. Motivated by this, we define the \term{upper and lower Riemann integrals} of \(f\) by
+\begin{align*}
+    \upperI \pqty{f} = \inf_{\partition} \upperSum\pqty{\partition, f}, \\
+    \lowerI \pqty{f} = \sup_{\partition} \lowerSum\pqty{\partition, f}. \\
+\end{align*}
+
+One may check that \(\lowerI \pqty{f} \leq \upperI \pqty{f}\). We say \(f\) is \term{Riemann integrable} in \(\ccintv{a}{b}\) if \(\upperI\pqty{f} = \lowerI\pqty{f}\), and we denote this value, the \term{Riemann integral} of \(f\) over \(\ccintv{a}{b}\), as
+\[
+    I\pqty{f} = \int_{a}^{b} f\pqty{x} \dd{x} = \int_{a}^{b} f.
+\]
+
+Also recall the following theorem.
+
+\begin{theorem}[Riemann Criterion]
+    A bounded function \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is Riemann-integrable if and only if for all \(\epsilon > 0\), there is a partition \(\partition = \Bqty{a_0, \ldots, a_n}\) such that \(\upperSum\pqty{\partition, f} - \lowerSum\pqty{\partition, f} < \epsilon\),
+    i.e.,
+    \[
+        \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \inf_{I_j} f} < \epsilon  
+    \]
+    where \(I_j = \ccintv{a_j}{a_{j + 1}}\).
+\end{theorem}
+
+\begin{theorem}[Composition of Integrable and Continuous Function is Integrable]
+    Suppose \(\functiondomain{f}{\ccintv{a}{b}}{\ccintv{A}{B}}\) be bounded and integrable, and let \(\functiondomain{g}{\ccintv{A}{B}}{\RR}\) be continuous. Then \(\functiondomain{g \circ f}{\ccintv{a}{b}}{\RR}\) is integrable.
+\end{theorem}
+
+\begin{corollary}[Continuous Functions are Integrable]
+    If \(\functiondomain{g}{\ccintv{a}{b}}{\RR}\) is continuous, then \(g\) is integrable.
+\end{corollary}
+
+\begin{proof}
+    Take \(f = \identity\).
+\end{proof}
