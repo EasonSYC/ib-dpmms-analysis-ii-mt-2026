@@ -50,6 +50,7 @@ It follows directly from the definition that uniform continuity implies continui
 \end{example}
 
 \begin{theorem}[Continuity on Closed, Bounded Interval implies Uniform Continuity]
+    \label{thm:continuity-implies-uniform-continuity}%
     Let \(a, b \in \RR\) and \(a < b\). If \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is continuous at every point in \(\ccintv{a}{b}\), then \(f\) is uniformly continuous on \(\ccintv{a}{b}\).
 \end{theorem}
 
@@ -109,6 +110,68 @@ Also recall the following theorem.
     Suppose \(\functiondomain{f}{\ccintv{a}{b}}{\ccintv{A}{B}}\) be bounded and integrable, and let \(\functiondomain{g}{\ccintv{A}{B}}{\RR}\) be continuous. Then \(\functiondomain{g \circ f}{\ccintv{a}{b}}{\RR}\) is integrable.
 \end{theorem}
 
+\begin{proof}
+    Let \(\epsilon > 0\) be arbitrary. Since \(g\) is continuous on the closed interval \(\ccintv{A}{B}\), it is uniformly continuous by \autoref{thm:continuity-implies-uniform-continuity}. So there is some \(\delta = \delta\pqty{\epsilon} > 0\) such that for all \(x, y \in \ccintv{A}{B}\),
+    \[
+        \abs{x - y} < \delta \implies \abs{g\pqty{x} - g\pqty{y}} < \epsilon.
+    \]
+
+    Let \(\epsilon' > 0\) be arbitrary. Since \(f\) is integrable, there is a partition \(\partition = \Bqty{a_0, \ldots, a_n}\) of \(\ccintv{a}{b}\) such that
+    \[
+        \upperSum \pqty{\partition, f} - \lowerSum \pqty{\partition, f} = \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \inf_{I_j} f} < \epsilon'.
+    \]
+    
+    Now, we investigate
+    \[
+        \upperSum\pqty{\partition, g \circ f} - \lowerSum\pqty{\partition, g \circ f} = \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} \pqty{g \circ f} - \inf_{I_j} \pqty{g \circ f}}.
+    \]
+
+    We consider splitting this sum up. Let \(J\) be the set of indices
+    \[
+        J = \set{j \in \Bqty{0, \ldots, n - 1}}{\sup_{I_j} f - \inf_{I_j} f < \delta\pqty{\epsilon}}.
+    \]
+
+    For any \(j \in J\) and \(x, y \in I_j\), we must have
+    \[
+        \abs{f\pqty{x} - f\pqty{y}} \leq \sup_{I_j} f - \inf_{I_j} f < \delta\pqty{\epsilon},
+    \]
+    and thus
+    \[
+        \abs{g\pqty{f\pqty{x}} - g\pqty{f\pqty{y}}} < \epsilon.
+    \]
+
+    Taking the supremum over \(x \in I_j\) and the infimum over \(y \in I_j\), this implies that
+    \[
+        \sup_{I_j} \pqty{g \circ f} - \inf_{I_j} \pqty{g \circ f} < \epsilon.
+    \]
+
+    This implies that
+    \[
+        \sum_{j \in J} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} \pqty{g \circ f} - \inf_{I_j} \pqty{g \circ f}} < \epsilon \sum_{j \in J} \pqty{a_{j + 1} - a_j} \leq \epsilon\pqty{b - a}.
+        \eqno{(1)}
+    \]
+
+    For \(j \notin J\), we have \(\sup_{I_j} f - \inf_{I_j} f \geq \delta\pqty{\epsilon}\), so we will need to bound the remaining part of the sum using some alternative method. We have
+    \[
+        \sum_{j \in J} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \inf_{I_j} f} \leq 2 \sup_{\ccintv{a}{b}} \abs{g} \sum_{j \notin J} \pqty{a_{j + 1} - a_j}.
+        \eqno{(2)}
+    \]
+
+    But on the other hand, we have
+    \[
+        \delta \sum_{j \notin J} \pqty{a_{j + 1} - a_j} \leq \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \inf_{I_j} f} < \epsilon'
+        \eqno{(3)}
+    \]
+    by the integrability of \(f\).
+
+    Given \(\epsilon\), choose \(\epsilon' = \delta\pqty{\epsilon} \epsilon\). Then we have by \((1), (2), (3)\), that
+    \[
+        \upperSum\pqty{\partition, g \circ f} - \lowerSum\pqty{\partition, g \circ f} < \pqty{\pqty{b - a} + 2 \sup_{\ccintv{a}{b}} \abs{g}} \epsilon.
+    \]
+
+    Then by the Riemann integrability criterion, we conclude that \(g \circ f\) is integrable.
+\end{proof}
+
 \begin{corollary}[Continuous Functions are Integrable]
     If \(\functiondomain{g}{\ccintv{a}{b}}{\RR}\) is continuous, then \(g\) is integrable.
 \end{corollary}
@@ -116,3 +179,84 @@ Also recall the following theorem.
 \begin{proof}
     Take \(f = \identity\).
 \end{proof}
+
+We return to the discussion of uniform convergence and integrability.
+
+\begin{theorem}[Uniform Limits of Integrable Functions are Integrable]
+    Let \(\functiondomain{f_n}{\ccintv{a}{b}}{\RR}\) be a sequence of integrable functions, and suppose \(f_n \to f\) uniformly on \(\ccintv{a}{b}\). Then \(f\) is integrable, with \(\int_{a}^{b} f = \lim_{n \to \infty} \int_{a}^{b} f_n\).
+\end{theorem}
+
+\begin{proof}
+    Since \(f_n \to f\) uniformly. Then for some \(N \in \NN\), we have a bound of
+    \[
+        \sup \abs{f_n - f} < 1
+    \]
+    for all \(n \geq N\). So by the triangular inequality, we have
+    \[
+        \sup \abs{f} \leq \sup \abs{f_N - f} + \sup \abs{f_N} \leq 1 + \sup \abs{f_N}
+    \]
+    so \(f\) is bounded.
+
+    For any partition \(\partition = \Bqty{a_0, \ldots, a_n}\), we have
+    \begin{align*}
+        \upperSum\pqty{\partition, f} - \upperSum\pqty{\partition, f_n} &\leq \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \sup_{I_j} f_n} \\
+        &= \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \bqty{\sup_{I_j} \pqty{f - f_n + f_n} - \inf_{I_j} \pqty{f - f_n + f_n}} \\
+        &\leq \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \bqty{\sup_{I_j} \pqty{f - f_n} + \sup_{I_j} \pqty{f_n} - \inf_{I_j} \pqty{f - f_n} - \inf_{I_j} \pqty{f_n}} \\
+        &\leq 2 \pqty{b - a} \sup_{\ccintv{a}{b}} \abs{f - f_n} + \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \bqty{\sup_{I_j} f_n - \inf_{I_j} f_n}.
+    \end{align*}
+
+    Given \(\epsilon > 0\), choose \(N\) such that
+    \[
+        \sup_{\ccintv{a}{b}} \abs{f - f_N} < \frac{\epsilon}{4 \pqty{b - a}}.
+    \]
+
+    Then, we choose a partition \(\partition\) such that
+    \[
+        \upperSum\pqty{\partition, f_N} - \lowerSum\pqty{\partition, f_N} = \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f_N - \inf_{I_j} f_N} < \frac{\epsilon}{2}.
+    \]  
+
+    Then we have \(\upperSum\pqty{\partition, f} - \lowerSum\pqty{\partition, f} < \epsilon\), so \(f\) is integrable. Finally, we have from \autoref{thm:uniform-convergence-integrals} that the integrals converge.
+\end{proof}
+
+\subsection{Lebesgue's Criterion (Non-Examinable)}
+
+\small
+
+We further study conditions for Riemann integrability.
+
+Clearly, a bounded, integrable function \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) need not be continuous everywhere. Let \(\mathcal{D}_f\) be the set of points of discontinuity of \(f\). How large does the set \(\mathcal{D}_f\) need to be for \(f\) to be non-integrable? We have the following result.
+
+\begin{definition}[Null Set]
+    A subset \(\mathcal{D} \subseteq \RR\) is said to bte a \term{null set} (or a set of \term{Lebesgue meausure zero}), if for all \(\epsilon > 0\), there is a countable collection of open intervals \(I_j = \oointv{a_j}{b_j}\) such that
+    \[
+        \mathcal{D} \subset \bigcup_{j = 1}^{\infty} I_j, \qand \sum_{j = 1}^{\infty} \pqty{b_j - a_j} < \epsilon.
+    \]
+\end{definition}
+
+\begin{examples}
+    \begin{enumerate}
+        \item The empty set \(\emptyset\) and a singleton set \(\Bqty{a}\) are null sets.
+        \item Any subset of a null set is a null set.
+        \item A countable union of null sets is null.
+        \item There are uncountable null sets, e.g., the Cantor set.
+        \item Not every subset of \(\RR\) is null! Simply consider any interval \(I = \oointv{a}{b}\) with \(a < b\).
+    \end{enumerate}
+\end{examples}
+
+\begin{lemma}
+    If \(\oointv{a}{b} \subset \bigcup_{j = 1}^{\infty} I_j\), then \(\abs{b - a} \leq \sum_{j = 1}^{\infty} \pqty{b_j - a_j}\).
+\end{lemma}
+
+\begin{theorem}[Lebesgue's Criterion for Riemann Integrability]
+    A bounded function \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is Riemann integrable if and only if the set of points of discontinuity \(\mathcal{D}_f\) is a null set.
+\end{theorem}
+
+\begin{corollary}
+    \begin{enumerate}
+        \item Monotone functions are integrable.
+        \item If \(f\) is integrable and \(g\) is continuous, then \(g \circ f\) is integrable [since \(\mathcal{D}_{g \circ f} \subseteq \mathcal{D}_f\)].
+        \item If \(f_n \to f\) uniformly and each \(f_n\) is integrable, then \(f\) is integrable [since \(\bigcup_{n = 1}^{\infty} \mathcal{D}_{f_n}\) is a null set].
+   \end{enumerate}
+\end{corollary}
+
+\normalsize
