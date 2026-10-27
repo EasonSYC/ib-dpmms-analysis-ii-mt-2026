@@ -1,0 +1,137 @@
+\section{Metric Spaces and Normed Spaces}
+
+So far, we have been doing analysis on the real line \(\RR\), and occasionally on the complex plane \(\CC\). \(\RR\) has a structure that allows us to define what is meant by
+\begin{itemize}
+    \item Convergence of sequences, with unique limits when they exist;
+    \item Cauchy sequences, which always converge (the completeness property of \(\RR\));
+    \item Closed bounded intervals \(\ccintv{a}{b}\) which are special due to the Bolzano-Weierstrass theorem.
+\end{itemize}
+
+With this structure, we studied functions \(\functiondomain{f}{E \subseteq \RR}{\RR}\), where we study
+\begin{itemize}
+    \item The most basic notion, continuity of a function;
+    \item If \(E = \ccintv{a}{b}\) and \(f\) is continuous, then \(f\) is bounded and attains its bounds (the extreme value theorem, from \textit{IA Analysis I});
+    \item Furthermore, in the same scenario, \(f\) is uniformly continuous.
+\end{itemize}
+
+We would like to extend these structures to a more general setting of functions \(\functiondomain{f}{X}{\RR}\), or even functions \(\functiondomain{f}{X}{Y}\). The easiest way to impose a structure on \(X\) is define a notion of distance between points in \(X\), which is known as \term{metric}. More specifically, when \(X\) is already a (real) vector space, through the notion of ``norm'', we can define a metric on \(X\) that is compatible with the vector space structure.
+
+\begin{definition}[Metric Space]
+    Let \(X\) be any set. A \term{metric} (or \term{distance function}) on \(X\) is a function \(\functiondomain{d}{X \times X}{\RR}\) satisfying, for any \(x, y, z \in X\),
+    \begin{enumerate}[label=(\roman*)]
+        \item \(d\) is \term{non-negative}: \(d\pqty{x, y} \geq 0\), and \(d\pqty{x, y} = 0\) if and only if \(x = y\);
+        \item \(d\) is \term{symmetric}: \(d\pqty{x, y} = d\pqty{y, x}\);
+        \item \(d\) satisfies the \term{triangle inequality}: \(d\pqty{x, z} \leq d\pqty{x, y} + d\pqty{y, z}\).
+    \end{enumerate}
+
+    The pair \(\pqty{X, d}\) is called a \term{metric space}.
+\end{definition}
+
+\begin{definition}[Normed Vector Space]
+    Let \(V\) be a vector space over \(\RR\). A \term{norm} on \(V\) is a function \(\functiondomain{\norm{\cdot}}{V}{\RR}\) satisfying, for any \(x, y \in V\) and \(\lambda \in \RR\),
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\norm{\cdot}\) is \term{non-negative}: \(\norm{x} \geq 0\), and \(\norm{x} = 0\) if and only if \(x = 0\);
+        \item \(\norm{\cdot}\) is \term{absolutely homogeneous} (compatibility with scalar multiplication): \(\norm{\lambda x} = \abs{\lambda} \norm{x}\);
+        \item \(\norm{\cdot}\) satisfies the \term{triangle inequality}:
+        \[
+        \norm{x + y} \leq \norm{x} + \norm{y}.
+        \]
+    \end{enumerate}
+
+    The pair \(\pqty{V, \norm{\cdot}}\) is called a \term{normed vector space} (or simply a \term{normed space}).
+\end{definition}
+
+\begin{proposition}[Normed Space induces a Metric Space]
+    If \(\pqty{V, \norm{\cdot}}\) is a normed space, and if \(\functiondomain{d}{V \times V}{\RR}\) is defined by \(d\pqty{x, y} = \norm{x - y}\), then \(\pqty{V, d}\) is a metric space.
+\end{proposition}
+
+\begin{proof}
+    We check that this induced metric is indeed a metric.
+    
+    \begin{enumerate}[label=(\roman*)]
+        \item This follows from the non-negativity of the norm, since \(d\pqty{x, y} = \norm{x - y} = 0\) if and only if \(x - y = 0\), i.e., \(x = y\).
+        \item This follows from the absolute homogeneity of the norm, since
+        \[
+            d\pqty{x, y} = \norm{x - y} = \norm{-(y - x)} = \abs{-1} \norm{y - x} = \norm{y - x} = d\pqty{y, x}.
+        \]
+        \item This follows from the triangle inequality for norms. Note
+        \begin{align*}
+            d\pqty{x, z} &= \norm{x - z} \\
+            &= \norm{\pqty{x - y} + \pqty{y - z}} \\
+            &\leq \norm{x - y} + \norm{y - z} \\
+            &= d\pqty{x, y} + d\pqty{y, z}.
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+
+\begin{example}[Finite-Dimensional Normed Spaces]
+    The prototypical finite-dimensional vector space is \(\RR^n\).
+    \begin{enumerate}
+        \item We equip it with the Euclidean (or \(\ell_2\)) norm. We define the norm to be
+        \[
+            \norm[\text{E}]{x} = \norm[\ell_2]{x} = \norm[2]{x} = \pqty{\sum_{i = 1}^{n} \abs{x_i}^2}^{\flatfrac{1}{2}}.
+        \]
+
+        The only non-trivial property to check is the triangular inequality. Let \(x = \pqty{x_1, \dots, x_n}\) and \(y = \pqty{y_1, \dots, y_n}\). Then
+        \begin{align*}
+            \norm[2]{x + y}^2 &= \sum_{i = 1}^{n} \pqty{x_i + y_i}^2 \\
+            &= \norm[2]{x}^2 + \norm[2]{y}^2 + 2 \sum_{i = 1}^{n} x_i y_i \\
+            &\leq \norm[2]{x}^2 + \norm[2]{y}^2 + 2 \norm[2]{x} \norm[2]{y} && \text{Cauchy--Schwarz Inequality}\\
+            &= \pqty{\norm[2]{x} + \norm[2]{y}}^2.
+        \end{align*}
+
+        Taking the square root finishes the proof.
+
+        \item Another norm is the \(\ell_1\) norm, defined by
+        \[
+            \norm[\ell_1]{x} = \norm[1]{x} = \sum_{i = 1}^{n} \abs{x_i}.
+        \]
+
+        \item Another norm is the \(\ell_\infty\) norm, defined by
+        \[
+            \norm[\ell_\infty]{x} = \norm[\infty]{x} = \sup_{1 \leq i \leq n}\abs{x_i}.
+        \]
+    \end{enumerate}
+
+    The proofs to that the final two norms satisfying the triangle inequality are left as exercises to the reader.
+\end{example}
+
+\begin{example}[Space of Real-Number Sequences]
+    Denote \(\RR^\NN\) be the space of real-number sequences, i.e.
+    \[
+        \RR^\NN = \Bqty{\text{sequences }\pqty{x_k}_{k \in \NN}\text{ with }x_k \in \RR}.
+    \]
+
+    Under term-wise addition and scalar multiplication, this is a vector space.
+
+    \begin{enumerate}
+        \item Define the subspace
+        \[
+            \ell_1 = \set{\pqty{x_k} \in \RR^\NN}{\sum_{k = 1}^{\infty} \abs{x_k} < \infty}.
+        \]
+
+        This is a vector subspace of \(\RR^\NN\), which is still infinite dimensional, and we define the \(\ell_1\) norm on the \(\ell_1\) space by
+        \[
+            \norm[1]{x} = \sum_{k = 1}^{\infty} \abs{x_k}.
+        \]
+        \item Similarly, we may define
+        \[
+            \ell_2 = \set{\pqty{x_k} \in \RR^\NN}{\sum_{k = 1}^{\infty} \abs{x_k}^2 < \infty}.
+        \]
+
+        We define the \(\ell_2\) norm (the Euclidean norm) on the \(\ell_2\) space by
+        \[
+            \norm[2]{x} = \pqty{\sum_{k = 1}^{\infty} \abs{x_k}^2}^{\flatfrac{1}{2}}.
+        \]
+        \item Finally, we may define
+        \[
+            \ell_\infty = \set{\pqty{x_k} \in \RR^\NN}{\sup_{k \in \NN} \abs{x_k} < \infty}
+        \]
+        to be the space of bounded sequences. We define the \(\ell_\infty\) norm on the \(\ell_\infty\) space by
+        \[
+            \norm[\infty]{x} = \sup_{k \in \NN} \abs{x_k}.
+        \]
+    \end{enumerate}
+
+    \(\ell_1, \ell_2, \ell_\infty\) are all infinite-dimensional normed spaces. The proofs are left to the reader.
+\end{example}
