@@ -42,6 +42,7 @@ We would like to extend these structures to a more general setting of functions 
 \end{definition}
 
 \begin{proposition}[Normed Space induces a Metric Space]
+    \label{prop:normed-space-induces-metric-space}%
     If \(\pqty{V, \norm{\cdot}}\) is a normed space, and if \(\functiondomain{d}{V \times V}{\RR}\) is defined by \(d\pqty{x, y} = \norm{x - y}\), then \(\pqty{V, d}\) is a metric space.
 \end{proposition}
 
@@ -93,7 +94,7 @@ We would like to extend these structures to a more general setting of functions 
         \]
     \end{enumerate}
 
-    The proofs to that the final two norms satisfying the triangle inequality are left as exercises to the reader.
+    The proofs to that the final two norms satisfying the triangle inequality are left as exercises to the reader. In general, \(\pqty{\RR^k, \norm[p]{\cdot}}\) is a normed space for any \(p \geq 1\).
 \end{example}
 
 \begin{example}[Space of Real-Number Sequences]
@@ -134,4 +135,130 @@ We would like to extend these structures to a more general setting of functions 
     \end{enumerate}
 
     \(\ell_1, \ell_2, \ell_\infty\) are all infinite-dimensional normed spaces. The proofs are left to the reader.
+
+    There is nothing special about the \(1, 2, \infty\) norms above. For any \(p \geq 1\), we may define the \(\ell_p\) norm to be
+    \[
+        \ell_p = \set{\pqty{x_k} \in \RR^\NN}{\sum_{k = 1}^{\infty} \abs{x_k}^p < \infty},
+    \]
+    and equipped with the \(\ell_p\) norm,
+    \[
+        \norm[p]{x} = \pqty{\sum_{k = 1}^{\infty} \abs{x_k}^p}^{\flatfrac{1}{p}},
+    \]
+    the space \(\pqty{\ell_p, \norm[p]{\cdot}}\) is a normed space. Checking the triangular inequality is non-trivial and is left to the reader.
 \end{example}
+
+\begin{example}[Space of Continuous Functions]
+    Consider the vector space \(V = \contClass{0} \pqty{\ccintv{a}{b}}\) to be the space of real-valued continuous function on \(\ccintv{a}{b}\).
+
+    \begin{enumerate}
+        \item The \(L^1\) norm on \(V\) is defined by
+        \[
+            \norm[L^1\pqty{\ccintv{a}{b}}]{f} = \norm[L^1]{f} = \norm[1]{f} = \int_{a}^{b} \abs{f\pqty{x}} \dd{x}.
+        \]
+
+        \item The \(L^2\) norm on \(V\) is defined by
+        \[
+            \norm[L^2\pqty{\ccintv{a}{b}}]{f} = \norm[L^2]{f} = \norm[2]{f} = \pqty{\int_{a}^{b} \abs{f\pqty{x}}^2 \dd{x}}^{\flatfrac{1}{2}}.
+        \]
+
+        \item The \(L^\infty\) norm, also known as the \term{uniform norm} on \(V\) is defined by
+        \[
+            \norm[L^\infty\pqty{\ccintv{a}{b}}]{f} = \norm[L^\infty]{f} = \norm[\infty]{f} = \sup_{x \in \ccintv{a}{b}} \abs{f\pqty{x}}.
+        \]
+    \end{enumerate}
+
+    These all define norms on \(V\). The triangular inequality for \(L^2\) follows from the integral version of the Cauchy--Schwarz inequality
+    \[
+        \int_{a}^{b} \abs{fg} \leq \pqty{\int_{a}^{b} \abs{f}^2}^{\flatfrac{1}{2}} \pqty{\int_{a}^{b} \abs{g}^2}^{\flatfrac{1}{2}}.
+    \]
+
+    To prove this, we use
+    \[
+        \phi\pqty{t} = \int_{a}^{b} \pqty{\abs{g} - t \abs{f}}^2
+    \]
+    and note that this quadratic in \(t\) has to be non-negative. The degenerate case where the integral of \(f\) is zero is trivial.
+\end{example}
+
+By \autoref{prop:normed-space-induces-metric-space}, all of the above examples are metric spaces with respect to the metric defined by the norm. For example, the \term{Euclidean metric} in \(\RR^n\) is induced by the \(\ell_2\) norm, as
+\[
+    d_{\text{E}} \pqty{x, y} = \norm[2]{x - y} = \pqty{\sum_{i = 1}^{n} \abs{x_i - y_i}^2}^{\flatfrac{1}{2}}.
+\]
+
+The \term{uniform metric} on \(\contClass{0}\pqty{\ccintv{a}{b}}\) is induced by the uniform \(L^\infty\) norm, as
+\[
+    d\pqty{f, g} = \norm[\infty]{f - g} = \sup_{x \in \ccintv{a}{b}} \abs{f\pqty{x} - g\pqty{x}}.
+\]
+
+\small
+
+The ``natural'' space in which the integral norms \(L^1, L^2, \ldots\) should be defined is
+\[
+    \mathcal{R} \pqty{\ccintv{a}{b}}
+\]
+the space of integrable functions over \(\ccintv{a}{b}\). This is a metric space with respect to pointwise addition and scalar multiplication of functions.
+
+There is an immediate concern here: for \(f \in \mathcal{R} \pqty{\ccintv{a}{b}}\), \(\norm[1]{f} = 0\) does not necessarily imply \(f = 0\) on \(\ccintv{a}{b}\) -- it only implies that \(f = 0\) almost everywhere on \(\ccintv{a}{b}\) by \autoref{thm:lebesgue-criterion-for-riemann-integrability}, i.e., \(f = 0\) except on a null set.
+
+If \(\int \abs{f} = 0\) then \(f = 0\) at the points of continuities, and hence \(f = 0\) except on a null set (which is at most the set of discontinuities).
+
+On the other hand, if \(f = 0\) almost everywhere on \(\ccintv{A}{b}\), then \(\int \abs{f} = 0\) by covering the null set with intervals of arbitrarily small total length, which is allowed by definition.
+
+This allows us to define an equivalence relation \(f \sim g\) on \(\mathcal{R} \pqty{\ccintv{a}{b}}\) by \(f \sim g\) if and only if \(f = g\) almost everywhere on \(\ccintv{a}{b}\), i.e., the set of points at which they differ is a null set. So we define the quotient space \(\tilde{\mathcal{R}}\pqty{\ccintv{a}{b}} = \flatfrac{\mathcal{R} \pqty{\ccintv{a}{b}}}{\sim}\), which would become a genuine normed space, and indeed we can show that the induced operations on the equivalence classes are well-defined, and that the norm is well-defined on the equivalence classes since the integrals are equal.
+
+\normalsize
+
+\begin{definition}[Discrete Metric]
+    For any set \(X\), the \term{discrete metric} on \(X\) is given by
+    \[
+        \function{d}{X \times X}{\RR}{\pqty{x, y}}{
+            \begin{cases}
+                0, & \qfor x = y, \\
+                1, & \qfor x \neq y.
+            \end{cases}
+        }
+    \]
+\end{definition}
+
+\begin{example}[New Metric from Given Metrics]
+    Let \(\pqty{X, d}\) be a metric space. Then a new induced metric can be defined as
+    \[
+        \function{g}{X \times X}{\RR}{\pqty{x, y}}{\min\Bqty{1, d\pqty{x, y}}.}
+    \]
+
+    Another metric could be defined by
+    \[
+        \function{h}{X \times X}{\RR}{\pqty{x, y}}{\frac{d\pqty{x, y}}{1 + d\pqty{x, y}}.}
+    \]
+
+    Note that \(g\pqty{x, y} \leq 1\) and \(h\pqty{x, y} < 1\) for any \(x, y \in X\).
+\end{example}
+
+\begin{example}[French Railway Metric]
+    The SNCF metric (also known as the French railway metric) is defined on \(\RR^2\). The idea is ``all trains go through Paris'' (which will be the origin here). Define
+    \[
+        d\pqty{x, y} = \begin{cases}
+            \norm[2]{x - y}, & \qif x = ty \text{ for some }t \in \RR,\\
+            \norm[2]{x} + \norm[2]{y}, & \quad\text{otherwise}.
+        \end{cases}
+    \]
+\end{example}
+
+\begin{definition}[Metric Subspaces]
+    Let \(\pqty{X, d}\) be a metric space, and let \(Y\) be a subset of \(X\). Then the restriction \(\rightbar{d}_{Y \times Y}\) is a metric on \(Y\). This is known as the \term{subspace metric} or the \term{induced metric} on \(Y\).
+\end{definition}
+
+\subsection{Open and Closed Subsets}
+
+\begin{definition}[Open and Closed Subsets]
+    \label{def:open-and-closed-subsets}%
+    Let \(\pqty{X, d}\) be a metric space.
+    \begin{enumerate}[label=(\roman*)]
+        \item Let \(a \in X\) be any point, with \(r > 0\). Then the \term{open ball with radius \(r\) and centre \(a\)} is the set
+        \[
+            \oball{r}{a} = \set{x \in X}{d\pqty{x, a} < r}.
+        \]
+
+        \item A subset \(U \subseteq X\) is \term{open} if for every point \(a \in U\), there exists \(r > 0\) such that \(\oball{r}{a} \subseteq U\).
+        \item A subset \(F \subseteq X\) is \term{closed} if its complement \(X \setminus F\) is open.
+    \end{enumerate}
+\end{definition}
