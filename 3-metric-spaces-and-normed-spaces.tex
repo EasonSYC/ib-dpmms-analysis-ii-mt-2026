@@ -262,3 +262,153 @@ This allows us to define an equivalence relation \(f \sim g\) on \(\mathcal{R} \
         \item A subset \(F \subseteq X\) is \term{closed} if its complement \(X \setminus F\) is open.
     \end{enumerate}
 \end{definition}
+
+\begin{remark}
+    Note that sets can be both closed and open (\term{clopen}), for example \(\emptyset\) and \(X\), or neither closed nor open.
+\end{remark}
+
+\begin{examples}[Open and Closed Subsets in \(\RR^2\)]
+    Consider \(X = \RR^2\).
+
+    \begin{enumerate}[label=(\roman*)]
+        \item Under the Euclidean metric, the open ball \(\oball[\text{E}]{r}{a}\) is the interior of a circle with radius \(r\) and centre \(a\).
+        \item Under the \(\ell_{\infty}\) metric, the open ball \(\oball[\ell_{\infty}]{r}{a}\) is the interior of a square with side length \(2r\) and centre \(a\).
+        \item Under the SNCF metric, the open ball \(\oball[\text{SNCF}]{r}{0}\) is simply the open ball \(\oball[\text{E}]{r}{0}\) under the Euclidean metric. However, for \(a \neq 0\), the open ball \(\oball[\text{SNCF}]{r}{a}\) is the ray from the origin through \(a\) with radius \(r\) under the Euclidean metric, together with the open ball \(\oball[\text{E}]{r - \norm[2]{a}}{0}\) under the Euclidean metric (if \(r > \norm[2]{a}\)).
+    \end{enumerate}
+\end{examples}
+
+Note that the property of being open or closed for a subset is relative to the containing metric space.
+
+\begin{example}[Open and Closed Subsets in Subspaces]
+    Let \(X = \RR\) with the Euclidean metric, and let \(Y = \cointv{0}{1} \cup \Bqty{2}\) with the induced metric from the Euclidean metric on \(\RR\).
+
+    In \(Y\), we have the following.
+
+    \begin{itemize}
+        \item Note the set \(\cointv{0}{1}\) is both open and closed in \(Y\): in particular, \(\oball[Y]{\flatfrac{1}{2}}{0} = \cointv{0}{\flatfrac{1}{2}}\) is contained in \(\cointv{0}{1}\).
+    
+        \item Similarly, the singleton \(\Bqty{2}\) is both open and closed in \(Y\), by taking \(\oball[Y]{\flatfrac{1}{2}}{2} = \Bqty{2}\) to be contained in \(\Bqty{2}\).
+    \end{itemize}
+    
+    However, in \(X = \RR\), things become a bit different.
+
+    \begin{itemize}
+        \item The set \(\cointv{0}{1}\) is neither closed nor open in \(X\).
+        \item \(\Bqty{2}\) is closed in \(X\), but not open in \(X\).
+    \end{itemize}
+\end{example}
+
+\begin{proposition}[Open Balls are Open and Singletons are Closed]
+    \label{prop:open-balls-are-open-and-singletons-are-closed}%
+    Let \(\pqty{X, d}\) be a metric space.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(a \in X\) and \(r > 0\), then the open ball \(\oball{r}{a}\) is an open subset of \(X\).
+        \item For any \(a \in X\), the singleton \(\Bqty{a}\) is a closed subset of \(X\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item For any \(y \in \oball{r}{a}\), we have \(d\pqty{y, a} < r\). Let \(\epsilon = r - d\pqty{y, a} > 0\). Then for any \(z \in \oball{\epsilon}{y}\), we have
+        \[
+            d\pqty{z, a} \leq d\pqty{z, y} + d\pqty{y, a} < \epsilon + d\pqty{y, a} = r,
+        \]
+        so \(z \in \oball{r}{a}\). Hence, \(\oball{\epsilon}{y} \subseteq \oball{r}{a}\), so \(\oball{r}{a}\) is open.
+
+        \item For any \(x \in X \setminus \Bqty{a}\), we have \(d\pqty{x, a} > 0\). Let \(r = d\pqty{x, a}\), then \(\oball{r}{x} \subseteq X \setminus \Bqty{a}\), so \(X \setminus \Bqty{a}\) is open, and hence \(\Bqty{a}\) is closed.
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    An open ball can be closed, and a singleton can be open. For example, in the discrete metric space \(\pqty{X, d}\) where
+    \[
+        d\pqty{x, y} = \begin{cases}
+            0, & \qif x = y,\\
+            1, & \qif x \neq y,
+        \end{cases}
+    \]
+    for any \(a \in X\), we have \(\oball{r}{a} = \Bqty{a}\) is both open and closed for all \(r \leq 1\).
+\end{remark}
+
+\begin{theorem}[Unions and Intersections of Open Sets]
+    \label{thm:unions-and-intersections-of-open-sets}%
+    Let \(\pqty{X, d}\) be a metric space.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item The union of any collection of open sets in \(X\) is open.
+        \item The intersection of any finite collection of open sets in \(X\) is open.
+        \item \(\emptyset\) and \(X\) are both open and closed in \(X\).
+    \end{enumerate}
+\end{theorem}
+
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}}
+\end{proof}
+
+\begin{remark}
+    The fact we restrict to finite intersections of open sets is important. For example, consider the open intervals \(\oball{\flatfrac{1}{n}}{0} = \oointv{-\flatfrac{1}{n}}{\flatfrac{1}{n}}\) for \(n \in \NN\). Then
+    \[
+        \bigcap_{n = 1}^{\infty} \oball{\flatfrac{1}{n}}{0} = \Bqty{0},
+    \]
+    which is not open in \(\RR\).
+\end{remark}
+
+By using de Morgan's laws, we can immediately deduce the following theorem.
+
+\begin{theorem}[Unions and Intersections of Closed Sets]
+    \label{thm:unions-and-intersections-of-closed-sets}%
+    Let \(\pqty{X, d}\) be a metric space.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item The intersection of any collection of closed sets in \(X\) is closed.
+        \item The union of any finite collection of closed sets in \(X\) is closed.
+        \item \(\emptyset\) and \(X\) are both open and closed in \(X\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{corollary}[Finite Sets are Closed]
+    Let \(\pqty{X, d}\) be a metric space. Then any finite set \(F \subseteq X\) is closed.
+\end{corollary}
+
+\begin{proof}
+    Any finite set is a finite union of singletons, and each singleton is closed by \autoref{prop:open-balls-are-open-and-singletons-are-closed} (ii), so the finite union is closed by \autoref{thm:unions-and-intersections-of-closed-sets} (ii).
+\end{proof}
+
+\subsection{Convergence in Metric Spaces}
+
+\begin{definition}[Convergence in Metric Spaces]
+    Let \(\pqty{X, d}\) be a metric space. A sequence \(\pqty{x_k}\) in \(X\) \term{converges to \(x \in X\)} if \(d\pqty{x_k, x} \to 0\) as \(k \to \infty\).
+
+    Equivalently, \(\pqty{x_k}\) converges to \(x\) if
+    \[
+        \forall \epsilon > 0, \exists N \in \NN, \forall k \geq N: d\pqty{x_k, x} < \epsilon,
+    \]
+    or equivalently,
+    \[
+        \forall \epsilon > 0, \exists N \in \NN, \forall k \geq N: x_k \in \oball{\epsilon}{x}.
+    \]
+\end{definition}
+
+\begin{proposition}[Limits are Unique in Metric Spaces]
+    \label{prop:limits-are-unique-in-metric-spaces}%
+    Let \(\pqty{X, d}\) be a metric space. If a sequence \(\pqty{x_k}\) converges to both \(x\) and \(y\) in \(X\), then \(x = y\).
+\end{proposition}
+
+\begin{proof}
+    For all \(\epsilon > 0\), there exists \(N_1, N_2 \in \NN\) such that for all \(k \geq N_1\), \(d\pqty{x_k, x} < \flatfrac{\epsilon}{2}\), and for all \(k \geq N_2\), \(d\pqty{x_k, y} < \flatfrac{\epsilon}{2}\). Let \(N = \max\Bqty{N_1, N_2}\). Then for all \(k \geq N\),
+    \[
+        d\pqty{x, y} \leq d\pqty{x, x_k} + d\pqty{x_k, y} < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+    \]
+
+    This holds for arbitrary \(\epsilon > 0\), so \(d\pqty{x, y} = 0\), and hence \(x = y\).
+\end{proof}
+
+\begin{proposition}[Convergence in \(\RR^n\) with the Euclidean Metric is Componentwise]
+    \label{prop:convergence-in-rn-is-componentwise}%
+    Let \(\RR^n\) be equipped with the Euclidean metric, and
+    let \(\pqty{\vb{x}^{\pqty{k}}}\) be a sequence in \(\RR^n\), where \(\vb{x}^{\pqty{k}} = \pqty{x_1^{\pqty{k}}, x_2^{\pqty{k}}, \ldots, x_n^{\pqty{k}}}\).
+    
+    Then \(\vb{x}_k \to \vb{x} = \pqty{x_1, \dots, x_n}\) in \(\RR^n\), if and only if \(x_{i}^{\pqty{k}} \to x_i\) in \(\RR\) for all \(i = 1, \dots, n\).
+\end{proposition}
