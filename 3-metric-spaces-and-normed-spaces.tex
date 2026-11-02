@@ -271,11 +271,46 @@ This allows us to define an equivalence relation \(f \sim g\) on \(\mathcal{R} \
     Consider \(X = \RR^2\).
 
     \begin{enumerate}[label=(\roman*)]
-        \item Under the Euclidean metric, the open ball \(\oball[\text{E}]{r}{a}\) is the interior of a circle with radius \(r\) and centre \(a\).
-        \item Under the \(\ell_{\infty}\) metric, the open ball \(\oball[\ell_{\infty}]{r}{a}\) is the interior of a square with side length \(2r\) and centre \(a\).
-        \item Under the SNCF metric, the open ball \(\oball[\text{SNCF}]{r}{0}\) is simply the open ball \(\oball[\text{E}]{r}{0}\) under the Euclidean metric. However, for \(a \neq 0\), the open ball \(\oball[\text{SNCF}]{r}{a}\) is the ray from the origin through \(a\) with radius \(r\) under the Euclidean metric, together with the open ball \(\oball[\text{E}]{r - \norm[2]{a}}{0}\) under the Euclidean metric (if \(r > \norm[2]{a}\)).
+        \item Under the Euclidean metric, the open ball \(\oball[\text{E}]{r}{a}\) is the interior of a (Euclidean) circle with radius \(r\) and centre \(a\), as illustrated in \autoref{fig:open-ball-l2}.
+        \item Under the \(\ell_{\infty}\) metric, the open ball \(\oball[\ell_{\infty}]{r}{a}\) is the interior of a square with side length \(2r\) and centre \(a\), as illustrated in \autoref{fig:open-ball-linfty}.
+        \item Under the SNCF metric, the open ball \(\oball[\text{SNCF}]{r}{0}\) is simply the open ball \(\oball[\text{E}]{r}{0}\) under the Euclidean metric, as illustrated in \autoref{fig:open-ball-l2}. However, for \(a \neq 0\), the open ball \(\oball[\text{SNCF}]{r}{a}\) is the ray from the origin through \(a\) with radius \(r\) under the Euclidean metric, together with the open ball \(\oball[\text{E}]{r - \norm[2]{a}}{0}\) under the Euclidean metric (if \(r > \norm[2]{a}\)), as illustrated in \autoref{fig:open-ball-sncf-1} and \autoref{fig:open-ball-sncf-2}.
     \end{enumerate}
+
+    The reason why the balls of the SNCF metric are so different from the Euclidean metric is that the SNCF metric is not translation invariant. In particular, all norm-induced metrics are translation invariant.
 \end{examples}
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig/open-ball-l2.jpg}
+        \caption{\(\oball[\text{E}]{r}{0} = \oball[\text{SNCF}]{r}{0}\)}
+        \label{fig:open-ball-l2}%
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig/open-ball-linfty.jpg}
+        \caption{\(\oball[\ell_{\infty}]{r}{0}\)}
+        \label{fig:open-ball-linfty}%
+    \end{subfigure}
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig/open-ball-sncf-1.jpg}
+        \caption{\(\oball[\text{SNCF}]{r}{a}, r < \norm[2]{a}\)}
+        \label{fig:open-ball-sncf-1}%
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig/open-ball-sncf-2.jpg}
+        \caption{\(\oball[\text{SNCF}]{r}{a}, r > \norm[2]{a}\)}
+        \label{fig:open-ball-sncf-2}%
+    \end{subfigure}
+    \caption{Open Balls in \(\RR^2\) under Different Metrics}
+    \label{fig:open-balls-in-r2}%
+\end{figure}
 
 Note that the property of being open or closed for a subset is relative to the containing metric space.
 
@@ -308,15 +343,34 @@ Note that the property of being open or closed for a subset is relative to the c
     \end{enumerate}
 \end{proposition}
 
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig/open-ball-is-open.jpg}
+        \caption{Open Ball is Open}
+        \label{fig:open-ball-is-open}%
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig/singleton-is-closed.jpg}
+        \caption{Singleton is Closed}
+        \label{fig:singleton-is-closed}%
+    \end{subfigure}
+    \caption{Open Balls and Singletons in Metric Spaces}
+    \label{fig:open-balls-and-singletons}%
+\end{figure}
+
 \begin{proof}
     \begin{enumerate}[label=(\roman*)]
         \item For any \(y \in \oball{r}{a}\), we have \(d\pqty{y, a} < r\). Let \(\epsilon = r - d\pqty{y, a} > 0\). Then for any \(z \in \oball{\epsilon}{y}\), we have
         \[
             d\pqty{z, a} \leq d\pqty{z, y} + d\pqty{y, a} < \epsilon + d\pqty{y, a} = r,
         \]
-        so \(z \in \oball{r}{a}\). Hence, \(\oball{\epsilon}{y} \subseteq \oball{r}{a}\), so \(\oball{r}{a}\) is open.
+        so \(z \in \oball{r}{a}\). Hence, \(\oball{\epsilon}{y} \subseteq \oball{r}{a}\), so \(\oball{r}{a}\) is open. Visually, the relation between the open balls \(\oball{r}{a}\) and \(\oball{\epsilon}{y}\) is illustrated in \autoref{fig:open-ball-is-open}.
 
-        \item For any \(x \in X \setminus \Bqty{a}\), we have \(d\pqty{x, a} > 0\). Let \(r = d\pqty{x, a}\), then \(\oball{r}{x} \subseteq X \setminus \Bqty{a}\), so \(X \setminus \Bqty{a}\) is open, and hence \(\Bqty{a}\) is closed.
+        \item For any \(x \in X \setminus \Bqty{a}\), we have \(d\pqty{x, a} > 0\). Let \(r = d\pqty{x, a}\), then \(\oball{r}{x} \subseteq X \setminus \Bqty{a}\), so \(X \setminus \Bqty{a}\) is open, and hence \(\Bqty{a}\) is closed, as illustrated in \autoref{fig:singleton-is-closed}.
     \end{enumerate}
 \end{proof}
 
