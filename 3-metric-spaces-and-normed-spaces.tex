@@ -464,5 +464,110 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
     Let \(\RR^n\) be equipped with the Euclidean metric, and
     let \(\pqty{\vb{x}^{\pqty{k}}}\) be a sequence in \(\RR^n\), where \(\vb{x}^{\pqty{k}} = \pqty{x_1^{\pqty{k}}, x_2^{\pqty{k}}, \ldots, x_n^{\pqty{k}}}\).
     
-    Then \(\vb{x}_k \to \vb{x} = \pqty{x_1, \dots, x_n}\) in \(\RR^n\), if and only if \(x_{i}^{\pqty{k}} \to x_i\) in \(\RR\) for all \(i = 1, \dots, n\).
+    Then \(\vb{x}^{\pqty{k}} \to \vb{x} = \pqty{x_1, \dots, x_n}\) in \(\RR^n\), if and only if \(x_{i}^{\pqty{k}} \to x_i\) in \(\RR\) for all \(i = 1, \dots, n\).
 \end{proposition}
+
+\begin{proof}
+    \(\implies\). Fix \(\epsilon > 0\). Then there is some \(K \in \NN\) such that for all \(k \geq K\), we have \(\norm[2]{\vb{x}^{\pqty{k}} - \vb{x}} < \epsilon\).
+
+    So we have
+    \[
+        \abs{x_j^{\pqty{k}} - x_j} \leq \norm[2]{\vb{x}^{\pqty{k}} - \vb{x}} < \epsilon,
+    \]
+    for all \(j = 1, \dots, n\). Hence, \(x_j^{\pqty{k}} \to x_j\) in \(\RR\) for all \(j = 1, \dots, n\).
+
+    \(\impliedby\). For each \(j \in \Bqty{1, 2, \ldots, n}\), there is some \(K_j \in \NN\), such that for all \(k \geq K_j\), we habe \(\abs{x_j^{\pqty{k}} - x_j} < \flatfrac{\epsilon}{\sqrt{n}}\).
+
+    Set \(K = \max{K_1, K_2, \ldots, K_n}\). Then for all \(k \geq K\), we have
+    \[
+        \norm[2]{\vb{x}^{\pqty{k}} - \vb{x}}^2 = \sum_{j = 1}^{n} \abs{x_j^{\pqty{k}} - x_j}^2 < n \cdot \frac{\epsilon^2}{n} = \epsilon^2,
+    \]
+    so \(\norm[2]{\vb{x}^{\pqty{k}} - \vb{x}} < \epsilon\), as desired.
+\end{proof}
+
+\begin{remark}
+    Later, we will see that any norm-induced metric on \(\RR^n\) (and indeed, on any finite-dimensional vector space), are equivalent to each other, in a certain very precise way. Once we have this, convergence being componentwise will extend to any finite-dimensional vector space.
+\end{remark}
+
+\begin{definition}[Bounded Subsets]
+    Let \(\pqty{X, d}\) be a metric space. A subset \(E \subseteq X\) is said to be \term{bounded}, if there is some ball \(\oball{R}{x}\), such that \(E \subseteq \oball{R}{x}\).
+\end{definition}
+
+\begin{remark}
+    Note that then for any \(b \in X\), we have \(E \subseteq \oball{R + d\pqty{x, b}}{b}\). Hence, the choice of centre of the ball is not important.
+\end{remark}
+
+\begin{theorem}[Bolzano--Weierstrass Theorem in \(\RR^n\)]
+    \label{thm:bolzano-weierstrass}%
+    Any bounded sequence in \(\RR^n\) has a convergent subsequence.
+\end{theorem}
+
+\begin{remark}
+    We will show this for the Euclidean norm, but by the above remark, this will hold for any norm-induced metric on \(\RR^n\).
+\end{remark}
+
+\begin{proof}
+    Suppose \(\pqty{\vb{x}^{\pqty{k}}}\) is bounded in \(\RR^n\). So there is some \(R > 0\), such that \(\norm[2]{\vb{x}^{\pqty{k}}} < R\) for all \(k \in \NN\). Then each component sequence \(\pqty{x_j^{\pqty{k}}}\) is bounded in \(\RR\) for \(j = 1, \dots, n\). Let \(\vb{x}^{\pqty{k}} = \pqty{x_1^{\pqty{k}}, x_2^{\pqty{k}}, \ldots, x_n^{\pqty{k}}}\).
+
+    Applying the Bolzano--Weierstrass theorem in \(\RR\) to each component sequence iteratively gives a convergent subsequence of \(\pqty{\vb{x}^{\pqty{k}}}\) in \(\RR^n\).
+
+    Alternatively, we can prove using induction on the dimension \(n\), by writing
+    \[
+        \vb{x}^{\pqty{k}} = \pqty{\vb{y}^{\pqty{k}}, x_n^{\pqty{k}}},
+    \]
+    where \(\pqty{\vb{y}^{\pqty{k}}}\) is a sequence in \(\RR^{n - 1}\) and \(\pqty{x_n^{\pqty{k}}}\) is a sequence in \(\RR\). Note we have
+    \[
+        \norm[2]{\vb{x}^{\pqty{k}}}^2 = \norm[2]{\vb{y}^{\pqty{k}}}^2 + \abs{x_n^{\pqty{k}}}^2.
+    \]
+
+    So both \(\pqty{\vb{y}^{\pqty{k}}}\) and \(\pqty{x_n^{\pqty{k}}}\) are bounded, in \(\RR^{n - 1}\) and in \(\RR\) respectively. So by induction hypothesis, there is a subsequence \(\pqty{\vb{y}^{\pqty{k_j}}}\) of \(\pqty{\vb{y}^{\pqty{k}}}\) which converges in \(\RR^{n - 1}\) in \(\ell_2\) norm.
+    
+    Applying the Bolzano--Weierstrass theorem in \(\RR\) to the subsequence \(\pqty{x_n^{\pqty{k_j}}}\) gives a further subsequence \(\pqty{x_n^{\pqty{k_{j_l}}}}\) which converges in \(\RR\). Then the corresponding subsequence \(\pqty{\vb{y}^{\pqty{k_{j_l}}}}\) converges in \(\RR^{n - 1}\), and hence the sequence \(\pqty{\vb{x}^{\pqty{k_{j_l}}}}\) converges in \(\RR^n\).
+\end{proof}
+
+\begin{remark}
+    Finite dimensionality of \(\RR^n\) is necessary for \autoref{prop:convergence-in-rn-is-componentwise} and \autoref{thm:bolzano-weierstrass}.
+\end{remark}
+
+\begin{example}
+    Consider \(\pqty{\ell_{\infty}, \norm[\infty]{\cdot}}\). Then the sequence of sequences
+    \[
+        e^{\pqty{k}} = \pqty{0, 0, \ldots, 0, 1, 0, \ldots}
+    \]
+    where the \(1\) is in the \(k\)-th position, i.e., 
+    \[
+        e_j^{\pqty{k}} = \kronecker_{kj} = \begin{cases}
+            1, & \qif j = k,\\
+            0, & \qif j \neq k.
+        \end{cases}
+    \]
+
+    Then note \(\norm[\infty]{e^{\pqty{k}}} = 1\), so the sequence is bounded. But there is no convergent subsequence: if there is a convergent subsequence \(e^{\pqty{k_j}} \to e = \pqty{c_1, e_2, \ldots} \in \ell_{\infty}\) such that \(\norm[\infty]{e^{\pqty{k_j}} - e} \to 0\), then for all \(l\), we have \(\abs{e_l^{\pqty{k_j}} - c_l} \to 0\) as \(j \to \infty\) by the definition of the \(\ell_{\infty}\) norm.
+
+    But \(e_l^{\pqty{k_j}} = 0\) for all sufficiently large \(j\), so \(e_l = 0\) for all \(l\). But \(\norm[\infty]{e^{\pqty{k_j}} - e} = \norm[\infty]{e^{\pqty{k_j}}} = 1\) for all \(j\), so the sequence cannot converge to \(e\).
+\end{example}
+
+\begin{definition}[Limit Points, Isolated Points, Closure, Interior]
+    Let \(\pqty{X, d}\) be a metric space. Let \(E \subseteq X\) be any subset.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item A point \(x \in X\) is a \term{limit point} of \(E\) if there is a sequence \(\pqty{x_k}\) in \(E\) with \(x_k \neq x\) for all \(k\),  such that \(x_k \to x\) in \(X\).
+        \item A point \(x \in X\) is an \term{isolated point} of \(E\) if \(x \in E\) and \(x\) is not a limit point of \(E\).
+        \item The \term{closure} of \(E\) is defined by
+        \begin{align*}
+            \closure{E} &= \set{x \in X}{x = \lim_{k \to \infty} x_k \text{ for some sequence } \pqty{x_k} \subseteq E} \\
+            &= E \cup \set{x \in X}{x \text{ is a limit point of } E}
+        \end{align*}
+        \item A point \(x \in E\) is an \term{interior point} of \(E\) if there exists \(r > 0\) such that \(\oball{r}{x} \subseteq E\).
+        \item The \term{interior} of \(E\), denoted \(\interior{E}\), is the set of all interior points of \(E\).
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Let \(X = \RR\) with the Euclidean metric, and let \(E = \cointv{0}{1} \cup \Bqty{2}\). Then we have
+    \begin{itemize}
+        \item The limit points of \(E\) are \(\ccintv{0}{1}\), so \(\closure{E} = \ccintv{0}{1} \cup \Bqty{2}\).
+        \item The only isolated point of \(E\) is \(2\).
+        \item The interior points of \(E\) are \(\oointv{0}{1}\), so \(\interior{E} = \oointv{0}{1}\).
+    \end{itemize}
+\end{example}
