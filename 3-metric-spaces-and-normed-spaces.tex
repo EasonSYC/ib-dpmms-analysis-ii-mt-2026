@@ -576,7 +576,7 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
     \label{prop:closure-is-closed-and-minimal}%
     Let \(\pqty{X, d}\) be a metric space. For any \(E \subseteq X\), \(\closure{E}\) is a closed subset of \(X\). In particular,
     \[
-        \closure{E} = \bigcap_{\subseteq{E \subseteq F \subseteq X \\ F \text{ is closed}}} F.
+        \closure{E} = \bigcap_{\substack{F \subseteq X \\ F \text{ is closed} \\ E \subseteq F}} F.
     \]
 \end{proposition}
 
@@ -652,16 +652,16 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
 \end{remark}
 
 \begin{proof}
-    Let \(\pqty{x^{\pqty{k}}}\) be a Cauchy sequence in \(\RR^n\) with respect to the norm \(\norm[2]{\cdot}\). Then for all \(\epsilon > 0\), there is some \(N \in \NN\), such that for all \(n, m \geq N\), we have
+    Let \(\pqty{\vb{x}^{\pqty{k}}}\) be a Cauchy sequence in \(\RR^n\) with respect to the norm \(\norm[2]{\cdot}\). Then for all \(\epsilon > 0\), there is some \(N \in \NN\), such that for all \(n, m \geq N\), we have
     \[
-        \norm[2]{x^{\pqty{n}} - x^{\pqty{m}}} < \epsilon.
+        \norm[2]{\vb{x}^{\pqty{n}} - \vb{x}^{\pqty{m}}} < \epsilon.
     \]
 
-    Write \(x^{\pqty{k}} = \pqty{x_1^{\pqty{k}}, x_2^{\pqty{k}}, \ldots, x_n^{\pqty{k}}}\). Then for each \(j = 1, \ldots, n\), we have
+    Write \(\vb{x}^{\pqty{k}} = \pqty{x_1^{\pqty{k}}, x_2^{\pqty{k}}, \ldots, x_n^{\pqty{k}}}\). Then for each \(j = 1, \ldots, n\), we have
     \[
-        \abs{x_j^{\pqty{n}} - x_j^{\pqty{m}}} \leq \norm[2]{x^{\pqty{n}} - x^{\pqty{m}}} < \epsilon,
+        \abs{x_j^{\pqty{n}} - x_j^{\pqty{m}}} \leq \norm[2]{\vb{x}^{\pqty{n}} - \vb{x}^{\pqty{m}}} < \epsilon,
     \]
-    so the component sequences are Cauchy in \(\RR\), and using completeness of \(\RR\) with respect to the Euclidean metric, we see that each component sequence satisfies \(x_j^{\pqty{k}} \to x_j \in \RR\). Then by \autoref{prop:convergence-in-rn-is-componentwise}, we have \(x^{\pqty{k}} \to x\) in \(\RR^n\), where \(x = \pqty{x_1, x_2, \ldots, x_n}\).
+    so the component sequences are Cauchy in \(\RR\), and using completeness of \(\RR\) with respect to the Euclidean metric, we see that each component sequence satisfies \(x_j^{\pqty{k}} \to x_j \in \RR\). Then by \autoref{prop:convergence-in-rn-is-componentwise}, we have \(\vb{x}^{\pqty{k}} \to \vb{x}\) in \(\RR^n\), where \(\vb{x} = \pqty{x_1, x_2, \ldots, x_n}\).
 \end{proof}
 
 \begin{theorem}[Completeness of \(\contClass{0}\pqty{\ccintv{a}{b}}\)]
