@@ -571,3 +571,119 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
         \item The interior points of \(E\) are \(\oointv{0}{1}\), so \(\interior{E} = \oointv{0}{1}\).
     \end{itemize}
 \end{example}
+
+\begin{proposition}[Closure is Closed and Minimal]
+    \label{prop:closure-is-closed-and-minimal}%
+    Let \(\pqty{X, d}\) be a metric space. For any \(E \subseteq X\), \(\closure{E}\) is a closed subset of \(X\). In particular,
+    \[
+        \closure{E} = \bigcap_{\subseteq{E \subseteq F \subseteq X \\ F \text{ is closed}}} F.
+    \]
+\end{proposition}
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}}
+\end{proof}
+
+\begin{proposition}[Characterisation of Closed Sets]
+    \label{prop:characterisation-of-closed-sets}%
+    Let \(E \subseteq X\). Then the following are equivalent.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(\pqty{x_k}\) is a sequence in \(E\) such that \(x_k \to x\) in \(X\), then \(x \in E\).
+        \item \(E = \closure{E}\).
+        \item \(E\) is closed in \(X\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Note (i) is equivalent to that \(E\) contains its limit points, which is equivalent to (ii).
+
+    (ii) is equivalent to (iii) by \autoref{prop:closure-is-closed-and-minimal} (by taking \(F = E\) in the union). 
+\end{proof}
+
+\subsection{Cauchy Sequences and Complete Metric Spaces}
+
+\begin{definition}[Cauchy Sequences in Metric Spaces]
+    Let \(\pqty{X, d}\) be a metric space. A sequence \(\pqty{x_k}\) in \(X\) is a \term{Cauchy sequence} if for all \(\epsilon > 0\), there exists \(N \in \NN\) such that for all \(m, n \geq N\), we have
+    \[
+        d\pqty{x_m, x_n} < \epsilon.
+    \]
+\end{definition}
+
+\begin{proposition}[Convergence Implies Cauchy and Cauchy Implies Bounded, Subsequential Convergence]
+    We have the following.
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(\pqty{x_n}\) is a convergent sequence in \(X\), then \(\pqty{x_n}\) is a Cauchy sequence.
+        \item If \(\pqty{x_n}\) is a Cauchy sequence in \(X\), then \(\pqty{x_n}\) is bounded.
+        \item If \(\pqty{x_n}\) is a Cauchy sequence in \(X\) and has a convergent subsequence \(x_{n_k} \to x\), then \(x_n \to x\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(x_n \to x\), then \(d\pqty{x_n, x_m} \leq d\pqty{x_n, x} + d\pqty{x_m, x} \to 0\) as \(n, m \to \infty\), so \(x_n\) is Cauchy.
+        \item If \(\pqty{x_n}\) is Cauchy, then there exists \(N \in \NN\) such that for all \(m, n \geq N\), we have \(d\pqty{x_m, x_n} < 1\). Then for all \(n \geq N\), we have \(d\pqty{x_n, x_N} < 1\). Consider
+        \[
+            R = \max\Bqty{d\pqty{x_1, x_N}, d\pqty{x_2, x_N}, \ldots, d\pqty{x_{N - 1}, x_N}}.
+        \]
+
+        Then \(x_{n + 1} \in \oball{R + 1}{x_N}\) for all \(n \in \NN\), so \(\pqty{x_n}\) is bounded.
+        \item Given \(\epsilon > 0\), there exists \(N\) such that \(d\pqty{x_n, x_m} < \epsilon\) for all \(m, n \geq N\). Therefore, for \(K\) such that \(n_k \geq N\) for all \(k \geq K\), we have \(d\pqty{x_{n_k}, x} < \epsilon\) for all \(k \geq K\). In particular, \(d\pqty{x_{n_K}, x} < \epsilon\). Then for all \(n \geq N\), we have
+        \[
+            d\pqty{x_n, x} \leq d\pqty{x_n, x_{n_K}} + d\pqty{x_{n_K}, x} < \epsilon + \epsilon = 2\epsilon,
+        \]
+        and hence \(x_n \to x\).
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[Complete Metric Spaces and Normed Spaces]
+    A metric space \(\pqty{X, d}\) is \term{complete} if every Cauchy sequence in \(X\) converges to some element in \(X\).
+
+    A normed space \(\pqty{V, \norm{\cdot}}\) is \term{complete} if the metric space induced by the norm is complete.
+\end{definition}
+
+\begin{theorem}[Completeness of \(\RR^n\)]
+    \label{thm:completeness-of-rn}%
+    \(\RR^n\) (equipped with the Euclidean metric) is complete.
+\end{theorem}
+
+\begin{remark}
+    Once we have equivalence of norms later in the course, \(\RR^n\) or any finite dimensional space with any norm is complete.
+\end{remark}
+
+\begin{proof}
+    Let \(\pqty{x^{\pqty{k}}}\) be a Cauchy sequence in \(\RR^n\) with respect to the norm \(\norm[2]{\cdot}\). Then for all \(\epsilon > 0\), there is some \(N \in \NN\), such that for all \(n, m \geq N\), we have
+    \[
+        \norm[2]{x^{\pqty{n}} - x^{\pqty{m}}} < \epsilon.
+    \]
+
+    Write \(x^{\pqty{k}} = \pqty{x_1^{\pqty{k}}, x_2^{\pqty{k}}, \ldots, x_n^{\pqty{k}}}\). Then for each \(j = 1, \ldots, n\), we have
+    \[
+        \abs{x_j^{\pqty{n}} - x_j^{\pqty{m}}} \leq \norm[2]{x^{\pqty{n}} - x^{\pqty{m}}} < \epsilon,
+    \]
+    so the component sequences are Cauchy in \(\RR\), and using completeness of \(\RR\) with respect to the Euclidean metric, we see that each component sequence satisfies \(x_j^{\pqty{k}} \to x_j \in \RR\). Then by \autoref{prop:convergence-in-rn-is-componentwise}, we have \(x^{\pqty{k}} \to x\) in \(\RR^n\), where \(x = \pqty{x_1, x_2, \ldots, x_n}\).
+\end{proof}
+
+\begin{theorem}[Completeness of \(\contClass{0}\pqty{\ccintv{a}{b}}\)]
+    \label{thm:completeness-of-contclass-0}%
+    The space \(\pqty{\contClass{0}\pqty{\ccintv{a}{b}}, \norm[\infty]{\cdot}}\) is complete.
+\end{theorem}
+
+\begin{proof}
+    Let \(\pqty{f_k}\) be Cauchy with respect to the \(\ell_{\infty}\) norm. Then by \autoref{thm:cauchy-criterion-uniform-convergence} (Cauchy criterion), \(\pqty{f_k}\) converges in the \(\ell_{\infty}\) norm to some \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\). By \autoref{cor:uniform-convergence-preserves-continuity}, \(f\) is continuous. 
+\end{proof}
+
+\begin{theorem}[Completeness of \(\pqty{\ell_p, \norm[p]{\cdot}}\)]
+    \label{thm:completeness-of-ellp}%
+    The spaces \(\pqty{\ell_p, \norm[p]{\cdot}}\) for \(p = 1, 2, \infty\).
+\end{theorem}
+
+\begin{proof}
+    \(\ell_1\) and \(\ell_2\): \textbf{\textcolor{red}{See Example Sheet.}}
+
+    To see that \(\pqty{\ell_{\infty}, \norm[\infty]{\cdot}}\) is complete, recall that \(\ell_{\infty}\) is the space of bounded functions \(\NN \to \RR\). So a Cauchy sequence in \(\ell_{\infty}\) is a Cauchy sequence of bounded functions with respect to the uniform norm of the function, which converges to a function by \autoref{thm:cauchy-criterion-uniform-convergence} (Cauchy criterion). \(f\) will be bounded (hence belongs to \(\ell_{\infty}\)) by the triangular inequality: since \(f_k \to f\), take \(\epsilon = 1\), then
+    \[
+        \norm[\infty]{f} \leq \norm[\infty]{f - f_k} + \norm[\infty]{f_k} < 1 + \norm[\infty]{f_k},
+    \]
+    for sufficiently large \(k\).
+\end{proof}
