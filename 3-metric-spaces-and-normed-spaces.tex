@@ -601,6 +601,8 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
     Note (i) is equivalent to that \(E\) contains its limit points, which is equivalent to (ii).
 
     (ii) is equivalent to (iii) by \autoref{prop:closure-is-closed-and-minimal} (by taking \(F = E\) in the union). 
+
+    (i) is equivalent to (iii) \textbf{\textcolor{red}{See Example Sheet.}}
 \end{proof}
 
 \subsection{Cauchy Sequences and Complete Metric Spaces}
@@ -689,3 +691,96 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
     \]
     for sufficiently large \(k\).
 \end{proof}
+
+\begin{theorem}[Subspace is Complete if and only if Closed]
+    \label{thm:subspace-is-complete-if-and-only-if-closed}%
+    Let \(\pqty{X, d}\) be a complete metric space. Let \(Y \subseteq X\) be equipped with the induced metric \(\rightbar{d}_{Y \times Y}\). Then \(Y\) is complete if and only if \(Y\) is closed in \(X\).
+\end{theorem}
+
+\begin{proof}
+    \(\implies\). Suppose \(Y\) is complete. Let \(\pqty{y_k}\) be a sequence in \(Y\) with \(y_k \to x \in X\). Then \(\pqty{y_k}\) is Cauchy in \(X\), and hence in \(Y\). Since \(Y\) is complete, \(\pqty{y_k}\) converges to some \(y \in Y\). Limits are unique, so \(x = y \in Y\), and hence \(Y\) is closed in \(X\) by \autoref{prop:characterisation-of-closed-sets}.
+
+    \(\impliedby\). Suppose \(Y\) is closed. Let \(\pqty{y_k}\) be a Cauchy sequence in \(Y\). Then \(\pqty{y_k}\) is Cauchy in \(X\), and since \(X\) is complete, there exists \(x \in X\) such that \(y_k \to x\). Since \(Y\) is closed, we have \(x \in Y\), and hence \(\pqty{y_k}\) converges in \(Y\).
+\end{proof}
+
+\begin{example}
+    \(X = \oointv{0}{1}\) with the Euclidean metric is not complete. For example, the sequence \(x_k = \flatfrac{1}{k}\) is Cauchy in \(X\), but converges to \(0 \notin X\).
+
+    Alternatively, \(X\) is not closed in \(\RR\), which is complete under the Euclidean metric, so \(X\) is not complete by \autoref{thm:subspace-is-complete-if-and-only-if-closed}.
+\end{example}
+
+\begin{example}
+    Consider \(X = \RR \setminus \Bqty{0}\) with the Euclidean metric, and \(Y = \oointv{0}{\plusinfty}\). \(Y\) is closed in \(X\), since \(X \setminus Y = \oointv{\minusinfty}{0}\) is open in \(X\). But neither \(X\) nor \(Y\) is complete, since they are not closed in \(\RR\).
+
+    Let \(Y_1 = \cointv{1}{\plusinfty}\). Then \(Y_1\) is complete, since \(Y_1\) is closed in \(\RR\), and it is closed in \(X\) as well. Therefore, a subspace of a non-complete metric space can be complete.
+\end{example}
+
+\begin{example}[An Incomplete Normed Space]
+    Let
+    \[
+        \ell_0 = \set{\pqty{x_k} \in \RR^\NN}{x_k = 0 \text{ for all but finitely many } k \in \NN},
+    \]
+
+    Then clearly \(\ell_9 \subspace \ell_{\infty}\) as vector spaces. We restrict the norm \(\norm[\infty]{\cdot}\) to the space \(\ell_0\).
+
+    \(\ell_{\infty}\) is complete by \autoref{thm:completeness-of-ellp}, so the completeness of \(\ell_0\) is equivalent to \(\ell_0\) being closed in \(\ell_{\infty}\) by \autoref{thm:subspace-is-complete-if-and-only-if-closed}.
+
+    Consider the sequence
+    \[
+        x^{\pqty{k}} = \pqty{1, \frac{1}{2}, \frac{1}{3}, \ldots, \frac{1}{k}, 0, 0, \ldots} \in \ell_0.
+    \]
+
+    Then in \(\ell_{\infty}\), we can check that
+    \[
+        x^{\pqty{k}} \to x = \pqty{1, \frac{1}{2}, \frac{1}{3}, \ldots} \in \ell_{\infty},
+    \]
+    since
+    \[
+        \norm[\infty]{x^{\pqty{k}} - x} = \frac{1}{k + 1} \to 0.
+    \]
+
+    So \(\ell_0\) is not closed, and hence not complete.
+\end{example}
+
+\begin{example}
+    \(\contClass{0}\pqty{\ccintv{a}{b}}\) with the supremum norm is complete by \autoref{thm:completeness-of-contclass-0}. For \(R > 0\), let
+    \[
+        X = \set{f \in \contClass{0}\pqty{\ccintv{a}{b}}}{\norm[\infty]{f} \leq R}.
+    \]
+
+    Then \(X\) is a closed subset of \(\contClass{0}\pqty{\ccintv{a}{b}}\) (in particular, it is a closed ball), and hence \(X\) is complete by \autoref{thm:subspace-is-complete-if-and-only-if-closed}.
+\end{example}
+
+\begin{example}[Incompleteness of \(L^1\pqty{\ccintv{a}{b}}\)]
+    \begin{enumerate}[label=(\roman*)]
+        \item The space \(\pqty{\contClass{0}\pqty{\ccintv{a}{b}}, \norm[L_1]{\cdot}}\) is not complete.
+        \item Let \(\mathcal{R}\pqty{\ccintv{a}{b}}\) be the space of Riemann integrable functions on \(\ccintv{a}{b}\). Then \(\pqty{\tilde{\mathcal{R}}\pqty{\ccintv{a}{b}}, \norm[L_1]{\cdot}}\) is not complete, where \(\sim\) is the equivalence relation \(f \sim g\) if \(f = g\) almost everywhere.
+    \end{enumerate}
+
+    \small
+
+    This is a fundamental limitation with the Riemann integral, which is very successfully resolved by the more general notion of Lebesgue integration. See \textit{II Probability and Measure} and \textit{II Analysis of Functions}.
+
+    \normalsize
+\end{example}
+
+\subsection{Sequential Compactness and the Heine--Borel Theorem}
+
+\begin{definition}[Sequential Compactness]
+    \begin{enumerate}[label=(\roman*)]
+        \item A metric space \(\pqty{X, d}\) is \term{sequentially compact} if every sequence in \(X\) has a convergent subsequence.
+        \item A subset \(K \subseteq X\) is \term{sequentially compact} if every sequence in \(K\) has a convergent subsequence which converges to a point in \(K\).
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Sequential compactness arises from the definition of compactness in general topological spaces, which would be covered in \textit{IB Topological Spaces}. Metric spaces are topological spaces, and for metric spaces, sequential compactness is equivalent to compactness. For this reason, we will use the term compactness in this course from now on.
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}[label=(\roman*)]
+        \item \(I = \ccintv{0}{1}\) is a compact metric space with respect to the Euclidean metric. This is a consequence of the one-dimensional Bolzano--Weierstrass theorem.
+        \item \(J = \oointv{0}{1}\) is not compact. The bounded sequence \(x_k = \flatfrac{1}{k}\) has no convergent subsequence in \(J\), since this sequence converges to \(0 \notin J\).
+        \item The real line \(\RR\) is not compact. The sequence \(x_k = k\) has no convergent subsequence in \(\RR\).
+    \end{enumerate}
+\end{example}
