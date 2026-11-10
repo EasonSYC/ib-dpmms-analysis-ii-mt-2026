@@ -532,6 +532,7 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
 \end{remark}
 
 \begin{example}
+    \label{ex:bounded-sequence-in-l-infty-with-no-convergent-subsequence}%
     Consider \(\pqty{\ell_{\infty}, \norm[\infty]{\cdot}}\). Then the sequence of sequences
     \[
         e^{\pqty{k}} = \pqty{0, 0, \ldots, 0, 1, 0, \ldots}
@@ -615,6 +616,7 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
 \end{definition}
 
 \begin{proposition}[Convergence Implies Cauchy and Cauchy Implies Bounded, Subsequential Convergence]
+    \label{prop:convergence-implies-cauchy-and-cauchy-implies-bounded-subsequential-convergence}%
     We have the following.
     \begin{enumerate}[label=(\roman*)]
         \item If \(\pqty{x_n}\) is a convergent sequence in \(X\), then \(\pqty{x_n}\) is a Cauchy sequence.
@@ -784,3 +786,212 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
         \item The real line \(\RR\) is not compact. The sequence \(x_k = k\) has no convergent subsequence in \(\RR\).
     \end{enumerate}
 \end{example}
+
+\begin{theorem}[Compact Metric Spaces are Complete and Bounded]
+    \label{thm:compact-metric-spaces-are-complete-and-bounded}%
+    If \(\pqty{X, d}\) is a compact metric space, then \(X\) is complete and bounded.
+\end{theorem}
+
+\begin{proof}
+    To prove completeness, let \(\pqty{x_k}\) be a Cauchy sequence in \(X\). By compactness, there is a subsequence \(\pqty{x_{k_j}}\) and some \(x \in X\), such that \(x_{k_j} \to x\). Then by \autoref{prop:convergence-implies-cauchy-and-cauchy-implies-bounded-subsequential-convergence} (iii), we have \(x_k \to x\) in \(X\), and hence \(X\) is complete.
+
+    To prove bounded, fix \(x_0 \in X\). We prove by contradiction. If \(X\) is not bounded, then we can find a sequence \(x_k \in X\) such that \(d\pqty{x_k, x_0} > k\). Then by compactness, there is subsequence \(x_{k_j}\) and some \(x \in X\), such that \(x_{k_j} \to x\). But then
+    \begin{align}
+        k_j & \leq d\pqty{x_{k_j}, x_0} \\
+        & \leq d\pqty{x_{k_j}, x} + d\pqty{x, x_0} \\
+        & \to d\pqty{x, x_0} \text{ as } j \to \infty,
+    \end{align}
+    which is a contradiction, since \(k_j \to \infty\) as \(j \to \infty\). Hence, \(X\) is bounded.
+\end{proof}
+
+\begin{theorem}[Compact Subsets of Metric Spaces are Closed and Bounded]
+    \label{thm:compact-subsets-of-metric-spaces-are-closed-and-bounded}%
+    If \(\pqty{X, d}\) is a metric space, and \(K \subseteq X\) is compact, then \(K\) is closed and bounded.
+\end{theorem}
+
+\begin{proof}
+    The restriction of the metric \(d\) to \(K\) makes \(\pqty{K, \rightbar{d}_{K \times K}}\) a compact metric space. Then by \autoref{thm:compact-metric-spaces-are-complete-and-bounded} (Complete Metric Spaces are Complete and Bounded), \(K\) is complete and bounded.
+    
+    Since \(K\) is complete, it is closed in \(X\) by \autoref{thm:subspace-is-complete-if-and-only-if-closed} (Subspace is Complete if and only if it is Closed). Concretely, suppose \(\pqty{x_k} \subseteq K\) and \(x_k \to x \in X\). As \(K\) is compact, there is some subsequence \(x_{k_j} \to y \in K\). But limits are unique, so \(x = y \in K\), and hence \(K\) is closed in \(X\).
+\end{proof}
+
+The converse of each of above holds for \(\RR^n\) (with the standard Euclidean metric), but not in general metric spaces.
+
+\begin{examples}[Closed and Bounded Subsets of Metric Spaces Need Not be Compact]
+    \begin{enumerate}
+        \item In \autoref{ex:bounded-sequence-in-l-infty-with-no-convergent-subsequence}, we saw that the sequence \(\pqty{e^{\pqty{k}}}\) is bounded in \(\ell_{\infty}\) has no convergent subsequence. Hence, the closed and bounded subset \(\Bqty{e^{\pqty{k}}}{k \in \NN} \subseteq \ell_{\infty}\) is not compact.
+        \item Let \(X = \RR\) with the metric \(d\pqty{x, y} = \min\Bqty{1, \abs{x - y}}\). Then \(\pqty{X, d}\) is a complete and bounded metric space. But \(X\) is not compact, since the sequence \(x_k = k\) has no convergent subsequence in \(X\), since for any fixed \(x \in X\), we have \(d\pqty{x_k, x} = 1\) for all sufficiently large \(k\).
+    \end{enumerate}
+\end{examples}
+
+In \(\RR^n\) with the standard Euclidean metric, we have the following result.
+
+\begin{theorem}[Heine--Borel]
+    \label{thm:heine-borel}%
+    Let \(K \subseteq \RR^n\). Then \(K\) is compact if and only if \(K\) is closed and bounded.
+\end{theorem}
+
+\begin{proof}
+    The only if direction is by \autoref{thm:compact-subsets-of-metric-spaces-are-closed-and-bounded} (Compact Subsets of Metric Spaces are Closed and Bounded).
+
+    The if direction is simply \autoref{thm:bolzano-weierstrass} (Bolzano--Weierstrass theorem) in \(\RR^n\). If \(\pqty{\vb{x}_k} \subseteq L\), then as \(k\) is bounded, the sequence \(\pqty{\vb{x}_k}\) is bounded, and hence has a convergent subsequence by \autoref{thm:bolzano-weierstrass}. Since \(L\) is closed, the limit of the convergent subsequence is in \(L\), and hence \(L\) is compact.
+\end{proof}
+
+In general metric spaces, completeness with a stronger version of boundedness is equivalent to compactness.
+
+\begin{definition}[Totally Bounded]
+    \label{def:totally-bounded}%
+    A metric space \(\pqty{X, d}\) is \term{totally bounded} if for all \(\epsilon > 0\), we have finitely many \(x_1, \ldots, x_n \in X\), such that
+    \[
+        X = \bigcup_{i = 1}^n \oball{x_i}{\epsilon}.
+    \]
+\end{definition}
+
+\begin{theorem}[Compactness is Equivalent to Completeness and Total Boundedness]
+    \label{thm:compactness-equivalent-to-completeness-and-total-boundedness}%
+    A metric space \(\pqty{X, d}\) is compact if and only if it is complete and totally bounded.
+\end{theorem}
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}}
+\end{proof}
+
+\subsection{Continuous Mappings between Metric Spaces}
+
+\begin{definition}[Continuous Map]
+    \label{def:continuous-mappings-between-metric-spaces}%
+    Let \(\pqty{X, d}\) and \(\pqty{X', d'}\) be metric spaces. A map \(\functiondomain{f}{X}{X'}\) is \term{continuous at a point \(x \in X\)} if
+    \[
+        \forall \epsilon > 0, \exists \delta > 0: d\pqty{x, y} < \delta \implies d'\pqty{f\pqty{x}, f\pqty{y}} < \epsilon.
+    \]
+
+    Equivalently, using the open ball notation, this definition is equivalent to
+    \[
+        \forall \epsilon > 0, \exists \delta > 0: \oball[d]{x}{\delta} \subseteq f\inverse\pqty{\oball[d']{f\pqty{x}}{\epsilon}}.
+    \]
+
+    We say \(f\) is \term{continuous on \(X\)} if it is continuous at every point \(x \in X\).
+\end{definition}
+
+We will not distinguish between \(d\) and \(d'\) in the notation for open balls, if (which is the case usually) the metric is clear from the context.
+
+\begin{theorem}[Sequential Characterisation of Continuity]
+    \label{thm:sequential-characterisation-of-continuity}%
+    Let \(\pqty{X, d}\) and \(\pqty{X', d'}\) be metric spaces. A map \(\functiondomain{f}{X}{X'}\) is continuous at \(x \in X\), if and only if for all sequences \(\pqty{x_k} \subseteq X\) with \(x_k \to x\), we have \(f\pqty{x_k} \to f\pqty{x}\).
+\end{theorem}
+
+\begin{proof}
+    Suppose \(f\) is continuous at \(x \in X\), take any sequence \(\pqty{x_k} \subseteq X\) with \(x_k \to x\). Let \(\epsilon > 0\) be arbitrary. By definition of continuity, there exists \(\delta > 0\) such that
+    \[
+        \oball{x}{\delta} \subseteq f\inverse\pqty{\oball{f\pqty{x}}{\epsilon}}.
+    \]
+
+    But then since \(x_k \to x\), there exists some \(K \in \NN\), such that
+    \[
+        x_k \in \oball{x}{\delta} \subseteq f\inverse\pqty{\oball{f\pqty{x}}{\epsilon}}.
+    \]
+
+    Hence, we have
+    \[
+        f\pqty{x_k} \in \oball{f\pqty{x}}{\epsilon},
+    \]
+    so
+    \[
+        d'\pqty{f\pqty{x_k}, f\pqty{x}} < \epsilon,
+    \]
+    for all \(k \geq K\), and hence \(f\pqty{x_k} \to f\pqty{x}\).
+
+    If \(f\) is not continuous at \(x \in X\), then there exists \(\epsilon > 0\) such that for all \(\delta > 0\), we have
+    \[
+        \oball{x}{\delta} \nsubseteq f\inverse\pqty{\oball{f\pqty{x}}{\epsilon}}.
+    \]
+
+    For \(k = 1, 2, 3, \ldots\), take \(\delta = \flatfrac{1}{k}\). Then there exists \(x_k \in \oball{x}{\flatfrac{1}{k}}\) such that
+    \[
+        f\pqty{x_k} \notin \oball{f\pqty{x}}{\epsilon},
+    \]
+    so \(x_k \to x\) but \(f\pqty{x_k} \not\to f\pqty{x}\), as \(d'\pqty{f\pqty{x_k}, f\pqty{x}} \geq \epsilon\) for all \(k\).
+\end{proof}
+
+There are many equivalent characterisations of continuity on the whole space.
+
+\begin{theorem}[Characterisation of Continuity]
+    \label{thm:characterisation-of-continuity}%
+    Suppose \(\pqty{X, d}\) and \(\pqty{X', d'}\) are metric spaces. Let \(\functiondomain{f}{X}{X'}\). Then the following are equivalent.
+    \begin{enumerate}[label=(\roman*)]
+        \item \(f\) is continuous on \(X\).
+        \item \textbf{Sequential Characterisation of Continuity.} For all sequences \(\pqty{x_k} \subseteq X\) with \(x_k \to x\), we have \(f\pqty{x_k} \to f\pqty{x}\).
+        \item \textbf{Open Set Characterisation of Continuity.} For all open sets \(V \subseteq X'\), the pre-image \(f\inverse\pqty{V}\) is open in \(X\).
+        \item \textbf{Closed Set Characterisation of Continuity.} For all closed sets \(E \subseteq X'\), the pre-image \(f\inverse\pqty{E}\) is closed in \(X\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    (i) \(\iff\) (ii) is by \autoref{thm:sequential-characterisation-of-continuity} (Sequential Characterisation of Continuity).
+
+    (iii) \(\iff\) (iv) is by taking complements with the fact about pre-images of complements
+    \[
+        f\inverse\pqty{X' \setminus A} = X \setminus f\inverse\pqty{A}.
+    \]
+
+    (i) \(\implies\) (iii). Let \(V \subseteq X'\) be open. Let \(x \in f\inverse\pqty{V}\) be arbitrary, then \(f\pqty{x} \in V\). Since \(V\) is open, there is some \(\epsilon > 0\) such that \(\oball{f\pqty{x}}{\epsilon} \subseteq V\). Then, continuity of \(f\) at \(x\) means there is some \(\delta > 0\), such that
+    \[
+        \oball{x}{\delta} \subseteq f\inverse\pqty{\oball{f\pqty{x}}{\epsilon}} \subseteq f\inverse\pqty{V}.
+    \]
+
+    Hence, \(f\inverse\pqty{V}\) is open in \(X\).
+
+    (iii) \(\implies\) (i). Let \(x \in X\) and fix \(\epsilon > 0\). Apply the assumption in (iii) with the open set \(V = \oball{f\pqty{x}}{\epsilon}\). So \(f\inverse\pqty{\oball{f\pqty{x}}{\epsilon}}\) is open in \(X\), with \(x \in f\inverse\pqty{\oball{f\pqty{x}}{\epsilon}}\). Hence, there is some \(\delta > 0\) such that
+    \[
+        \oball{x}{\delta} \subseteq f\inverse\pqty{\oball{f\pqty{x}}{\epsilon}},
+    \]
+    which is exactly the definition of continuity at \(x\).
+\end{proof}
+
+\begin{definition}[Uniform Continuity]
+    \label{def:uniform-continuity}%
+    Let \(\pqty{X, d}\) and \(\pqty{X', d'}\) be metric spaces. A map \(\functiondomain{f}{X}{X'}\) is \term{uniformly continuous} on \(X\), if
+    \[
+        \forall \epsilon > 0, \exists \delta > 0, \forall x, y \in X: d\pqty{x, y} < \delta \implies d'\pqty{f\pqty{x}, f\pqty{y}} < \epsilon.
+    \]
+
+    Equivalently, this means
+    \[
+        \forall \epsilon > 0, \exists \delta > 0: \forall x \in X, \oball[d]{x}{\delta} \subseteq f\inverse\pqty{\oball[d']{f\pqty{x}}{\epsilon}}.
+    \]
+\end{definition}
+
+\begin{definition}[Lipschitz Continuity]
+    \label{def:lipschitz-continuity}%
+    Let \(\pqty{X, d}\) and \(\pqty{X', d'}\) be metric spaces. A map \(\functiondomain{f}{X}{X'}\) is \term{Lipschitz continuous} on \(X\), if there exists \(L \in \cointv{0}{\infty}\) such that for all \(x, y \in X\), we have
+    \[
+        d'\pqty{f\pqty{x}, f\pqty{y}} \leq L d\pqty{x, y}.
+    \]
+    
+    The smallest such \(L\) is called the \term{Lipschitz constant} of \(f\), given by
+    \[
+        \Lip\pqty{f} = \sup_{\substack{x, y \in X \\ x \neq y}} \frac{d'\pqty{f\pqty{x}, f\pqty{y}}}{d\pqty{x, y}}.
+    \]
+\end{definition}
+
+\begin{remark}
+    Lipschitz continuity implies uniform continuity, which implies continuity. No reverse implication holds in general.
+\end{remark}
+
+\begin{examples}
+    \begin{itemize}
+        \item The function \(\functiondomain{f}{\oointv{0}{1}}{\RR}\) given by \(f\pqty{x} = \flatfrac{1}{x}\) is continuous but not uniformly continuous.
+        \item The function \(\functiondomain{f}{\ccintv{0}{1}}{\RR}\) given by \(f\pqty{x} = \sqrt{x}\) is uniformly continuous but not Lipschitz continuous.
+    \end{itemize}
+\end{examples}
+
+\begin{theorem}[Continuous Functions on Compact Metric Spaces]
+    Let \(\pqty{X, d}\) be a compact metric space, and \(\pqty{X', d'}\) be any metric space. Suppose \(\functiondomain{f}{X}{X'}\) is continuous. Then we have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \(f\) is uniformly continuous.
+        \item \textbf{Continuous image of Compact Set is Compact.} \(\img f = f\pqty{X} \subseteq X'\) is compact.
+        \item \(f\pqty{X}\) is closed and bounded.
+        \item \textbf{Extreme Value Theorem.} If \(X' = \RR\) with \(d'\) being the standard Euclidean metric, then \(f\) attains its supremum and infimum on \(X\).
+    \end{enumerate}
+\end{theorem}
