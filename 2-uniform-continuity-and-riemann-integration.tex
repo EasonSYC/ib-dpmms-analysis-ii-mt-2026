@@ -70,7 +70,7 @@ It follows directly from the definition that uniform continuity implies continui
 
 We review facts from \textit{IA Analysis I}. Let \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) be a bounded function. Say \(f\) is bounded by \(m \leq f\pqty{x} \leq M\). Let a \term{partition} be
 \[
-    \partition = \Bqty{a_0, a_1, a_2, \ldots, a_n}
+    \partition = \set{a_0, a_1, a_2, \ldots, a_n}
 \]
 with \(a = a_0 < a_1 < a_2 < \cdots < a_n = b\).
 
@@ -98,7 +98,7 @@ One may check that \(\lowerI \pqty{f} \leq \upperI \pqty{f}\). We say \(f\) is \
 Also recall the following theorem.
 
 \begin{theorem}[Riemann Criterion]
-    A bounded function \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is Riemann-integrable if and only if for all \(\epsilon > 0\), there is a partition \(\partition = \Bqty{a_0, \ldots, a_n}\) such that \(\upperSum\pqty{\partition, f} - \lowerSum\pqty{\partition, f} < \epsilon\),
+    A bounded function \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is Riemann-integrable if and only if for all \(\epsilon > 0\), there is a partition \(\partition = \set{a_0, \ldots, a_n}\) such that \(\upperSum\pqty{\partition, f} - \lowerSum\pqty{\partition, f} < \epsilon\),
     i.e.,
     \[
         \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \inf_{I_j} f} < \epsilon  
@@ -116,7 +116,7 @@ Also recall the following theorem.
         \abs{x - y} < \delta \implies \abs{g\pqty{x} - g\pqty{y}} < \epsilon.
     \]
 
-    Let \(\epsilon' > 0\) be arbitrary. Since \(f\) is integrable, there is a partition \(\partition = \Bqty{a_0, \ldots, a_n}\) of \(\ccintv{a}{b}\) such that
+    Let \(\epsilon' > 0\) be arbitrary. Since \(f\) is integrable, there is a partition \(\partition = \set{a_0, \ldots, a_n}\) of \(\ccintv{a}{b}\) such that
     \[
         \upperSum \pqty{\partition, f} - \lowerSum \pqty{\partition, f} = \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \inf_{I_j} f} < \epsilon'.
     \]
@@ -128,7 +128,7 @@ Also recall the following theorem.
 
     We consider splitting this sum up. Let \(J\) be the set of indices
     \[
-        J = \set{j \in \Bqty{0, \ldots, n - 1}}{\sup_{I_j} f - \inf_{I_j} f < \delta\pqty{\epsilon}}.
+        J = \set{j \in \set{0, \ldots, n - 1}}{\sup_{I_j} f - \inf_{I_j} f < \delta\pqty{\epsilon}}.
     \]
 
     For any \(j \in J\) and \(x, y \in I_j\), we must have
@@ -198,7 +198,7 @@ We return to the discussion of uniform convergence and integrability.
     \]
     so \(f\) is bounded.
 
-    For any partition \(\partition = \Bqty{a_0, \ldots, a_n}\), we have
+    For any partition \(\partition = \set{a_0, \ldots, a_n}\), we have
     \begin{align*}
         \upperSum\pqty{\partition, f} - \upperSum\pqty{\partition, f_n} &\leq \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \pqty{\sup_{I_j} f - \sup_{I_j} f_n} \\
         &= \sum_{j = 0}^{n - 1} \pqty{a_{j + 1} - a_j} \bqty{\sup_{I_j} \pqty{f - f_n + f_n} - \inf_{I_j} \pqty{f - f_n + f_n}} \\
@@ -236,7 +236,7 @@ Clearly, a bounded, integrable function \(\functiondomain{f}{\ccintv{a}{b}}{\RR}
 
 \begin{examples}
     \begin{enumerate}
-        \item The empty set \(\emptyset\) and a singleton set \(\Bqty{a}\) are null sets.
+        \item The empty set \(\emptyset\) and a singleton set \(\set{a}\) are null sets.
         \item Any subset of a null set is a null set.
         \item A countable union of null sets is null.
         \item There are uncountable null sets, e.g., the Cantor set.

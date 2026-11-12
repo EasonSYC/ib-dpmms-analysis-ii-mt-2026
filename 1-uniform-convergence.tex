@@ -46,12 +46,12 @@ We would like to deduce properties such as continuity, differentiability, and in
     Let \(q_1, q_2, q_3, \ldots\) be an enumeration of \(\QQ \cap \ccintv{0}{1}\). Define \(\functiondomain{f_n}{\ccintv{0}{1}}{\RR}\) by
     \[
         f_n\pqty{x} = \begin{cases}
-            1 & \qif x \in \Bqty{q_1, q_2, \ldots, q_n}, \\
-            0 & \qif x \in \ccintv{0}{1} \setminus \Bqty{q_1, q_2, \ldots, q_n}.
+            1 & \qif x \in \set{q_1, q_2, \ldots, q_n}, \\
+            0 & \qif x \in \ccintv{0}{1} \setminus \set{q_1, q_2, \ldots, q_n}.
         \end{cases}
     \]
 
-    Note that \(f_n\) is integrable for all \(n \in \NN\), since it is continuous apart from points in \(\Bqty{q_1, q_2, \ldots. q_n}\).
+    Note that \(f_n\) is integrable for all \(n \in \NN\), since it is continuous apart from points in \(\set{q_1, q_2, \ldots. q_n}\).
     
     However, the pointwise limit of \(\pqty{f_n}\) is
     \[
@@ -428,7 +428,7 @@ Differentiation, however, is a subtle matter, and uniform convergence does not n
         \abs{f_n\pqty{x} - f_m\pqty{x}} &\leq \abs{f_n\pqty{c} - f_m\pqty{c}} + \abs{\int_{c}^{x} \pqty{f_n' \pqty{t} - f_m'\pqty{t}} \dd{t}} \\
         &\leq \abs{f_n\pqty{c} - f_m\pqty{c}} + \pqty{b - a} \sup_{t \in \ccintv{a}{b}} \abs{f_n'\pqty{t} - f_m'\pqty{t}}
     \end{align*}
-    and so the uniform Cauchy property of \(f_n\) follows from the Cauchy property of the real sequence \(\Bqty{f_n\pqty{c}}\), and the uniform Cauchy property of \(\pqty{f_n'}\).
+    and so the uniform Cauchy property of \(f_n\) follows from the Cauchy property of the real sequence \(\pqty{f_n\pqty{c}}\), and the uniform Cauchy property of \(\pqty{f_n'}\).
 
     Let \(f\) be the uniform limit of \(\pqty{f_n}\), and \(g\) be the uniform limit of \(\pqty{f_n'}\), continuous.
 

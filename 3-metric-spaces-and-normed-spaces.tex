@@ -102,7 +102,7 @@ We would like to extend these structures to a more general setting of functions 
 \begin{example}[Space of Real-Number Sequences]
     Denote \(\RR^\NN\) be the space of real-number sequences, i.e.
     \[
-        \RR^\NN = \Bqty{\text{sequences }\pqty{x_k}_{k \in \NN}\text{ with }x_k \in \RR}.
+        \RR^\NN = \set{\text{sequences }\pqty{x_k}_{k \in \NN}\text{ with }x_k \in \RR}.
     \]
 
     Under term-wise addition and scalar multiplication, this is a vector space.
@@ -224,7 +224,7 @@ This allows us to define an equivalence relation \(f \sim g\) on \(\mathcal{R} \
 \begin{example}[New Metric from Given Metrics]
     Let \(\pqty{X, d}\) be a metric space. Then a new induced metric can be defined as
     \[
-        \function{g}{X \times X}{\RR}{\pqty{x, y}}{\min\Bqty{1, d\pqty{x, y}}.}
+        \function{g}{X \times X}{\RR}{\pqty{x, y}}{\min\set{1, d\pqty{x, y}}.}
     \]
 
     Another metric could be defined by
@@ -317,21 +317,21 @@ This allows us to define an equivalence relation \(f \sim g\) on \(\mathcal{R} \
 Note that the property of being open or closed for a subset is relative to the containing metric space.
 
 \begin{example}[Open and Closed Subsets in Subspaces]
-    Let \(X = \RR\) with the Euclidean metric, and let \(Y = \cointv{0}{1} \cup \Bqty{2}\) with the induced metric from the Euclidean metric on \(\RR\).
+    Let \(X = \RR\) with the Euclidean metric, and let \(Y = \cointv{0}{1} \cup \set{2}\) with the induced metric from the Euclidean metric on \(\RR\).
 
     In \(Y\), we have the following.
 
     \begin{itemize}
         \item Note the set \(\cointv{0}{1}\) is both open and closed in \(Y\): in particular, \(\oball[Y]{0}{\flatfrac{1}{2}} = \cointv{0}{\flatfrac{1}{2}}\) is contained in \(\cointv{0}{1}\).
     
-        \item Similarly, the singleton \(\Bqty{2}\) is both open and closed in \(Y\), by taking \(\oball[Y]{2}{\flatfrac{1}{2}} = \Bqty{2}\) to be contained in \(\Bqty{2}\).
+        \item Similarly, the singleton \(\set{2}\) is both open and closed in \(Y\), by taking \(\oball[Y]{2}{\flatfrac{1}{2}} = \set{2}\) to be contained in \(\set{2}\).
     \end{itemize}
     
     However, in \(X = \RR\), things become a bit different.
 
     \begin{itemize}
         \item The set \(\cointv{0}{1}\) is neither closed nor open in \(X\).
-        \item \(\Bqty{2}\) is closed in \(X\), but not open in \(X\).
+        \item \(\set{2}\) is closed in \(X\), but not open in \(X\).
     \end{itemize}
 \end{example}
 
@@ -341,7 +341,7 @@ Note that the property of being open or closed for a subset is relative to the c
 
     \begin{enumerate}[label=(\roman*)]
         \item If \(a \in X\) and \(r > 0\), then the open ball \(\oball{a}{r}\) is an open subset of \(X\).
-        \item For any \(a \in X\), the singleton \(\Bqty{a}\) is a closed subset of \(X\).
+        \item For any \(a \in X\), the singleton \(\set{a}\) is a closed subset of \(X\).
     \end{enumerate}
 \end{proposition}
 
@@ -372,7 +372,7 @@ Note that the property of being open or closed for a subset is relative to the c
         \]
         so \(z \in \oball{a}{r}\). Hence, \(\oball{y}{\epsilon} \subseteq \oball{a}{r}\), so \(\oball{a}{r}\) is open. Visually, the relation between the open balls \(\oball{a}{r}\) and \(\oball{y}{\epsilon}\) is illustrated in \autoref{fig:open-ball-is-open}.
 
-        \item For any \(x \in X \setminus \Bqty{a}\), we have \(d\pqty{x, a} > 0\). Let \(r = d\pqty{x, a}\), then \(\oball{x}{r} \subseteq X \setminus \Bqty{a}\), so \(X \setminus \Bqty{a}\) is open, and hence \(\Bqty{a}\) is closed, as illustrated in \autoref{fig:singleton-is-closed}.
+        \item For any \(x \in X \setminus \set{a}\), we have \(d\pqty{x, a} > 0\). Let \(r = d\pqty{x, a}\), then \(\oball{x}{r} \subseteq X \setminus \set{a}\), so \(X \setminus \set{a}\) is open, and hence \(\set{a}\) is closed, as illustrated in \autoref{fig:singleton-is-closed}.
     \end{enumerate}
 \end{proof}
 
@@ -384,7 +384,7 @@ Note that the property of being open or closed for a subset is relative to the c
             1, & \qif x \neq y,
         \end{cases}
     \]
-    for any \(a \in X\), we have \(\oball{a}{r} = \Bqty{a}\) is both open and closed for all \(r \leq 1\).
+    for any \(a \in X\), we have \(\oball{a}{r} = \set{a}\) is both open and closed for all \(r \leq 1\).
 \end{remark}
 
 \begin{theorem}[Unions and Intersections of Open Sets]
@@ -406,7 +406,7 @@ Note that the property of being open or closed for a subset is relative to the c
 \begin{remark}
     The fact we restrict to finite intersections of open sets is important. For example, consider the open intervals \(\oball{0}{\flatfrac{1}{n}} = \oointv{-\flatfrac{1}{n}}{\flatfrac{1}{n}}\) for \(n \in \NN\). Then
     \[
-        \bigcap_{n = 1}^{\infty} \oball{0}{\flatfrac{1}{n}} = \Bqty{0},
+        \bigcap_{n = 1}^{\infty} \oball{0}{\flatfrac{1}{n}} = \set{0},
     \]
     which is not open in \(\RR\).
 \end{remark}
@@ -453,7 +453,7 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
 \end{proposition}
 
 \begin{proof}
-    For all \(\epsilon > 0\), there exists \(N_1, N_2 \in \NN\) such that for all \(k \geq N_1\), \(d\pqty{x_k, x} < \flatfrac{\epsilon}{2}\), and for all \(k \geq N_2\), \(d\pqty{x_k, y} < \flatfrac{\epsilon}{2}\). Let \(N = \max\Bqty{N_1, N_2}\). Then for all \(k \geq N\),
+    For all \(\epsilon > 0\), there exists \(N_1, N_2 \in \NN\) such that for all \(k \geq N_1\), \(d\pqty{x_k, x} < \flatfrac{\epsilon}{2}\), and for all \(k \geq N_2\), \(d\pqty{x_k, y} < \flatfrac{\epsilon}{2}\). Let \(N = \max\set{N_1, N_2}\). Then for all \(k \geq N\),
     \[
         d\pqty{x, y} \leq d\pqty{x, x_k} + d\pqty{x_k, y} < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
     \]
@@ -478,7 +478,7 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
     \]
     for all \(j = 1, \dots, n\). Hence, \(x_j^{\pqty{k}} \to x_j\) in \(\RR\) for all \(j = 1, \dots, n\).
 
-    \(\impliedby\). For each \(j \in \Bqty{1, 2, \ldots, n}\), there is some \(K_j \in \NN\), such that for all \(k \geq K_j\), we habe \(\abs{x_j^{\pqty{k}} - x_j} < \flatfrac{\epsilon}{\sqrt{n}}\).
+    \(\impliedby\). For each \(j \in \set{1, 2, \ldots, n}\), there is some \(K_j \in \NN\), such that for all \(k \geq K_j\), we habe \(\abs{x_j^{\pqty{k}} - x_j} < \flatfrac{\epsilon}{\sqrt{n}}\).
 
     Set \(K = \max{K_1, K_2, \ldots, K_n}\). Then for all \(k \geq K\), we have
     \[
@@ -567,9 +567,9 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
 \end{definition}
 
 \begin{example}
-    Let \(X = \RR\) with the Euclidean metric, and let \(E = \cointv{0}{1} \cup \Bqty{2}\). Then we have
+    Let \(X = \RR\) with the Euclidean metric, and let \(E = \cointv{0}{1} \cup \set{2}\). Then we have
     \begin{itemize}
-        \item The limit points of \(E\) are \(\ccintv{0}{1}\), so \(\closure{E} = \ccintv{0}{1} \cup \Bqty{2}\).
+        \item The limit points of \(E\) are \(\ccintv{0}{1}\), so \(\closure{E} = \ccintv{0}{1} \cup \set{2}\).
         \item The only isolated point of \(E\) is \(2\).
         \item The interior points of \(E\) are \(\oointv{0}{1}\), so \(\interior{E} = \oointv{0}{1}\).
     \end{itemize}
@@ -630,7 +630,7 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
         \item If \(x_n \to x\), then \(d\pqty{x_n, x_m} \leq d\pqty{x_n, x} + d\pqty{x_m, x} \to 0\) as \(n, m \to \infty\), so \(x_n\) is Cauchy.
         \item If \(\pqty{x_n}\) is Cauchy, then there exists \(N \in \NN\) such that for all \(m, n \geq N\), we have \(d\pqty{x_m, x_n} < 1\). Then for all \(n \geq N\), we have \(d\pqty{x_n, x_N} < 1\). Consider
         \[
-            R = \max\Bqty{d\pqty{x_1, x_N}, d\pqty{x_2, x_N}, \ldots, d\pqty{x_{N - 1}, x_N}}.
+            R = \max\set{d\pqty{x_1, x_N}, d\pqty{x_2, x_N}, \ldots, d\pqty{x_{N - 1}, x_N}}.
         \]
 
         Then \(x_{n + 1} \in \oball{x_N}{R + 1}\) for all \(n \in \NN\), so \(\pqty{x_n}\) is bounded.
@@ -712,7 +712,7 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
 \end{example}
 
 \begin{example}
-    Consider \(X = \RR \setminus \Bqty{0}\) with the Euclidean metric, and \(Y = \oointv{0}{\plusinfty}\). \(Y\) is closed in \(X\), since \(X \setminus Y = \oointv{\minusinfty}{0}\) is open in \(X\). But neither \(X\) nor \(Y\) is complete, since they are not closed in \(\RR\).
+    Consider \(X = \RR \setminus \set{0}\) with the Euclidean metric, and \(Y = \oointv{0}{\plusinfty}\). \(Y\) is closed in \(X\), since \(X \setminus Y = \oointv{\minusinfty}{0}\) is open in \(X\). But neither \(X\) nor \(Y\) is complete, since they are not closed in \(\RR\).
 
     Let \(Y_1 = \cointv{1}{\plusinfty}\). Then \(Y_1\) is complete, since \(Y_1\) is closed in \(\RR\), and it is closed in \(X\) as well. Therefore, a subspace of a non-complete metric space can be complete.
 \end{example}
@@ -819,8 +819,8 @@ The converse of each of above holds for \(\RR^n\) (with the standard Euclidean m
 
 \begin{examples}[Closed and Bounded Subsets of Metric Spaces Need Not be Compact]
     \begin{enumerate}
-        \item In \autoref{ex:bounded-sequence-in-l-infty-with-no-convergent-subsequence}, we saw that the sequence \(\pqty{e^{\pqty{k}}}\) is bounded in \(\ell_{\infty}\) has no convergent subsequence. Hence, the closed and bounded subset \(\Bqty{e^{\pqty{k}}}{k \in \NN} \subseteq \ell_{\infty}\) is not compact.
-        \item Let \(X = \RR\) with the metric \(d\pqty{x, y} = \min\Bqty{1, \abs{x - y}}\). Then \(\pqty{X, d}\) is a complete and bounded metric space. But \(X\) is not compact, since the sequence \(x_k = k\) has no convergent subsequence in \(X\), since for any fixed \(x \in X\), we have \(d\pqty{x_k, x} = 1\) for all sufficiently large \(k\).
+        \item In \autoref{ex:bounded-sequence-in-l-infty-with-no-convergent-subsequence}, we saw that the sequence \(\pqty{e^{\pqty{k}}}\) is bounded in \(\ell_{\infty}\) has no convergent subsequence. Hence, the closed and bounded subset \(\set{e^{\pqty{k}}}{k \in \NN} \subseteq \ell_{\infty}\) is not compact.
+        \item Let \(X = \RR\) with the metric \(d\pqty{x, y} = \min\set{1, \abs{x - y}}\). Then \(\pqty{X, d}\) is a complete and bounded metric space. But \(X\) is not compact, since the sequence \(x_k = k\) has no convergent subsequence in \(X\), since for any fixed \(x \in X\), we have \(d\pqty{x_k, x} = 1\) for all sufficiently large \(k\).
     \end{enumerate}
 \end{examples}
 
