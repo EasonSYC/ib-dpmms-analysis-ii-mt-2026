@@ -985,13 +985,215 @@ There are many equivalent characterisations of continuity on the whole space.
     \end{itemize}
 \end{examples}
 
-\begin{theorem}[Continuous Functions on Compact Metric Spaces]
+\begin{theorem}[Uniform Continuity on Compact Metric Spaces]
+    \label{thm:uniform-continuity-on-compact-metric-spaces}%
     Let \(\pqty{X, d}\) be a compact metric space, and \(\pqty{X', d'}\) be any metric space. Suppose \(\functiondomain{f}{X}{X'}\) is continuous. Then we have the following.
 
     \begin{enumerate}[label=(\roman*)]
         \item \(f\) is uniformly continuous.
         \item \textbf{Continuous image of Compact Set is Compact.} \(\img f = f\pqty{X} \subseteq X'\) is compact.
         \item \(f\pqty{X}\) is closed and bounded.
-        \item \textbf{Extreme Value Theorem.} If \(X' = \RR\) with \(d'\) being the standard Euclidean metric, then \(f\) attains its supremum and infimum on \(X\).
+        \item \textbf{Extreme Value Theorem.} If \(X' = \RR\) with \(d'\) being the standard Euclidean metric, then \(f\) attains its supremum and infimum on \(X\), i.e. there exists \(x^{\ast}, x_{\ast} \in X\), such that
+        \begin{align*}
+            f\pqty{x^{\ast}} & = \sup_{x \in X} f\pqty{x}, \\
+            f\pqty{x_{\ast}} & = \inf_{x \in X} f\pqty{x}.
+        \end{align*}
     \end{enumerate}
 \end{theorem}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Argue by contradiction exactly as in the proof of \autoref{thm:continuity-implies-uniform-continuity} (Continuity Implies Uniform Continuity for \(\ccintv{a}{b}\) on \(\RR\)).
+
+        \item Let \(\pqty{y_k} \subseteq f\pqty{X}\), so then there is some \(x_k \in X\), with \(y_k = f\pqty{x_k}\).
+
+        Since \(X\) is compact, there exists a subsequence and some \(x \in X\) such that \(x_{k_j} \to x\). Then by continuity of \(f\), we have \(y_{k_j} = f\pqty{x_{k_j}} \to f\pqty{x} \in f\pqty{X}\), by \autoref{thm:characterisation-of-continuity} (Sequential Characterisation of Continuity). Hence, \(f\pqty{X}\) is compact.
+
+        \item This follows from (ii) with \autoref{thm:compact-subsets-of-metric-spaces-are-closed-and-bounded} (Compact Subsets of Metric Spaces are Closed and Bounded).
+
+        \item In general, for \(E \subseteq \RR\) bounded, we have
+        \[
+            \sup \pqty{E} \in E \qor \sup \pqty{E} \in \RR \text{ is a limit point of } E.
+        \]
+        
+        Since the image \(f\pqty{X}\) is closed and bounded, we have \(\sup f\pqty{X} \in f\pqty{X}\), i.e., there exists some \(x^{\ast} \in X\) such that \(f\pqty{x^{\ast}} = \sup f\pqty{X}\). The proof for the infimum is similar.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Equivalence of Norms}
+
+\begin{definition}[Equivalence of Norms]
+    Two norms \(\norm{\cdot}\) and \(\norm{\cdot}'\) on a vector space \(V\) are \term{Lipschitz equivalent}, if there exists constants \(a, b > 0\), such that
+    \[
+        a \norm{x} \leq \norm{x}' \leq b \norm{x}
+    \]
+    for all \(x \in V\)
+\end{definition}
+
+\begin{remark}
+    This is equivalent to saying that the identity map
+    \[
+        \functiondomain{\identity}{\pqty{V, \norm{\cdot}}}{\pqty{V, \norm{\cdot}'}}
+    \]
+    is Lipschitz continuous, with a Lipschitz continuous inverse.
+\end{remark}
+
+Being Lipschitz equivalent is an equivalence relation on the set of norms on a vector space \(V\).
+
+\begin{proposition}[Equivalence of Norms and Unit Balls at the Origin]
+    Let \(\norm{\cdot}\) and \(\norm{\cdot}'\) be two norms on a vector space \(V\). Then they are Lipschitz equivalent, if and only if there are \(r, R > 0\), such that
+    \[
+        \oball[\norm{\cdot}]{0}{r} \subseteq \oball[\norm{\cdot}']{0}{1} \subseteq \oball[\norm{\cdot}]{0}{R}
+    \]
+\end{proposition}
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}}
+\end{proof}
+
+\begin{example}
+    On \(\RR^2\) (or in fact, any \(\RR^n\)), the norms \(\norm[2]{\cdot}\) and \(\norm[\infty]{\cdot}\) are Lipschitz equivalent. This can be visualised by \autoref{fig:equivalence-of-norms}: as long as we choose \(R \geq \sqrt{2}\) and \(r \leq 1\), we have the inclusion as desired.
+\end{example}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig/equivalence-of-norms.png}
+    \caption{Balls of the \(\ell_2\) and \(\ell_{\infty}\) norms on \(\RR^2\)}
+    \label{fig:equivalence-of-norms}%
+\end{figure}
+
+\begin{theorem}[Equivalence of Norms on Finite-Dimensional Vector Spaces]
+    Any two norms on a finite-dimensional real vector space are Lipschitz equivalent.
+\end{theorem}
+
+\begin{proof}
+    Let \(\dim V = n\) and fix \(\set{\vb{e}_1, \ldots, \vb{e}_n}\) to be a basis of \(V\). Then for any \(\vb{x} \in V\), we can write
+    \[
+        \vb{x} = \sum_{i = 1}^n x_i \vb{e}_i,
+    \]
+    then define
+    \[
+        \norm[2]{\vb{x}} = \sqrt{\sum_{i = 1}^n x_i^2}.
+    \]
+
+    Now, it suffices to prove that any other norm on \(V\) is Lipschitz equivalent to \(\norm[2]{\cdot}\). Let \(\norm{\cdot}\) be any norm on \(V\). Then we have
+    \begin{align*}
+        \norm{\vb{x}} &= \norm{\sum_{i = 1}^{n} x_i \vb{e}_i} \\
+        &\leq \sum_{i = 1}^{n} \norm{x_i \vb{e}_i} && \text{by the Triangular Inequality of }\norm{\cdot} \\
+        &= \sum_{i = 1}^{n} \abs{x_i} \norm{\vb{e}_i} && \text{by Absolute Homogeneity of }\norm{\cdot} \\
+        &\leq \sqrt{\sum_{i = 1}^{n} \norm{\vb{e}_i}^2} \sqrt{\sum_{i = 1}^{n} x_i^2} && \text{by Cauchy--Schwarz Inequality on } \RR^2 \\
+        &= \sqrt{\sum_{i = 1}^{n} \norm{\vb{e}_i}^2} \norm[2]{\vb{x}}.
+    \end{align*}
+
+    Set
+    \[
+        b = \sqrt{\sum_{i = 1}^{n} \norm{\vb{e}_i}^2} > 0,
+    \]
+    then we get exactly
+    \[
+        \norm{\vb{x}} \leq b \norm[2]{\vb{x}}.
+    \]
+
+    Note that we have
+    \begin{align*}
+        &\phantom{\iff} a\norm[2]{\vb{x}} \leq \norm{\vb{x}} && \forall \vb{x} \in V \\
+        &\iff a \leq \norm{\frac{\vb{x}}{\norm[2]{\vb{x}}}} && \forall \vb{x} \in V \setminus \set{0} \\
+        &\iff a \leq \norm{\vb{x}}, && \forall \vb{x} \in S
+    \end{align*}
+    where
+    \[
+        S = \set{\vb{x} \in V}{\norm[2]{\vb{x}} = 1}
+    \]
+    is the Euclidean unit sphere in \(V\). Hence, it suffices to prove that
+    \[
+        \inf_{\vb{x} \in S} \norm{\vb{x}} > 0.
+    \]
+
+    There are two steps to this proof.
+
+    \begin{itemize}
+        \item \textbf{Continuity of the Norm.} The function
+        \[
+            \function{f}{\pqty{V, \norm[2]{\cdot}}}{\RR}{\vb{x}}{\norm{\vb{x}}}
+        \]
+        is continuous.
+
+        The triangular inequality for \(\norm{\cdot}\) gives that
+        \[
+            \abs{\norm{\vb{x}} - \norm{\vb{y}}} \leq \norm{\vb{x} - \vb{y}},
+        \]
+        for all \(\vb{x}, \vb{y} \in V\). In addition to the inequality in the other direction
+        \[
+            \norm{\vb{x}} \leq b \norm[2]{\vb{x}},
+        \]
+        we have
+        \[
+            \abs{\norm{\vb{x}} - \norm{\vb{y}}} \leq \norm{\vb{x} - \vb{y}} \leq b \norm[2]{\vb{x} - \vb{y}},
+        \]  
+        i.e. \(f\) is Lipschitz continuous with Lipschitz constant \(L = b\), and hence continuous.
+
+        \item \textbf{Compactness of \(S\) in \(\pqty{V, \norm[2]{\cdot}}\).} \(S \subseteq V\) is compact with respect to the Euclidean metric \(\norm[2]{\cdot}\).
+        
+        We check directly. Suppose we have a sequence \(\vb{x}^{\pqty{k}}\) in \(S\), each with component
+        \[
+            \vb{x}^{\pqty{k}} = \sum_{j = 1}^{n} x_j^{\pqty{k}} \vb{e}_j,
+        \]
+
+        Then by definition, we have
+        \[
+            \sum_{j = 1}^{n} \abs{x_j^{\pqty{k}}}^2 = 1,
+        \]
+        for all \(k\).
+
+        So consider the sequence in \(\RR^n\) given by
+        \[
+            \hat{\vb{x}}^{\pqty{k}} = \pqty{x_1^{\pqty{k}}, \ldots, x_n^{\pqty{k}}},
+        \]
+        then this sequence is bounded, and by \autoref{thm:bolzano-weierstrass} (Bolzano--Weierstrass theorem), we have
+        \[
+            \hat{\vb{x}}^{\pqty{k_j}} \to \hat{\vb{x}} = \pqty{x_1, \ldots, x_n} \in \RR^n,
+        \]
+        for some subsequence indexed by \(k_j\). Therefore,
+        \[
+            \vb{x} = \sum_{i = 1}^{n} x_i \vb{e}_i \in V.
+        \]
+
+        Since we have
+        \[
+            \sum_{l = 1}^{n} \abs{x_l^{\pqty{k_j}}}^2 = 1
+        \]
+        for all \(j\), taking the limit as \(j \to \infty\) gives
+        \[
+            \sum_{l = 1}^{n} \abs{x_l}^2 = 1,
+        \]
+        and hence \(\vb{x} \in S\), and we have
+        \begin{align*}
+            \norm[2]{\vb{x}^{\pqty{k_j}} - \vb{x}}^2 &= \sum_{l = 1}^{n} \abs{x_l^{\pqty{k_j}} - x_l}^2 \\
+            &\to 0
+        \end{align*}
+        as \(j \to \infty\), so \(\vb{x}^{\pqty{k_j}} \to \vb{x} \in S\) in \(V\). Hence, \(S\) is sequentially compact.
+    \end{itemize}
+
+    Once we have both of these, we are done, since by \autoref{thm:uniform-continuity-on-compact-metric-spaces} (Uniform Continuity on Compact Metric Spaces), there is some \(\vb{x}_{\ast} \in S\), such tat
+    \[
+        f\pqty{\vb{x}_k} \in \inf_{\vb{x} \in S} f\pqty{\vb{x}},
+    \]
+    i.e.,
+    \[
+        \norm{\vb{x}_{\ast}} = \inf_{\vb{x} \in S} \norm{\vb{x}} > 0,
+    \]
+    since \(\vb{x} \in S\) satisfies \(\vb{x} \neq \vb{0}\).
+\end{proof}
+
+On infinite-dimensional vector spaces, there are norms which are not Lipschitz equivalent.
+
+\begin{example}
+    Consider the sequence spaces \(\ell_1 \subseteq \ell_{\infty}\). Both the \(\norm[1]{\cdot}\) and \(\norm[\infty]{\cdot}\) are norms are defined on \(\ell_1\), but they are \emph{not} Lipschitz equivalent.
+
+    To see this, take
+    \[
+        x^{\pqty{k}} = \pqty{1, 1, \ldots, 1, 0, 0, \ldots},
+    \]
+    where the first \(k\) entries are \(1\) and the rest are \(0\). Then we have
+    \(\norm[\infty]{x^{\pqty{k}}} = 1\) for all \(k\), but \(\norm[1]{x^{\pqty{k}}} = k\). Hence, the ratio \(\flatfrac{\norm[1]{x^{\pqty{k}}}}{\norm[\infty]{x^{\pqty{k}}}} = k \to \infty\) as \(k \to \infty\) is not bounded above, so there is no constant \(b > 0\) such that \(\norm[1]{x} \leq b \norm[\infty]{x}\) for all \(x \in \ell_1\). Hence, the norms are not Lipschitz equivalent.
+\end{example}
