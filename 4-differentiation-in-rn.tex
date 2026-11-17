@@ -19,7 +19,7 @@ First, we need the following definition of limit.
 
 How should we define differentiability in \(\RR^n\), say a real-value function \(\functiondomain{f}{\RR^n}{\RR}\), or perhaps, \(\functiondomain{f}{\RR^n}{\RR^m}\) at a point \(x \in \RR^n\)? We want to come up with a definition that is consistent with the one-dimensional case of \(n = 1\), a function \(\functiondomain{f}{\RR}{\RR}\) is \term{differentiable} at \(x \in \RR\) if the limit
 \[
-    D f\pqty{a} = f'\pqty{a} = \lim_{h \to 0} \frac{f\pqty{a + h} - f\pqty{a}}{h}.
+    \dvOp f\pqty{a} = f'\pqty{a} = \lim_{h \to 0} \frac{f\pqty{a + h} - f\pqty{a}}{h}.
 \]
 
 This limit makes sense for \(f\) defined on \(\RR^n\) as well, but what if the function not real-valued, but real-vector-valued? We might naturally define a limit
@@ -48,7 +48,7 @@ for some real number \(A \in \RR\), which would be the value of the derivative  
         \lim_{\vb{h} \to \vb{0}} \frac{f\pqty{a + \vb{h}} - f\pqty{a} - A\vb{h}}{\norm{\vb{h}}} = 0.
     \]
 
-    We say \(A\) is the \term{derivative of \(f\) at \(a\)}, and we denote it by \(Df\pqty{a} = A\).
+    We say \(A\) is the \term{derivative of \(f\) at \(a\)}, and we denote it by \(\dvOp f\pqty{a} = A\).
 \end{definition}
 
 \begin{remark}
@@ -56,13 +56,14 @@ for some real number \(A \in \RR\), which would be the value of the derivative  
 \end{remark}
 
 \begin{proposition}[Properties of Derivatives]
+    \label{prop:properties-of-derivatives}%
     Let \(U \subseteq \RR^n\) be open, \(\functiondomain{f}{U}{\RR^m}\), and let \(a \in U\). We have the following.
     \begin{enumerate}[label=(\roman*)]
-        \item If \(f\) is differentiable at \(a\), then the derivative \(Df\pqty{a}\) is unique.
+        \item If \(f\) is differentiable at \(a\), then the derivative \(\dvOp f\pqty{a}\) is unique.
         \item If \(f\) is differentiable at \(a\), then \(f\) is continuous at \(a\).
         \item Write \(f\) in components \(f = \pqty{f_1, \dots, f_m}\), where \(\functiondomain{f_j}{U}{\RR}\) for \(j = 1, \dots, m\). Then \(f\) is differentiable at \(a\) if and only if each component \(f_i\) is differentiable at \(a\), and in this case, we have
         \[
-            f \pqty{a} = \pmqty{D f_1\pqty{a} \\ D f_2 \pqty{a} \\ \vdots \\ Df_m\pqty{a}}.
+            f \pqty{a} = \pmqty{\dvOp f_1\pqty{a} \\ \dvOp f_2 \pqty{a} \\ \vdots \\ \dvOp f_m\pqty{a}}.
         \]
     \end{enumerate}
 \end{proposition}
@@ -97,32 +98,51 @@ for some real number \(A \in \RR\), which would be the value of the derivative  
     \end{enumerate}
 \end{proof}
 
+\begin{notation}
+    Denote \(\littleO\pqty{\vb{x}}\) for any function \(f\) on \(\RR^n\), satisfying that
+    \[
+        \lim_{\vb{x} \to \vb{0}} \frac{f\pqty{\vb{x}}}{\norm{\vb{x}}} = 0.
+    \]
+
+    In this notation, \(f\) is differentiable at \(a\), if and only if
+    \[
+        f\pqty{a + \vb{h}} = f\pqty{a} + A \vb{h} + \littleO\pqty{\vb{h}},
+    \]
+    or equivalently,
+    \[
+        f\pqty{x} = f\pqty{a} + A\pqty{x - a} + \littleO\pqty{x - a},
+    \]
+    for some linear map \(A \in \linearmap\pqty{\RR^n, \RR^m}\).
+
+    Differentiability at \(a\) means that \(f\) has a good affine approximation near \(a\).
+\end{notation}
+
 \subsection{Directional Derivatives and Partial Derivatives}
 
 \begin{definition}[Directional Derivative]
     Let \(\functiondomain{f}{U}{\RR^m}\) where \(U \subseteq \RR^n\) is open. Let \(\vb{u} \in \RR^n\) be fixed and \(a \in U\). The \term{directional derivative} of \(f\) at \(a\) in the direction \(\vb{u}\) is
     \[
-        D_{\vb{u}} f\pqty{a} = \lim_{t \to 0} \frac{f\pqty{a + t\vb{u}} - f\pqty{a}}{t},
+        \dvOp_{\vb{u}} f\pqty{a} = \lim_{t \to 0} \frac{f\pqty{a + t\vb{u}} - f\pqty{a}}{t},
     \]
 \end{definition}
 
 \begin{proposition}[Computation of Directional Derivatives]
-    If \(f\) is differentiable at \(x = a\), then for any \(\vb{u} \in \RR^n\), the directional derivative \(D_{\vb{u}} f\pqty{a}\) exists and is given by
+    If \(f\) is differentiable at \(x = a\), then for any \(\vb{u} \in \RR^n\), the directional derivative \(\dvOp_{\vb{u}} f\pqty{a}\) exists and is given by
     \[
-        D_{\vb{u}} f\pqty{a} = Df\pqty{a}\vb{u}.
+        \dvOp_{\vb{u}} f\pqty{a} = \dvOp f\pqty{a}\vb{u}.
     \]
 
-    In particular, the map \(\vb{u} \mapsto D_{\vb{u}} f\pqty{a}\) is linear if \(f\) is differentiable at \(a\).
+    In particular, the map \(\vb{u} \mapsto \dvOp_{\vb{u}} f\pqty{a}\) is linear if \(f\) is differentiable at \(a\).
 \end{proposition}
 
 \begin{proof}
     Since \(f\) is differentiable at \(a\), taking \(h = t\vb{u}\) for \(t \in \RR\), we have
     \[
-        \lim_{t \to 0} \frac{f\pqty{a + t\vb{u}} - f\pqty{a} - Df\pqty{a} t\vb{u}}{\norm{t\vb{u}}} = 0,
+        \lim_{t \to 0} \frac{f\pqty{a + t\vb{u}} - f\pqty{a} - \dvOp f\pqty{a} t\vb{u}}{\norm{t\vb{u}}} = 0,
     \]
     and hence
     \[
-        \lim_{t \to 0} \frac{f\pqty{a + t\vb{u}} - f\pqty{a}}{t} = Df\pqty{a}\vb{u}.
+        \lim_{t \to 0} \frac{f\pqty{a + t\vb{u}} - f\pqty{a}}{t} = \dvOp f\pqty{a}\vb{u}.
     \]
 \end{proof}
 
@@ -135,6 +155,156 @@ In the special case of \(m = 1\) under the standard basis, we may define a speci
     \]
     be the standard basis vector in \(\RR^n\) with a \(1\) in the \(j\)-th position and \(0\) elsewhere. We denote the \term{\(j\)-th partial derivative} of \(f\) at \(a\) by
     \[
-        \pdv{f}{x_j}\pqty{a} = D_j f\pqty{a} = D_{\vb{e}_j} f\pqty{a} = \lim_{t \to 0} \frac{f\pqty{a + t\vb{e}_j} - f\pqty{a}}{t}.
+        \pdv{f}{x_j}\pqty{a} = \dvOp_j f\pqty{a} = \dvOp_{\vb{e}_j} f\pqty{a} = \lim_{t \to 0} \frac{f\pqty{a + t\vb{e}_j} - f\pqty{a}}{t}.
     \]
 \end{definition}
+
+Note that if \(f\) is differentiable at \(a\), then the partial derivative exists and is given by
+\[
+    \dvOp f\pqty{a} \vb{e}_j = \dvOp_{\vb{e}_j} f\pqty{a} = \pdv{f}{x_j}\pqty{a},
+\]
+so as a matrix, \(\dvOp f\pqty{a}\) is given by
+\[
+    \dvOp f\pqty{a} = \pmqty{\pdv{f}{x_1}\pqty{a} & \pdv{f}{x_2}\pqty{a} & \cdots & \pdv{f}{x_n}\pqty{a}},
+\]
+which is also (effectively) a row vector, known as the \term{gradient} of \(f\) at \(a\).
+
+\begin{proposition}[Derivative Matrix]
+    If \(U \subseteq \RR^n\) is open, \(\functiondomain{f}{U}{\RR^m}\) has components \(f_1, \ldots, f_m\) is differentiable at \(a \in U\), then the partial derivative \(\pdv*{f_i}{x_j} \pqty{a}\) exists for \(1 \leq i \leq m, 1 \leq j \leq n\), and the matrix for \(A = \dvOp f\pqty{a}\) is given by
+    \[
+        A = \pqty{A_{ij}} = \pqty{\pdv{f_i}{x_j}\pqty{a}}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    Combine the discussion of \(n = 1\) and \autoref{prop:properties-of-derivatives} (iii).
+\end{proof}
+
+\subsection{Differentiability and Existence of Directional/Partial Derivatives}
+
+Note that we have the following chain of implications:
+\begin{align*}
+    f \text{ differentiable at } a &\implies \dvOp_{\vb{u}} f\pqty{a} \text{ exists for all } \vb{u} \\
+    &\implies \pdv*{f}{x_j} \text{ exists at } a.
+\end{align*}
+
+None of the converse implications hold in general, and interestingly, even the existence of all directional/partial derivatives does not guarantee continuity. In fact, counterexamples exist already in \(\RR^2\).
+
+\begin{example}[Existence of Partial Derivatives does not imply Continuity]
+    Consider the function
+    \[
+        f\pqty{x, y} = \begin{cases}
+            0, & \qif xy = 0, \\
+            1, & \qif xy \neq 0.
+        \end{cases}
+    \]
+
+    Then we may check \(\pdv{f}{x} \pqty{0, 0} = \pdv{f}{y} \pqty{0, 0} = 0\), but take \(\vb{u} = \pqty{1, 1}\), we have
+    \[
+        \lim_{t \to 0} \frac{f \pqty{x + t \vb{u}} - f\pqty{x}}{t} = \lim_{t \to 0} \frac{1}{t}
+    \]
+    does not exist. In particular, the function \(f\) is not even continuous at \(\pqty{0, 0}\).
+\end{example}
+
+\begin{example}[Existence of Directional Derivatives does not imply Differentiability]
+    Consider the function \(\functiondomain{f}{\RR^2}{\RR}\) defined by
+    \[
+        f\pqty{x, y} = \begin{cases}
+            \flatfrac{x^3}{y} &\qif y \neq 0, \\
+            0 &\qif y = 0.
+        \end{cases}
+    \]
+
+    Then, or any \(\vb{u} = \pqty{u_1, u_2} \in \RR^2\), we have for all \(t \neq 0\), that
+    \[
+        \frac{f\pqty{0 + t \vb{u}} - f\pqty{0}}{t} = \begin{cases}
+            \flatfrac{t u_1^3}{u_2}, &\qif u_2 \neq 0, \\
+            0, &\qif u_2 = 0,
+        \end{cases}
+    \]
+    and hence 
+    \[
+        \dvOp_{\vb{u}} f\pqty{0} = \lim_{t \to 0} \frac{f\pqty{0 + t \vb{u}} - f\pqty{0}}{t} = 0.
+    \]
+
+    But note that \(f\) is not continuous at \(0\): take
+    \[
+        f\pqty{\delta, \delta^4} = \frac{\delta^3}{\delta^4} = \frac{1}{\delta} \to \infty \neq f\pqty{0, 0} = 0,
+    \]
+    as \(\delta \to 0\). Hence, \(f\) is not differentiable at \(0\).
+\end{example}
+
+\begin{example}[Existence of All Directional Derivatives does not imply Differentiability]
+    Let \(\functiondomain{f}{\RR^2}{\RR}\) be defined by
+    \[
+        f\pqty{x, y} = \begin{cases}
+            \flatfrac{x^3}{x^2 + y^2}, &\qif \pqty{x, y} \neq \pqty{0, 0}, \\
+            0, &\qif \pqty{x, y} = \pqty{0, 0}.
+        \end{cases}
+    \]
+
+    We have \(\abs{f\pqty{x, y}} \leq \abs{x}\), so \(f\) is continuous at the origin. By direct calculation, we have
+    \[
+        \pdv{f}{x} \pqty{0, 0} = 1 \qand \pdv{f}{y} \pqty{0, 0} = 0.
+    \]
+
+    For any \(\vb{u} = \pqty{u_1, u_2} \in \RR^2\), we have for all \(t \neq 0\), that
+    \[
+        \frac{f\pqty{0 + t \vb{u}} - f\pqty{0}}{t} = \frac{u_1^3}{u_1^2 + u_2^2},
+    \]
+    and hence
+    \[
+        \dvOp_{\vb{u}} f\pqty{0} = \lim_{t \to 0} \frac{f\pqty{0 + t \vb{u}} - f\pqty{0}}{t} = \frac{u_1^3}{u_1^2 + u_2^2},
+    \]
+    which is not linear in \(\vb{u}\). Hence, \(f\) is not differentiable at \(0\).
+
+    An alternative way to see this is to note that if \(f\) were differentiable at \(0\), then the derivative would be given by its partial derivatives
+    \[
+        \dvOp f\pqty{0} = \pmqty{\pdv{f}{x}\pqty{0, 0} & \pdv{f}{y}\pqty{0, 0}} = \pmqty{1 & 0}.
+    \]
+    
+    Then note
+    \[
+        \Delta\pqty{\vb{h}} = \frac{f\pqty{0 + \vb{h}} - f\pqty{0} - \dvOp f\pqty{0, 0} \vb{h}}{\norm{h}} = - \frac{h_1 h_2^2}{\pqty{h_1^2 + h_2^2}^{\flatfrac{3}{2}}}.
+    \]
+
+    This does not tend to \(0\) as \(\vb{h} \to 0\): take \(h_1 = h_2 = t\), then
+    \[
+        \Delta\pqty{t, t} = - \frac{t^3}{\pqty{2t^2}^{\flatfrac{3}{2}}} = - \frac{1}{2\sqrt{2}} \neq 0.
+    \]
+\end{example}
+
+\begin{theorem}[Continuity of Partial Derivatives implies Differentiability]
+    Let \(U \subseteq \RR^n\) be open, and let \(\functiondomain{f}{U}{\RR^m}\) have components \(f_1, \dots, f_m\). LEt \(a \in U\), and suppose that for some open ball \(\oball{a}{r} \subseteq U\), the partial derivatives \(\pdv*{f_i}{x_j}\) exist in the open ball, and are continuous at \(a\) for all \(1 \leq i \leq m, 1 \leq j \leq n\). Then \(f\) is differentiable at \(a\).
+\end{theorem}
+
+\begin{proof}
+    By \autoref{prop:properties-of-derivatives} (iii), it suffices to prove for the case \(m = 1\).
+
+    For \(\vb{h} = \pmqty{h_1 & \cdots & h_n}\), we have
+    \begin{align*}
+        f\pqty{x + \vb{h}} - f\pqty{x} &= f\pqty{x + h_1 \vb{e}_1 + \cdots + h_n \vb{e}_n} - f\pqty{x} \\
+        &= \pqty{f\pqty{a + h_1 \vb{e}_1} - f\pqty{a}} \\
+        &\phantom{=} \qquad + \sum_{j = 2}^{n} \pqty{f\pqty{a + h_1 \vb{e}_1 + \cdots + h_{j - 1} \vb{e}_{j - 1} + h_j \vb{e}_j} - f\pqty{a + h_1 \vb{e}_1 + \cdots + h_{j - 1} \vb{e}_{j - 1}}}.
+    \end{align*}
+
+    Applying the Mean Value Theorem to each of the functions
+    \[
+        g_j\pqty{t} = f\pqty{a + h_1 \vb{e}_1 + \cdots + h_{j - 1} \vb{e}_{j - 1} + t \vb{e}_j}, \quad t \in \ccintv{0}{1},
+    \]
+    we have for some \(\theta_j \in \oointv{0}{1}\),
+    \begin{align*}
+        f\pqty{x + \vb{h}} - f\pqty{x} &= \sum_{i = 1}^{n} h_j \dvOp_j f\pqty{a + h_1 \vb{e}_1 + \cdots + h_{j - 1} \vb{e}_{j - 1} + \theta_j h_j \vb{e}_j} \\
+        &= \sum_{i = 1}^{n} h_j \dvOp_j f\pqty{a} + \sum_{j = 1}^{n} h_j \pqty{\dvOp_j f\pqty{a + h_1 \vb{e}_1 + \cdots + h_{j - 1} \vb{e}_{j - 1} + \theta_j h_j \vb{e}_j} - \dvOp_j f\pqty{a}}.
+    \end{align*}
+
+    By continuity of the partial derivatives, for all \(j = 1, \ldots, n\), we have
+    \[
+        \dvOp_j f\pqty{a + h_1 \vb{e}_1 + \cdots + h_{j - 1} \vb{e}_{j - 1} + \theta_j h_j \vb{e}_j} - \dvOp_j f\pqty{a} \to 0
+    \]
+    as \(\vb{h} \to \vb{0}\). So we have
+    \[
+        f\pqty{a + \vb{h}} - f\pqty{a} = \dvOp f\pqty{x} \vb{h} + \littleO\pqty{\vb{h}},
+    \]
+    and hence \(f\) is differentiable at \(a\), as desired.
+\end{proof}
