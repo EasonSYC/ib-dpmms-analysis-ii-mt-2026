@@ -308,3 +308,131 @@ None of the converse implications hold in general, and interestingly, even the e
     \]
     and hence \(f\) is differentiable at \(a\), as desired.
 \end{proof}
+
+\subsection{Operator Norm and the Chain Rule}
+
+We would like to introduce a norm on the space \(\linearmap\pqty{\RR^n, \RR^m}\) of linear maps from \(\RR^n\) to \(\RR^m\). From what we see before, since this is a finite-dimensional real vector space, any two norms defined on it would be Lipschitz equivalent, but we define the most convenient one for our purposes.
+
+First, any linear map \(A \in \linearmap\pqty{\RR^n, \RR^m}\) is continuous. The unit sphere
+\[
+    S = \set{\vb{x} \in \RR^n}{\norm{\vb{x}} = 1} \subseteq \RR^n,
+\]
+is compact, since is closed and bounded, and by the Heine--Borel theorem in \autoref{thm:heine-borel}.
+
+\begin{definition}[Operator Norm]
+    Let \(A \in \linearmap\pqty{\RR^n, \RR^m}\). The \term{operator norm} of \(A\) is defined by
+    \[
+        \norm[\textOp]{A} = \sup_{\vb{x} \in S} \norm{A\vb{x}} = \sup_{\norm{\vb{x}} = 1} \norm{A \vb{x}} = \sup_{\vb{x} \in \RR^n \setminus \set{\vb{0}}} \frac{\norm{A \vb{x}}}{\norm{\vb{x}}}.
+    \]
+\end{definition}
+
+We note the following.
+
+\begin{enumerate}
+    \item It is not difficult to check that this is indeed a norm. Take \(\vb{x} \in S\) to be arbitrary, and \(A, B \in \linearmap\pqty{\RR^n, \RR^m}\), then
+    \[
+        \norm{\pqty{A + B} \vb{x}} = \norm{A\vb{x} + B\vb{x}} \leq \norm{A\vb{x}} + \norm{B\vb{x}} \leq \norm[\textOp]{A} + \norm[\textOp]{B},
+    \]
+    and taking the supremum over \(\vb{x} \in S\), we have
+    \[
+        \norm[\textOp]{A + B} \leq \norm[\textOp]{A} + \norm[\textOp]{B}.
+    \]
+    
+    \item Note that there is a compatibility (inequality) between the operator norm and the Euclidean norm:
+    \[
+        \norm{A\vb{x}} \leq \norm[\textOp]{A} \norm{\vb{x}}.
+    \]
+    
+    \item Furthermore, the composition of linear maps satisfies the following. If \(A \in \linearmap\pqty{\RR^n, \RR^m}\) and \(B \in \linearmap\pqty{\RR^m, \RR^l}\), then \(B \circ A \in \linearmap\pqty{\RR^n, \RR^l}\), and we have
+    \[
+        \norm[\textOp]{B \circ A} \leq \norm[\textOp]{B} \norm[\textOp]{A}.
+    \]
+
+    \item As vector spaces, \(\linearmap\pqty{\RR^n, \RR^m} \isomorphic \RR^{mn}\), and hence \(\linearmap\pqty{\RR^n, \RR^m}\) is finite-dimensional. Therefore, \(\norm[\textOp]{A}\) is Lipschitz equivalent to any norm on \(\RR^{mn}\), and in particular, this is equivalent to the \term{matrix norm} after picking the standard basis: let \(A = \pqty{A_{ij}} \in \matrixset_{m \times n}\pqty{\RR}\) defined by   
+    \[
+        \pqty{\sum_{i = 1}^{m} \sum_{j = 1}^{n} \abs{A_{ij}}^2}^{\flatfrac{1}{2}},
+    \]
+    i.e. the Euclidean norm on the component of the matrices.
+\end{enumerate}
+
+Because of the compatibility between the operator norm and the Euclidean norm, the operator norm is more convenient for our purposes.
+
+\begin{proposition}[Properties of Operator Norm]
+    We have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(A \in \linearmap\pqty{\RR, \RR^m}\), then \(Ax = x \vb{a}\) for some \(a \in \RR^m\) (in fact \(a = A\pqty{1}\)), and \(\norm[\textOp]{A} = \norm{\vb{a}}\).
+        \item If \(A \in \linearmap\pqty{\RR^n, \RR}\), then \(A\vb{x} = \vb{a} \vdot \vb{x}\) for some \(\vb{a} \in \RR^n\), and \(\norm[\textOp]{A} = \norm{\vb{a}}\).
+        \item If \(\pqty{A_{ij}} \in \matrixset_{m \times n}\pqty{\RR}\) is the matrix of \(A\) in the standard basis, then
+        \[
+            \frac{1}{\sqrt{n}} \pqty{\sum_{i = 1}^{m} \sum_{j = 1}^{n} \abs{A_{ij}}^2}^{\flatfrac{1}{2}} \leq \norm[\textOp]{A} \leq \pqty{\sum_{i = 1}^{m} \sum_{j = 1}^{n} \abs{A_{ij}}^2}^{\flatfrac{1}{2}}.
+        \]
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}}
+\end{proof}
+
+\begin{theorem}[Chain Rule]
+    Let \(U \subseteq \RR^n\) be open, \(\functiondomain{f}{U}{\RR^m}\), and let \(V \subseteq \RR^m\) be open, with \(f\pqty{U} \subseteq V\), and let \(\functiondomain{g}{V}{\RR^p}\).
+    
+    Let \(a \in U\). Suppose that \(f\) is differentiable at \(a\), and \(g\) is differentiable at \(f\pqty{A}\).
+
+    Then the composition \(\functiondomain{g \circ f}{U}{\RR^p}\) is differentiable at \(a\), and we have
+    \[
+        \dvOp\pqty{g \circ f}\pqty{a} = \dvOp g\pqty{f\pqty{a}} \circ \dvOp f\pqty{a}.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Let \(A = \dvOp f\pqty{a}\), and \(B = \dvOp g\pqty{f\pqty{a}}\). Then we have, by before, that
+    \begin{align*}
+        f\pqty{a + \vb{h}} &= f\pqty{a} + A \vb{h} + \littleO\pqty{\vb{h}}, && \qfor \vb{h} \to \vb{0}, \vb{h} \in \RR^n \\
+        g\pqty{f\pqty{a} + \vb{k}} &= g\pqty{f\pqty{a}} + B \vb{k} + \littleO\pqty{\vb{k}}, && \qfor \vb{k} \to \vb{0}, \vb{k} \in \RR^m \\
+    \end{align*}
+
+    Then, we have
+    \begin{align*}
+        g \circ f \pqty{a + \vb{h}} &= g \pqty{f\pqty{a} + A \vb{h} + \littleO\pqty{\vb{h}}} \\
+        &= g \circ f \pqty{a} + B \pqty{A \vb{h} + \littleO\pqty{\vb{h}}} + \littleO\pqty{A \vb{h} + \littleO\pqty{\vb{h}}} \\
+        &= g \circ f \pqty{a} + B \circ A \pqty{\vb{h}} + B \littleO\pqty{\vb{h}} + \littleO\pqty{A \vb{h} + \littleO\pqty{\vb{h}}}.
+    \end{align*}
+
+    All that remains to show is that
+    \[
+        B \littleO\pqty{\vb{h}} + \littleO\pqty{A \vb{h} + \littleO\pqty{\vb{h}}} = \littleO \pqty{\vb{h}}.
+    \]
+
+    Note that we have
+    \[
+        \norm{B \pqty{\littleO\pqty{\vb{h}}}} \leq \norm[\textOp]{B} \norm{\littleO\pqty{\vb{h}}} = \littleO\pqty{\vb{h}},
+    \]
+    and we have
+    \[
+        \norm{A\vb{h} + \littleO\pqty{\vb{h}}} \leq \norm{A \vb{h}} + \norm{\littleO\pqty{\vb{h}}} \leq \pqty{\norm[\textOp]{A} + 1} \norm{\vb{h}}
+    \]
+    for sufficiently small \(\vb{h}\). Hence, we have
+    \[
+        g \circ f \pqty{a + \vb{h}} = g \circ f \pqty{a} + B \circ A \pqty{\vb{h}} + \littleO\pqty{\vb{h}},
+    \]
+    so \(g \circ f\) is differentiable at \(a\), with derivative \(D\pqty{g \circ f} \pqty{a} = BA\).
+\end{proof}
+
+\subsection{Mean Value Inequalities}
+
+Recall that in \textit{IA Analysis I} we saw the mean value theorem, which states that if \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is continuous in \(\ccintv{a}{b}\) and differentiable on \(\oointv{a}{b}\), then there exists \(c \in \oointv{a}{b}\) such that
+\[
+    f\pqty{b} - f\pqty{a} = f'\pqty{c} \pqty{b - a}.
+\]
+
+Is the direct analogue of this true for maps \(\functiondomain{f}{U \subseteq \RR^n}{\RR^m}\)? This is not true, if \(m \geq 2\), even when \(n = 1\). (\textbf{\textcolor{red}{See Example Sheet.}})
+
+However, we do have mean value inequalities.
+
+\begin{theorem}[Mean Value Inequality for \(n = 1\)]
+    Let \(\functiondomain{f}{\ccintv{a}{b}}{\RR^m}\) be continuous in \(\ccintv{a}{b}\) and differentiable on \(\oointv{a}{b}\). Suppose that \(\norm[\textOp]{\dvOp f\pqty{t}} \leq M\) is bounded by some \(M\), for all \(t \in \oointv{a}{b}\). Then
+    \[
+        \norm{f\pqty{b} - f\pqty{a}} \leq M \pqty{b - a}.
+    \]
+\end{theorem}
