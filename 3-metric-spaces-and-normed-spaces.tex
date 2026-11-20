@@ -796,12 +796,12 @@ By using de Morgan's laws, we can immediately deduce the following theorem.
     To prove completeness, let \(\pqty{x_k}\) be a Cauchy sequence in \(X\). By compactness, there is a subsequence \(\pqty{x_{k_j}}\) and some \(x \in X\), such that \(x_{k_j} \to x\). Then by \autoref{prop:convergence-implies-cauchy-and-cauchy-implies-bounded-subsequential-convergence} (iii), we have \(x_k \to x\) in \(X\), and hence \(X\) is complete.
 
     To prove bounded, fix \(x_0 \in X\). We prove by contradiction. If \(X\) is not bounded, then we can find a sequence \(x_k \in X\) such that \(d\pqty{x_k, x_0} > k\). Then by compactness, there is subsequence \(x_{k_j}\) and some \(x \in X\), such that \(x_{k_j} \to x\). But then
-    \begin{align}
+    \begin{align*}
         k_j & \leq d\pqty{x_{k_j}, x_0} \\
         & \leq d\pqty{x_{k_j}, x} + d\pqty{x, x_0} \\
-        & \to d\pqty{x, x_0} \text{ as } j \to \infty,
-    \end{align}
-    which is a contradiction, since \(k_j \to \infty\) as \(j \to \infty\). Hence, \(X\) is bounded.
+        & \to d\pqty{x, x_0}
+    \end{align*}
+    as \(j \to \infty\), which is a contradiction, since \(k_j \to \infty\) as \(j \to \infty\). Hence, \(X\) is bounded.
 \end{proof}
 
 \begin{theorem}[Compact Subsets of Metric Spaces are Closed and Bounded]
