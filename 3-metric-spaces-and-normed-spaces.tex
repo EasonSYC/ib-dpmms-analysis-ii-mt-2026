@@ -867,7 +867,11 @@ In general metric spaces, completeness with a stronger version of boundedness is
 
     Equivalently, using the open ball notation, this definition is equivalent to
     \[
-        \forall \epsilon > 0, \exists \delta > 0: \oball[d]{x}{\delta} \subseteq f\inverse\pqty{\oball[d']{f\pqty{x}}{\epsilon}}.
+        \forall \epsilon > 0, \exists \delta > 0: \oball[d]{x}{\delta} \subseteq f\inverse\pqty{\oball[d']{f\pqty{x}}{\epsilon}},
+    \]
+    or equivalently,
+    \[
+        \forall \epsilon > 0, \exists \delta > 0: f\pqty{\oball[d]{x}{\delta}} \subseteq \oball[d']{f\pqty{x}}{\epsilon}.
     \]
 
     We say \(f\) is \term{continuous on \(X\)} if it is continuous at every point \(x \in X\).
@@ -957,7 +961,11 @@ There are many equivalent characterisations of continuity on the whole space.
 
     Equivalently, this means
     \[
-        \forall \epsilon > 0, \exists \delta > 0: \forall x \in X, \oball[d]{x}{\delta} \subseteq f\inverse\pqty{\oball[d']{f\pqty{x}}{\epsilon}}.
+        \forall \epsilon > 0, \exists \delta > 0, \forall x \in X: \oball[d]{x}{\delta} \subseteq f\inverse\pqty{\oball[d']{f\pqty{x}}{\epsilon}},
+    \]
+    or
+    \[
+        \forall \epsilon > 0, \exists \delta > 0, \forall x \in X: f\pqty{\oball[d]{x}{\delta}} \subseteq \oball[d']{f\pqty{x}}{\epsilon}.
     \]
 \end{definition}
 
