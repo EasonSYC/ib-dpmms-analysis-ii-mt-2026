@@ -375,6 +375,7 @@ Because of the compatibility between the operator norm and the Euclidean norm, t
 \end{proof}
 
 \begin{theorem}[Chain Rule]
+    \label{thm:chain-rule}%
     Let \(U \subseteq \RR^n\) be open, \(\functiondomain{f}{U}{\RR^m}\), and let \(V \subseteq \RR^m\) be open, with \(f\pqty{U} \subseteq V\), and let \(\functiondomain{g}{V}{\RR^p}\).
     
     Let \(a \in U\). Suppose that \(f\) is differentiable at \(a\), and \(g\) is differentiable at \(f\pqty{A}\).
@@ -419,6 +420,18 @@ Because of the compatibility between the operator norm and the Euclidean norm, t
     so \(g \circ f\) is differentiable at \(a\), with derivative \(D\pqty{g \circ f} \pqty{a} = BA\).
 \end{proof}
 
+\begin{lemma}[Operator Norm of Derivative in One Dimension]
+    Let \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) be differentiable on \(\oointv{a}{b}\). Then
+    \[
+        \norm[\textOp]{\dvOp f\pqty{t}} = \norm[2]{f'(t)},
+    \]
+    for all \(t \in \oointv{a}{b}\).
+\end{lemma}
+
+\begin{proof}
+    \textbf{\textcolor{red}{See Example Sheet.}}
+\end{proof}
+
 \subsection{Mean Value Inequalities}
 
 Recall that in \textit{IA Analysis I} we saw the mean value theorem, which states that if \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) is continuous in \(\ccintv{a}{b}\) and differentiable on \(\oointv{a}{b}\), then there exists \(c \in \oointv{a}{b}\) such that
@@ -431,8 +444,126 @@ Is the direct analogue of this true for maps \(\functiondomain{f}{U \subseteq \R
 However, we do have mean value inequalities.
 
 \begin{theorem}[Mean Value Inequality for \(n = 1\)]
+    \label{thm:mean-value-inequality-n-1}%
     Let \(\functiondomain{f}{\ccintv{a}{b}}{\RR^m}\) be continuous in \(\ccintv{a}{b}\) and differentiable on \(\oointv{a}{b}\). Suppose that \(\norm[\textOp]{\dvOp f\pqty{t}} \leq M\) is bounded by some \(M\), for all \(t \in \oointv{a}{b}\). Then
     \[
         \norm{f\pqty{b} - f\pqty{a}} \leq M \pqty{b - a}.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Let \(\vb{v} = f\pqty{b} - f\pqty{a}\), and let \(g\pqty{t} = \vb{v} \vdot f\pqty{t} = \sum_{i = 1}^{m} v_i f_i\pqty{t}\). Then \(g\) is continuous in \(\ccintv{a}{b}\) and differentiable on \(\oointv{a}{b}\), and by the Mean Value Theorem in one-dimension, there exists \(c \in \oointv{a}{b}\) such that
+    \[
+        g\pqty{b} - g\pqty{a} = g'\pqty{c} \pqty{b - a}.
+    \]
+
+    But we have
+    \[
+        \abs{g'\pqty{t}} \leq \norm[2]{\vb{v}} \norm[2]{f'\pqty{t}} \leq \norm[2]{\vb{v}} M,
+    \]
+    so
+    \[
+        g\pqty{b} - g\pqty{a} = \vb{v} \vdot \pqty{f\pqty{b} - f\pqty{a}} \leq \norm[2]{\vb{v}} M \pqty{b - a},
+    \]
+    and hence
+    \[
+        \norm{\vb{v}}^2 \leq M \norm{\vb{v}} \pqty{b - a}.
+    \]
+
+    If \(\vb{v} = 0\), then we are done. Otherwise, we may divide both sides by \(\norm[2]{\vb{v}}\) to obtain
+    \[
+        \norm[2]{\vb{v}} \leq M \pqty{b - a},
+    \]
+    as desired.
+\end{proof}
+
+\begin{theorem}[Mean Value Inequality in Balls]
+    \label{thm:mean-value-inequality-balls}%
+    Let \(\oball{a}{r} \subseteq \RR^n\), \(\functiondomain{f}{\oball{a}{r}}{\RR^m}\) and suppose that \(f\) is differentiable in \(\oball{a}{r}\), and that \(\norm[\textOp]{\dvOp f\pqty{x}} \leq M\) for all \(x \in \oball{a}{r}\). Then for any \(b_1, b_2 \in \oball{a}{r}\), we have
+    \[
+        \norm{f\pqty{b_1} - f\pqty{b_2}} \leq M \norm{b_1 - b_2}.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Fix \(b_1, b_2 \in \oball{a}{r}\), then \(t b_1 + \pqty{1 - t} b_2 \in \oball{a}{r}\) for all \(t \in \ccintv{0}{1}\).
+
+    Let \(g\pqty{t} = f\pqty{t b_1 + \pqty{1 - t} b_2}\). Then \(g\) is continuous in \(\ccintv{0}{1}\) and differentiable on \(\oointv{0}{1}\), and we have
+    \[
+        \dvOp g\pqty{t} = \dvOp f\pqty{t b_1 + \pqty{1 - t} b_2} \pqty{b_1 - b_2}
+    \]
+    by \autoref{thm:chain-rule} (Chain Rule), and taking operator norms, we have
+    \[
+        \norm[\textOp]{\dvOp g\pqty{t}} \leq \norm[\textOp]{\dvOp f\pqty{t b_1 + \pqty{1 - t} b_2}} \norm{b_1 - b_2} \leq M \norm{b_1 - b_2}.
+    \]
+
+    By \autoref{thm:mean-value-inequality-n-1}, we have
+    \[
+        \norm{f\pqty{b_1} - f\pqty{b_2}} = \norm{g\pqty{1} - g\pqty{0}} \leq M \norm{b_1 - b_2},
+    \]
+    and hence we are done.
+\end{proof}
+
+\begin{remark}
+    This holds on any convex set \(U \subseteq \RR^n\) instead of just balls, by the same proof.
+\end{remark}
+
+\begin{corollary}[Zero Derivative Implies Constant Function]
+    \label{cor:zero-derivative-constant-function}%
+    If \(\oball{a}{r} \subseteq \RR^n\), \(\functiondomain{f}{\oball{a}{r}}{\RR^m}\) is differentiable in \(\oball{a}{r}\), and \(\dvOp f\pqty{x} = 0\) for all \(x \in \oball{a}{r}\), then \(f\) is constant in \(\oball{a}{r}\).
+\end{corollary}
+
+\begin{proof}
+    This is immediate from \autoref{thm:mean-value-inequality-balls}, since we may take \(M = 0\).
+\end{proof}
+
+\begin{remark}
+    \autoref{cor:zero-derivative-constant-function} extends to any function \(\functiondomain{f}{U}{\RR^m}\) where \(U \subseteq \RR^n\) is open and \term{path-connected}, by the same proof.
+\end{remark}
+
+\begin{definition}[Path-Connectedness]
+    A subset \(E \subseteq \RR^n\) is \term{path-connected} if for any \(a, b \in E\), there exists a continuous map \(\functiondomain{\gamma}{\ccintv{0}{1}}{E}\) such that \(\gamma\pqty{0} = a\) and \(\gamma\pqty{1} = b\). Such \(\gamma\) is known as a \term{path connecting \(a\) and \(b\)}.
+\end{definition}
+
+\begin{theorem}[Zero Derivative Implies Constant Function in Path-Connected Sets]
+    Let \(U \subseteq \RR^n\) be open and path-connected. Then any differentiable function \(\functiondomain{f}{U}{\RR^m}\) with \(\dvOp f\pqty{x} = 0\) for all \(x \in U\) is constant in \(U\).
+\end{theorem}
+
+\begin{proof}
+    Assume, without loss of generality, \(m = 1\), by \autoref{prop:properties-of-derivatives} (iii). Let \(a, b \in U\), and let \(\functiondomain{\gamma}{\ccintv{0}{1}}{U}\) be a path connecting \(a\) and \(b\). Let \(\functiondomain{g}{\ccintv{0}{1}}{\RR}\) be defined by \(g\pqty{t} = f\pqty{\gamma\pqty{t}}\). Note \(g\) might not be differentiable, since \(\gamma\) is only required to be continuous.
+
+    For any \(s \in \ccintv{0}{1}\), there is \(\epsilon > 0\), such that \(\oball{\gamma\pqty{t}}{\epsilon} \subseteq U\), since \(U\) is open. Then, by continuity of \(\gamma\), there is some \(\delta > 0\) such that \(\gamma\pqty{\oointv{s - \delta}{s + \delta}} \subseteq \oball{\gamma\pqty{s}}{\epsilon} \subseteq U\). By \autoref{thm:mean-value-inequality-balls}, \(f\) is constant on the ball \(\oball{\gamma\pqty{s}}{\epsilon}\), and hence \(g\) is constant on \(\oointv{s - \delta}{s + \delta}\).
+
+    Hence in particular, \(g\) is differentiable on \(\oointv{s - \delta}{s + \delta}\), and \(g'\pqty{s} = 0\). Since \(s\) is arbitrary, \(g\) is constant, and hence \(f\pqty{a} = g\pqty{0} = g\pqty{1} = f\pqty{b}\), as desired.
+\end{proof}
+
+This theorem is false if we drop the path-connectedness assumption. For example, consider
+\[
+    \function{f}{\oointv{1}{2} \cup \oointv{3}{4}}{\RR}{x}{\begin{cases}
+        1, & \qif x \in \oointv{1}{2}, \\
+        2, & \qif x \in \oointv{3}{4}.
+    \end{cases}}
+\]
+
+\subsection{The Second Derivative}
+
+\begin{definition}[\(\contClass{1}\) and \(\contClass{2}\) Functions]
+    A function \(\functiondomain{f}{U}{\RR}\) with \(U \subseteq \RR^n\) open is said to be \term{\(\contClass{1}\) on \(U\)}, if all partial derivative \(\dvOp_j f = \pdv*{f}{x_h}\) for \(1 \leq j \leq n\) exist and are continuous on \(U\). The set \term{\(\contClass{1}\pqty{U}\)} is the set of all \(\contClass{1}\) functions on \(U\).
+
+    Similarly, a function \(\functiondomain{f}{U}{\RR}\) is said to be \term{\(\contClass{2}\) on \(U\)}, if all partial derivative \(\dvOp_j f = \pdv*{f}{x_h}\) for \(1 \leq j \leq n\) exist and are \(\contClass{1}\) on \(U\); i.e., the \term{second-order partial derivatives}
+    \[
+        \dvOp_{ij} f = \dvOp_i \dvOp_j f = \pdv{f}{x_i}{x_j}
+    \]
+    exist and are continuous.
+    
+    The set \term{\(\contClass{2}\pqty{U}\)} is the set of all \(\contClass{2}\) functions on \(U\).
+\end{definition}
+
+\begin{theorem}[Equality of Mixed Partial Derivatives]
+    Let \(\functiondomain{f}{U}{\RR}\), \(U \subseteq \RR^n\). Let \(a \in U\), and let \(\oball{a}{r} \subseteq U\) be an open ball. Fix \(i, j \in \set{1, \ldots, n}\). 
+    
+    If \(\dvOp_{ij} f\) and \(\dvOp_{ji} f\) exist on \(\oball{a}{r}\) and continuous at \(a\), then
+    \[
+        \dvOp_{ij} f\pqty{a} = \dvOp_{ji} f\pqty{a}.
     \]
 \end{theorem}
