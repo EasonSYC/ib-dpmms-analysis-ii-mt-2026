@@ -268,7 +268,7 @@ None of the converse implications hold in general, and interestingly, even the e
         \Delta\pqty{\vb{h}} = \frac{f\pqty{0 + \vb{h}} - f\pqty{0} - \dvOp f\pqty{0, 0} \vb{h}}{\norm{h}} = - \frac{h_1 h_2^2}{\pqty{h_1^2 + h_2^2}^{\flatfrac{3}{2}}}.
     \]
 
-    This does not tend to \(0\) as \(\vb{h} \to 0\): take \(h_1 = h_2 = t\), then
+    This does not tend to \(0\) as \(\vb{h} \to \vb{0}\): take \(h_1 = h_2 = t\), then
     \[
         \Delta\pqty{t, t} = - \frac{t^3}{\pqty{2t^2}^{\flatfrac{3}{2}}} = - \frac{1}{2\sqrt{2}} \neq 0.
     \]
@@ -567,3 +567,103 @@ This theorem is false if we drop the path-connectedness assumption. For example,
         \dvOp_{ij} f\pqty{a} = \dvOp_{ji} f\pqty{a}.
     \]
 \end{theorem}
+
+\begin{remark}
+    In particular, if \(f\) is \(\contClass{2}\) on \(U\), then \(\dvOp_{ij} f = \dvOp_{ji} f\) for all \(1 \leq i, j \leq n\).
+\end{remark}
+
+\begin{proof}
+    Consider the function
+    \[
+        g_{ij} \pqty{t} = \pqty{f \pqty{a + t \vb{e}_i + t \vb{e}_j} - f\pqty{a + t \vb{e}_i}} - \pqty{f\pqty{a + t \vb{e}_j} - f\pqty{a}}.
+    \]
+
+    So
+    \[
+        g_{ij} \pqty{t} = \phi\pqty{1} - \phi\pqty{0},
+    \]
+    where
+    \[
+        \phi\pqty{s} = f\pqty{a + s t \vb{e}_i + t \vb{e}_j} - f\pqty{a + s t \vb{e}_i}.
+    \]
+
+    Applying the Mean Value Theorem on \(\RR\) to \(\phi\), we have for some \(\theta \in \oointv{0}{1}\),
+    \begin{align*}
+        g_{ij} \pqty{t} &= \phi'\pqty{\theta} \\
+        &= t \pqty{\dvOp_i f\pqty{a + \theta t \vb{e}_i + t \vb{e}_j} - \dvOp_i f\pqty{a + \theta t \vb{e}_i}} \\
+        &= t^2 \dvOp_{j} \dvOp_i f\pqty{a + \theta t \vb{e}_i + \eta t \vb{e}_j}
+    \end{align*}
+    where \(\eta \in \oointv{0}{1}\) arises by applying the Mean Value Theorem again to the function \(\psi\pqty{s} = \dvOp_i f\pqty{a + \theta t \vb{e}_i + s t \vb{e}_j}\).
+
+    Since \(g_{ij} = g_{ji}\), we can repeat the argument with \(i\) and \(j\) switched, getting
+    \[
+        g_{ji} \pqty{t} = t^2 \dvOp_{i} \dvOp_j f\pqty{a + \tilde{\theta} t \vb{e}_j + \tilde{\eta} t \vb{e}_i},
+    \]
+    where \(\tilde{\theta}, \tilde{\eta} \in \oointv{0}{1}\), so
+    \[
+        \dvOp_{j} \dvOp_i f\pqty{a + \theta t \vb{e}_i + \eta t \vb{e}_j} = \dvOp_{i} \dvOp_j f\pqty{a + \tilde{\theta} t \vb{e}_j + \tilde{\eta} t \vb{e}_i}.
+    \]
+
+    Since \(\theta, \eta, \tilde{\theta}, \tilde{\eta}\) (depending on \(t\)) lie between \(0\) and \(1\), take \(t \to 0\) gives
+    \[
+        \dvOp_{j} \dvOp_i f\pqty{a} = \dvOp_{i} \dvOp_j f\pqty{a}.
+    \]
+\end{proof}
+
+So we studied second \emph{partial} derivatives. Then what is the derivative of \(\dvOp f\)?
+
+If \(\functiondomain{f}{U}{\RR^m}\), where \(U \subseteq \RR^n\) is open, and \(f\) is differentiable at every \(x \in U\), with \(\functiondomain{\dvOp f}{U}{\linearmap\pqty{\RR^n, \RR^m}}\), then we can ask if \(\dvOp f\) is differentiable at \(x\). But remember that \(\linearmap\pqty{\RR^n, \RR^m} \isomorphic \RR^{mn}\) as vector spaces, so differentiability of \(\dvOp f\) is equivalent to differentiability of the component functions \(\functiondomain{\dvOp_j f_k}{U}{\RR}\) for \(1 \leq k \leq m, 1 \leq j \leq n\).
+
+So \(\dvOp f\) is differentiable at some \(a \in U\), if and only if \(\dvOp_j f_k\) is differentiable at \(a\) for all \(1 \leq k \leq m, 1 \leq j \leq n\). In this case, we can define the \term{second derivative} of \(f\) at \(a\) to be the unique linear transformation \(\functiondomain{\dvOp\pqty{\dvOp f}\pqty{a}}{\RR^n}{\linearmap\pqty{\RR^n, \RR^m}}\) satisfying
+\[
+    \lim_{\vb{h} \to \vb{0}} \frac{\dvOp f\pqty{a + \vb{h}} - \dvOp f\pqty{a} - \dvOp\pqty{\dvOp f} \pqty{a}\pqty{\vb{h}}}{\norm{\vb{h}}} = 0 \in \linearmap\pqty{\RR^n, \RR^m}.
+\]
+
+We discuss more general linear algebra here. Suppose we have a linear map
+\[
+    \functiondomain{\phi}{\RR^l}{\linearmap\pqty{\RR^n, \RR^m}},
+\]
+then it has an associated map
+\[
+    \functiondomain{\Phi}{\RR^l \times \RR^n}{\RR^m},
+\]
+defined by \(\Phi\pqty{\vb{u}, \vb{v}} = \phi\pqty{\vb{u}}\pqty{\vb{v}} \in \RR^m\). Conversely, if \(\functiondomain{\Phi}{\RR^l \times \RR^n}{\RR^m}\) is a bilinear map, then we may define \(\functiondomain{\phi}{\RR^l}{\linearmap\pqty{\RR^n, \RR^m}}\) by \(\phi\pqty{\vb{u}} = \pqty{\vb{v} \mapsto \Phi\pqty{\vb{u}, \vb{v}}}\).
+
+This is a nicer way to see this second derivative, and what we seen before about commuting second derivatives is saying that this bilinear map is symmetric.
+
+\begin{definition}[Second Derivative]
+    Suppose \(\functiondomain{f}{U}{\RR^m}\) is differentiable at every \(x \in U\), where \(U \subseteq \RR^n\) is open. If \(\dvOp f\) is differentiable at some \(a \in U\), then we define the \term{second derivative} of \(f\) at \(a\) to be the unique bilinear map \(\functiondomain{\dvOp^2 f\pqty{a}}{\RR^n \times \RR^n}{\RR^m}\) satisfying
+    \[
+        \dvOp^2 f\pqty{a}\pqty{\vb{u}, \vb{v}} = \dvOp\pqty{\dvOp f}\pqty{a}\pqty{\vb{u}}\pqty{\vb{v}} \in \RR^m.
+    \]
+\end{definition}
+
+\begin{theorem}[Second Differentiability of \(\contClass{2}\) Functions]
+    Suppose \(\functiondomain{f}{U}{\RR^m}\) is \(\contClass{2}\) (i.e., all its components \(f_k \in \contClass{2} \pqty{U}\) for all \(k = 1, \ldots, m\)). Then \(\dvOp^2 f\pqty{a}\) exists for all \(a \in U\), and is a symmetric bilinear map, i.e., \(\dvOp^2 f\pqty{a}\pqty{\vb{u}, \vb{v}} = \dvOp^2 f\pqty{a}\pqty{\vb{v}, \vb{u}}\) for all \(\vb{u}, \vb{v} \in \RR^n\).
+
+    Moreover, for \(\vb{u} = \sum_{i = 1}^{n} u_i \vb{e}_i\) and \(\vb{v} = \sum_{j = 1}^{n} v_j \vb{e}_j\), we have
+    \[
+        \dvOp^2 f\pqty{a}\pqty{\vb{u}, \vb{v}} = \pqty{\sum_{i = 1}^{n} \sum_{j = 1}^{n} u_i v_j \dvOp_{ij} f_k\pqty{a}}_k.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Since \(f\) is \(\contClass{2}\), the components \(\dvOp_j f_k\) of \(\dvOp f\) has continuous partial derivatives in \(U\), so each of \(\dvOp_j f_k\) is differentiable at \(a\), and hence \(\dvOp f\) is differentiable at \(a\). Hence \(\dvOp^2 f\pqty{a}\) exists.
+
+    By bilinearity,
+    \[
+        \dvOp^2 f\pqty{a} \pqty{\vb{u}, \vb{v}} = \sum_{i = 1}^{n} \sum_{j = 1}^{n} u_i v_j \dvOp^2 f\pqty{a}\pqty{\vb{e}_i, \vb{e}_j} \in \RR^m
+    \]
+    and by definition of \(\dvOp\pqty{\dvOp f}\pqty{a}\), taking \(\vb{h} = t \vb{e}_i\), we have
+    \[
+        \lim_{t \to 0} \frac{\dvOp f\pqty{a + t \vb{e}_i} - \dvOp f\pqty{a} - t \dvOp\pqty{\dvOp f} \pqty{a} \pqty{\vb{e}_i}}{t} = 0,
+    \]
+    and evaluate this at \(\vb{e}_j\) gives
+    \[
+        \lim_{t \to 0} \frac{\dvOp f\pqty{a + t \vb{e}_i}\pqty{\vb{e}_j} - \dvOp f\pqty{a}\pqty{\vb{e}_j} - t \dvOp\pqty{\dvOp f} \pqty{a} \pqty{\vb{e}_i}\pqty{\vb{e}_j}}{t} = 0,
+    \]
+    and hence
+    \[
+        \dvOp^2 f\pqty{a}\pqty{\vb{e}_i, \vb{e}_j} = \dvOp\pqty{\dvOp f}\pqty{a}\pqty{\vb{e}_i}\pqty{\vb{e}_j} = \lim_{t \to 0} \frac{\dvOp_j f\pqty{a + t \vb{e}_i} - \dvOp_j f\pqty{a}}{t} = \dvOp_i \dvOp_j f\pqty{a}.
+    \]
+\end{proof}
