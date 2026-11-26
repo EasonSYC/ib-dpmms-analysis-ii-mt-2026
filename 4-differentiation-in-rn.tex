@@ -559,7 +559,8 @@ This theorem is false if we drop the path-connectedness assumption. For example,
     The set \term{\(\contClass{2}\pqty{U}\)} is the set of all \(\contClass{2}\) functions on \(U\).
 \end{definition}
 
-\begin{theorem}[Equality of Mixed Partial Derivatives]
+\begin{theorem}[Symmetry of Mixed Partial Derivatives]
+    \label{thm:symmetry-of-mixed-partial-derivatives}%
     Let \(\functiondomain{f}{U}{\RR}\), \(U \subseteq \RR^n\). Let \(a \in U\), and let \(\oball{a}{r} \subseteq U\) be an open ball. Fix \(i, j \in \set{1, \ldots, n}\). 
     
     If \(\dvOp_{ij} f\) and \(\dvOp_{ji} f\) exist on \(\oball{a}{r}\) and continuous at \(a\), then
@@ -638,7 +639,7 @@ This is a nicer way to see this second derivative, and what we seen before about
     \]
 \end{definition}
 
-\begin{theorem}[Second Differentiability of \(\contClass{2}\) Functions]
+\begin{theorem}[Second Derivative of \(\contClass{2}\) Functions]
     Suppose \(\functiondomain{f}{U}{\RR^m}\) is \(\contClass{2}\) (i.e., all its components \(f_k \in \contClass{2} \pqty{U}\) for all \(k = 1, \ldots, m\)). Then \(\dvOp^2 f\pqty{a}\) exists for all \(a \in U\), and is a symmetric bilinear map, i.e., \(\dvOp^2 f\pqty{a}\pqty{\vb{u}, \vb{v}} = \dvOp^2 f\pqty{a}\pqty{\vb{v}, \vb{u}}\) for all \(\vb{u}, \vb{v} \in \RR^n\).
 
     Moreover, for \(\vb{u} = \sum_{i = 1}^{n} u_i \vb{e}_i\) and \(\vb{v} = \sum_{j = 1}^{n} v_j \vb{e}_j\), we have
@@ -666,4 +667,148 @@ This is a nicer way to see this second derivative, and what we seen before about
     \[
         \dvOp^2 f\pqty{a}\pqty{\vb{e}_i, \vb{e}_j} = \dvOp\pqty{\dvOp f}\pqty{a}\pqty{\vb{e}_i}\pqty{\vb{e}_j} = \lim_{t \to 0} \frac{\dvOp_j f\pqty{a + t \vb{e}_i} - \dvOp_j f\pqty{a}}{t} = \dvOp_i \dvOp_j f\pqty{a}.
     \]
+
+    The symmetry arises from \autoref{thm:symmetry-of-mixed-partial-derivatives}.
+\end{proof}
+
+\subsection{The Hessian Matrix and Critical Points}
+
+In the case \(m = 1\), \(\dvOp^2 \pqty{f}\) is a \term{symmetric bilinear form}, and we may use this to analyse \term{critical points} of \(f \in \contClass{2}\pqty{U}\) where \(U \subseteq \RR^n\) is open.
+
+We recall the following fact from \textit{IB Linear Algebra}. Let \(\functiondomain{B}{\RR^n \times \RR^n}{\RR}\) be a symmetric bilinear form, i.e.,
+\[
+    B\pqty{\vb{u}, \vb{v}} = B\pqty{\vb{v}, \vb{u}} = \sum_{i, j = 1}^{n} u_i v_j a_{ij} = \vb{u}\transpose A \vb{v},
+\]
+where \(\vb{u} = \sum_{i = 1}^{n} u_i \vb{e}_i\) and \(\vb{v} = \sum_{j = 1}^{n} v_j \vb{e}_j\), and \(a_{ij} = B\pqty{\vb{e}_i, \vb{e}_j}\) is a symmetric ``matrix'' \(A\). Associated with \(B\), there is the \term{quadratic form} \(\functiondomain{Q}{\RR^n}{\RR}\) defined by
+\[
+    Q\pqty{\vb{u}} = B\pqty{\vb{u}, \vb{u}} = \sum_{i, j = 1}^{n} u_i u_j a_{ij} = \vb{u}\transpose A \vb{u}.
+\]
+
+Then note
+\begin{itemize}
+    \item \(Q\) is a homogeneous quadratic polynomial in the variables \(u_1, \ldots, u_n\).
+    \item We may recover \(B\) from \(Q\) by the polarisation identity
+    \[
+        Q\pqty{\vb{u} + \vb{v}} = Q\pqty{\vb{u}} + 2 B\pqty{\vb{u}, \vb{v}} + Q\pqty{\vb{v}}.
+    \]
+\end{itemize}
+
+The quadratic form \(Q\) is said to be:
+\begin{itemize}
+    \item \term{positive definite} if \(Q\pqty{\vb{u}} > 0\) for all \(\vb{u} \in \RR^n \setminus \set{\vb{0}}\),
+    \item \term{positive semi-definite} if \(Q\pqty{\vb{u}} \geq 0\) for all \(\vb{u} \in \RR^n\),
+    \item \term{negative definite} if \(Q\pqty{\vb{u}} < 0\) for all \(\vb{u} \in \RR^n \setminus \set{\vb{0}}\),
+    \item \term{negative semi-definite} if \(Q\pqty{\vb{u}} \leq 0\) for all \(\vb{u} \in \RR^n\).
+\end{itemize}
+
+In the special case where \(B = \dvOp^2 f\pqty{a}\) for some real \(f \in \contClass{2} \pqty{U}\), and a point \(a \in U\), the corresponding quadratic form \(Q\pqty{\vb{u}} = H_{f, a} \pqty{\vb{u}}\) is known as the \term{Hessian form} of \(f\) at \(a\):
+\[
+    H_{f, a} \pqty{\vb{u}} = \sum_{i, j = 1}^{n} \pdv{f}{x_i}{x_j}\pqty{a} u_i u_j = \vb{u} \transpose A \vb{u},
+\]
+where \(A = \pqty{\pdv*{f}{x_i}{x_j}\pqty{a}}_{1 \leq i, j \leq n}\) is the \term{Hessian matrix} of \(f\) at \(a\).
+
+\begin{definition}[Critical Point]
+    Let \(\functiondomain{f}{U}{\RR}\) be differentiable, and let \(a \in U\).
+    \begin{itemize}
+        \item We say \(a\) is a \term{critical point} of \(f\) if \(\dvOp f\pqty{a} = 0\).
+        \item \(f\) has a \term{local minimum} at \(a\), if there exists \(\epsilon > 0\) such that \(f\pqty{x} \geq f\pqty{a}\) for all \(x \in \oball{a}{\epsilon} \cap U\).
+        \item \(f\) has a \term{local maximum} at \(a\), if there exists \(\epsilon > 0\) such that \(f\pqty{x} \leq f\pqty{a}\) for all \(x \in \oball{a}{\epsilon} \cap U\).
+        \item \(f\) has a \term{strict local minimum} at \(a\), if there exists \(\epsilon > 0\) such that \(f\pqty{x} > f\pqty{a}\) for all \(x \in \pqty{\oball{a}{\epsilon} \cap U} \setminus \set{a}\).
+        \item \(f\) has a \term{strict local maximum} at \(a\), if there exists \(\epsilon > 0\) such that \(f\pqty{x} < f\pqty{a}\) for all \(x \in \pqty{\oball{a}{\epsilon} \cap U} \setminus \set{a}\).
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[Second-Order Taylor Expansion and Characterisation of Critical Points]
+    Let \(\functiondomain{f}{U}{\RR}\) be \(\contClass{2}\) with \(U \subseteq \RR^n\) open. Let \(a \in U\). Then
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{Second-Order Taylor Expansion with Peano Remainder.} \(f\pqty{x + \vb{h}} = f\pqty{a} + \dvOp f\pqty{a} \pqty{\vb{h}} + \frac{1}{2} \dvOp^2 f\pqty{a}\pqty{\vb{h}, \vb{h}} + E\pqty{\vb{h}}\), where \(E\pqty{\vb{h}} = \littleO\pqty{\norm{\vb{h}}^2}\) as \(\vb{h} \to \vb{0}\).
+        \item \textbf{Definiteness and Critical Points characterises Minimum/Maximum.} Let \(x = a\) be a critical point of \(f\), and let \(H_{f, a}\pqty{\vb{h}} = \dvOp^2 f\pqty{a}\pqty{\vb{h}, \vb{h}}\) be the Hessian form of \(f\) at \(a\). Then
+        
+        \begin{enumerate}[label=(\roman*)]
+            \item If \(H_{f, a}\) is positive definite, then \(f\) has a strict local minimum at \(a\).
+            \item If \(H_{f, a}\) is negative definite, then \(f\) has a strict local maximum at \(a\).
+        \end{enumerate}
+        \item \textbf{Minimum/Maximum implies Critical Point and Semi-Definiteness.}
+        
+        \begin{enumerate}[label=(\roman*)]
+            \item If \(f\) has a local minimum at \(a\), then \(a\) is a critical point of \(f\) and the Hessian form \(H_{f, a}\) is positive semi-definite.
+            \item If \(f\) has a local maximum at \(a\), then \(a\) is a critical point of \(f\) and the Hessian form \(H_{f, a}\) is negative semi-definite.
+        \end{enumerate}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}[label=(\alph*)]
+        \item If \(\functiondomain{g}{\ccintv{0}{1}}{\RR}\) is \(\contClass{2}\) then we have
+        \[
+            \int_{0}^{1} \pqty{1 - t} g''\pqty{t} \dd{t} = g\pqty{1} - g\pqty{0} - g'\pqty{0}.
+        \]
+
+        Applying this with \(g\pqty{t} = f\pqty{a + t \vb{h}}\). By the chain rule,
+        \begin{align*}
+            g'\pqty{t} &= \dvOp f\pqty{a + t \vb{h}} \pqty{\vb{h}}, \\
+            &= \sum_{i = 1}^{n} h_i \dvOp_i f\pqty{a + t \vb{h}},
+        \end{align*}
+        and hence
+        \[
+            g''\pqty{t} = \sum_{i, j = 1}^{n} h_i h_j \dvOp_{ij} f\pqty{a + t \vb{h}}.
+        \]
+
+        So we have
+        \begin{align*}
+            g\pqty{1} &= f\pqty{a + \vb{h}} \\
+            &= f\pqty{a} + \dvOp f\pqty{a} \pqty{\vb{h}} + \int_{0}^{1} \pqty{1 - t} g''\pqty{t} \dd{t} \\
+            &= f\pqty{a} + \dvOp f\pqty{a} \pqty{\vb{h}} + \sum_{i, j = 1}^{n} h_i h_j \int_{0}^{1} \pqty{1 - t} \dvOp_{ij} f\pqty{a + t \vb{h}} \dd{t} \\
+            &= f\pqty{a} + \dvOp f\pqty{a} \pqty{\vb{h}} + \sum_{i, j = 1}^{n} h_i h_j \dvOp_{ij} f\pqty{a} \int_{0}^{1} \pqty{1 - t} \dd{t} \\
+            &\phantom{=} \quad + \sum_{i, j = 1}^{n} h_i h_j \int_{0}^{1} \pqty{1 - t} \pqty{\dvOp_{ij} f\pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} \dd{t}.
+        \end{align*}
+
+        Then, we define
+        \[
+            E\pqty{\vb{h}} = \sum_{i, j = 1}^{n} h_i h_j \int_{0}^{1} \pqty{1 - t} \pqty{\dvOp_{ij} f\pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} \dd{t}.
+        \]
+
+        Hence,
+        \[
+            f\pqty{a + \vb{h}} = f\pqty{a} + \dvOp f\pqty{a} \pqty{\vb{h}} + \frac{1}{2} \dvOp^2 f\pqty{a}\pqty{\vb{h}, \vb{h}} + E\pqty{\vb{h}}.
+        \]
+
+        Note that we have
+        \[
+            \frac{\abs{E\pqty{\vb{h}}}}{\norm{\vb{h}}^2} \leq \int_{0}^{1} \pqty{1 - t} \abs{\dvOp_{ij} f\pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} \dd{t},
+        \]    
+        and given \(\epsilon > 0\), there is \(\delta > 0\) such that
+        \[
+            \vb{h} \in \oball{\vb{0}}{\delta} \implies \abs{\dvOp_{ij} f\pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} < \epsilon
+        \]
+        for all \(t \in \ccintv{0}{1}, 1 \leq i, j \leq n\), since \(\dvOp_{ij} f\) is continuous at \(a\). Hence, integrating this over \(\ccintv{0}{1}\), we have
+        \[
+            \vb{h} \in \oball{\vb{0}}{\delta} \implies \frac{\abs{E\pqty{\vb{h}}}}{\norm{\vb{h}}^2} < \frac{\epsilon}{2},
+        \]
+        showing that \(E\pqty{\vb{h}} = \littleO\pqty{\norm{\vb{h}}^2}\) as \(\vb{h} \to \vb{0}\).
+
+        \item We have \(\dvOp f\pqty{a} = 0\), and we have
+        \[
+            f\pqty{a + \vb{h}} = f\pqty{a} + \frac{1}{2} H_{f, a}\pqty{\vb{h}} + E\pqty{\vb{h}},
+        \]
+        and define \(Q\pqty{\vb{h}} = H_{f, a}\pqty{\vb{h}}\). Define
+        \[
+            \epsilon_0 = \inf_{\norm{\vb{h}} = 1} Q\pqty{\vb{h}}
+        \]
+        and by the compactness of \(S\) and continuity of \(Q\), this infimum is attained at some point on this unit sphere. But by assumption, \(Q\pqty{\vb{h}} > 0\) for all \(\vb{h} \in S\), so \(\epsilon_0 > 0\).
+
+        So for any \(\vb{h} \in \RR^n \setminus \set{\vb{0}}\), we have
+        \[
+            Q\pqty{\vb{h}} = \norm{\vb{h}}^2 Q\pqty{\frac{\vb{h}}{\norm{\vb{h}}}} \geq \epsilon_0 \norm{\vb{h}}^2
+        \]
+        by homogeneity of \(Q\).
+
+        So for sufficiently small (non-zero) \(\norm{\vb{h}}\), we have
+        \[
+            f\pqty{a + \vb{h}} \geq f\pqty{a} + \frac{\epsilon_0}{2} \norm{\vb{h}}^2 + \littleO\pqty{\norm{\vb{h}}^2} > f\pqty{a} + \frac{\epsilon_0}{4} \norm{\vb{h}}^2 > f\pqty{a},
+        \]
+        so \(a\) is a strict local minimum of \(f\). The case of strict local maximum is similar.
+
+        \item \textbf{\textcolor{red}{See Example Sheet.}}
+    \end{enumerate}
 \end{proof}
