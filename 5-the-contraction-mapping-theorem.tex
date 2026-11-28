@@ -1,0 +1,110 @@
+\section{The Contraction Mapping Theorem and Its Applications}
+\subsection{Contraction Mapping Theorem}
+
+\begin{definition}[Contraction Map]
+    Let \(\pqty{X, d}\) be a metric space. A mapping \(\functiondomain{f}{X}{X}\) is a \term{contraction map}, if there is some \(0 \leq \lambda < 1\), such that
+    \[
+        \forall x, y \in X: d\pqty{f\pqty{x}, f\pqty{y}} \leq \lambda d\pqty{x, y}.
+    \]
+\end{definition}
+
+Note that \(f\) is a contraction, if and only if \(f\) is Lipschitz continuous for some Lipschitz constant \(\lambda < 1\). This implies that any contraction map is uniformly continuous, and hence continuous.
+
+\begin{theorem}[Contraction Mapping Theorem]
+    \label{thm:contraction-mapping}%
+    Let \(\pqty{X, d}\) be a non-empty, complete metric space, and let \(\functiondomain{f}{X}{X}\) be a contraction map. Then there exists a unique \(x \in X\), such that \(f\pqty{x} = x\) (that is, \(f\) has a unique fixed point).
+\end{theorem}
+
+This is also known as the \term{Banach Fixed Point Theorem} or the \term{Banach--Caccioppoli Theorem}.
+
+\begin{proof}
+    \textbf{Uniqueness.} Suppose \(x, y \in X\) are both fixed points of \(f\). Then
+    \[
+        d\pqty{x, y} = d\pqty{f\pqty{x}, f\pqty{y}} \leq \lambda d\pqty{x, y}.
+    \]
+
+    Hence, \(\pqty{1 - \lambda} d\pqty{x, y} \leq 0\). Since \(0 \leq \lambda < 1\) and \(d\pqty{x, y} \geq 0\), we have \(d\pqty{x, y} = 0\), so \(x = y\).
+
+    \textbf{Existence.} Pick any \(x_0 \in X\). (This used the fact that \(X\) is non-empty.) Define \(x_{n + 1} = f\pqty{x_n}\) for \(n \geq 0\). We show that \(\pqty{x_n}\) is a Cauchy sequence. Note that the distance between two consecutive terms is
+    \begin{align*}
+        d\pqty{x_{n + 1}, x_n} &= d\pqty{f\pqty{x_n}, f\pqty{x_{n - 1}}} \\
+        &\leq \lambda d\pqty{x_n, x_{n - 1}} \\
+        &\leq \lambda^2 d\pqty{x_{n - 1}, x_{n - 2}} \\
+        &\leq \cdots \\
+        &\leq \lambda^n d\pqty{x_1, x_0},
+    \end{align*}
+    for all \(n \geq 1\). So for any \(m > n\), we have
+    \begin{align}
+        d\pqty{x_{n + 1}, x_n} &\leq \sum_{j = n}^{m - 1} d\pqty{x_{j + 1}, x_j} \\
+        &\leq \sum_{j = n}^{m - 1} \lambda^j d\pqty{x_1, x_0} \\
+        &\leq \sum_{j = n}^{\infty} \lambda^j d\pqty{x_1, x_0} \\
+        &= \frac{\lambda^n}{1 - \lambda} d\pqty{x_1, x_0}.
+    \end{align}
+
+    Take \(m, n \to \infty\), we have \(d\pqty{x_m, x_n} \to 0\). Hence, \(\pqty{x_n}\) is a Cauchy sequence. By completeness of \(X\), there exists \(x \in X\), such that \(x_n \to x\). Since \(f\) is continuous, we have
+    \[
+        f\pqty{x} = f\pqty{\lim_{n \to \infty} x_n} = \lim_{n \to \infty} f\pqty{x_n} = \lim_{n \to \infty} x_{n + 1} = x,
+    \] 
+    so \(x\) is a fixed point of \(f\), as desired.
+\end{proof}
+
+\begin{remark}
+    The completeness of \(X\) is necessary. Consider a simple example
+    \[
+        \function{f}{\cointv{0}{1}}{\cointv{0}{1}}{x}{\flatfrac{x}{2}.}
+    \]
+
+    Then this is indeed a contraction map with \(\lambda = \flatfrac{1}{2}\). However, \(f\) has no fixed point in \(\cointv{0}{1}\). Embedding this into \(\RR\), we can see the unique fixed point of \(f\) is \(0\), which is not in the domain of \(f\).
+\end{remark}
+
+\begin{corollary}
+    Let \(\pqty{X, d}\) be a non-empty, complete metric space, and suppose \(\functiondomain{f}{X}{X}\). Assume for tome \(m\), we have
+    \[
+        \functiondomain{f^m = \underbrace{f \circ f \circ \cdots \circ f}_{m \text{ times}}}{X}{X}
+    \]
+    is a contraction. Then \(f\) has a unique fixed point.
+\end{corollary}
+
+\begin{proof}
+    By \autoref{thm:contraction-mapping} (the Contraction Mapping Theorem), we have a unique \(x \in X\), such that \(f^m\pqty{x} = x\). Then we have
+    \[
+        f^{m} \pqty{f\pqty{x}} = f\pqty{f^{m} \pqty{x}} = f\pqty{x}
+    \]
+    so \(f\pqty{x}\) is also a fixed point of \(f^m\). By uniqueness, we have \(f\pqty{x} = x\), so \(x\) is also a fixed point of \(f\).
+
+    If \(y\) is a fixed point of \(f\), then we have \(f^m\pqty{y} = y\), so by uniqueness, we have \(y = x\). Hence, \(x\) is the unique fixed point of \(f\).
+\end{proof}
+
+\subsection{Inverse Function Theorem}
+
+\begin{theorem}[Inverse Function Theorem]
+    Let \(U \subseteq \RR^n\) be open, and left \(\functiondomain{f}{U}{\RR^n}\) be a \(\contClass{1}\) function (i.e., that the first partial derivatives of \(f\) exist and are continuous). Let \(a \in U\), and suppose that the derivative \(\functiondomain{\dvOp f\pqty{a}}{\RR^n}{\RR^n}\) is invertible. Then there exists an open set \(V \subseteq U\) containing \(a \in V\), and an open set \(W \subseteq \RR^n\) containing \(f\pqty{a} \in W\), such that the restriction \(\functiondomain{\rightbar{f}_V}{V}{W}\) is a \term{diffeomorphism}, that is, \(\rightbar{f}_V\) is bijective, and both \(\rightbar{f}_V\) and its inverse \(\functiondomain{\rightbar{f}_V^{-1}}{W}{V}\) are \(\contClass{1}\).
+\end{theorem}
+
+\begin{remark}
+    The theorem says for a \(\contClass{1}\) map \(\functiondomain{f}{U}{\RR^n}\), that if ``\(f\) is invertible at the linear level at \(a\)'', then the original map\(f\) is invertible near \(a\).
+\end{remark}
+
+\begin{proof}
+    By replacing \(f\) with \(\pqty{\dvOp f\pqty{a}}\inverse \circ f\), we may assume without loss of generality, that \(\dvOp f\pqty{a} = \identity_{\RR^n}\) is the identity map. Since \(f\) is \(\contClass{1}\), there is some \(r > 0\), such that
+    \[
+        x \in \oball{a}{r} \implies \norm[\textOp]{\dvOp f\pqty{x} - \identity_{\RR^n}} < \frac{1}{2}
+    \]
+    and we could choose \(r\) sufficiently small such that \(\oball{a}{r} \subseteq U\).
+
+    This follows since
+    \[
+        \norm[\textOp]{\dvOp f\pqty{x} - \identity_{\RR^n}} = \norm[\textOp]{\dvOp f\pqty{x} - \dvOp f\pqty{a}} \leq \pqty{\sum_{i, j = 1}^{n} \abs{\pdv{f_i}{x_j}\pqty{x} - \pdv{f_i}{x_j}\pqty{a}}^2}^{\flatfrac{1}{2}} < \frac{1}{2},
+    \]
+    since each partial derivative \(\pdv*{f_i}{x_j}\) is continuous at \(a\).
+
+    We will prove the theorem with \(W = \oball{a}{\flatfrac{1}{2}} \subseteq \RR^n\), and \(V = f\inverse \pqty{W} \cap \oball{a}{r} \subseteq U\), where \(f\inverse\) stands for the pre-image.
+
+    Note that \(W\) is open, so \(f\inverse\pqty{W}\) is open, since \(f\) is continuous. Hence \(V\) is open, and \(a \in V\).
+
+    \textbf{Step 1.} We first show that \(\rightbar{f}_V\) is a bijection.
+\end{proof}
+
+\subsection{Existence and Uniqueness Theorem for ODEs}
+
+This is also known as the \term{Picard--Lindel\"of Theorem} or the \term{Cauchy--Lipschitz Theorem}.

@@ -775,13 +775,17 @@ where \(A = \pqty{\pdv*{f}{x_i}{x_j}\pqty{a}}_{1 \leq i, j \leq n}\) is the \ter
 
         Note that we have
         \[
-            \frac{\abs{E\pqty{\vb{h}}}}{\norm{\vb{h}}^2} \leq \int_{0}^{1} \pqty{1 - t} \abs{\dvOp_{ij} f\pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} \dd{t},
+            \frac{\abs{E\pqty{\vb{h}}}}{\norm{\vb{h}}^2} \leq \sum_{i, j = 1}^{n} \int_{0}^{1} \pqty{1 - t} \abs{\dvOp_{ij} f\pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} \dd{t},
         \]    
         and given \(\epsilon > 0\), there is \(\delta > 0\) such that
         \[
             \vb{h} \in \oball{\vb{0}}{\delta} \implies \abs{\dvOp_{ij} f\pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} < \epsilon
         \]
         for all \(t \in \ccintv{0}{1}, 1 \leq i, j \leq n\), since \(\dvOp_{ij} f\) is continuous at \(a\). Hence, integrating this over \(\ccintv{0}{1}\), we have
+        \[
+            \abs{\dvOp_{ij} \pqty{a + t \vb{h}} - \dvOp_{ij} f\pqty{a}} < \frac{\epsilon}{n^2},
+        \]
+        and such \(\delta\) is possible to choose since there are only finitely many pairs \(\pqty{i, j}\), and hence summing gives
         \[
             \vb{h} \in \oball{\vb{0}}{\delta} \implies \frac{\abs{E\pqty{\vb{h}}}}{\norm{\vb{h}}^2} < \frac{\epsilon}{2},
         \]
@@ -812,3 +816,7 @@ where \(A = \pqty{\pdv*{f}{x_i}{x_j}\pqty{a}}_{1 \leq i, j \leq n}\) is the \ter
         \item \textbf{\textcolor{red}{See Example Sheet.}}
     \end{enumerate}
 \end{proof}
+
+\begin{remark}
+    Positive/Negative-definiteness of the HEssian form \(H_{f, a} \pqty{\vb{h}} = \dvOp^2 f\pqty{a}\pqty{\vb{h}, \vb{h}}\) is equivalent to that the eigenvalues of the symmetric matrix \(\pqty{\pdv*{f}{x_i}{x_j}\pqty{a}}_{1 \leq i, j \leq n}\) are all positive/negative. This matrix is known as the \term{Hessian matrix} of \(f\) at \(a\).
+\end{remark}
